@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "xpenses-d6b34": {
+      "hosting": {
+        "xpenses": [
+          "xpenses-d6b34"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "xpenses-d6b34"
+  }
+}
