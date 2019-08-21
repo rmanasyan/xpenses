@@ -130,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "xpenses"
+  "defaultProject": "xpenses",
+  "cli": {
+    "defaultCollection": "@datorama/akita"
+  }
 }
