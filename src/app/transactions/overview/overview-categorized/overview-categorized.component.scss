@@ -1,0 +1,30 @@
+@import '../../../../sass/variables';
+
+:host {
+  display: block;
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: ($length18 / 2) 0;
+
+    .icon {
+      width: $length36;
+      height: $length36;
+      padding: $length12 / 2;
+      margin-right: $length12;
+      border-radius: 50%;
+      fill: var(--contrast800);
+      background: var(--contrast100);
+    }
+
+    .name {
+      flex-grow: 1;
+    }
+
+    .total {
+      font-size: $length18;
+      color: var(--accent);
+    }
+  }
+}

@@ -1,0 +1,47 @@
+$length12: 12px;
+$length14: 14px;
+$length16: 16px;
+$length18: 18px;
+$length20: 20px;
+$length24: 24px;
+$length30: 30px;
+$length36: 36px;
+$length48: 48px;
+$length60: 60px;
+$length72: 72px;
+
+:root {
+  --dark: #353a3f;
+  --light: #fff;
+  --blue300: #a5a6ed; // #a5a6ed, #b3b3dd, #b3b3de
+  --blue500: #7272d3; // #7272d3, #5351db, #5050e7
+  --grey100: #f7f7f7;
+  --grey500: #d9dbdd;
+  --grey600: #999c9f;
+  --grey800: #626262;
+  --grey900: #4a4e53;
+}
+
+// noinspection CssInvalidMediaFeature
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary: var(--dark);
+    --contrast: var(--light);
+    --contrast100: var(--grey100);
+    --contrast600: var(--grey600);
+    --contrast800: var(--grey800);
+    --accent: var(--blue500);
+  }
+}
+
+// noinspection CssInvalidMediaFeature
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: var(--light);
+    --contrast: var(--dark);
+    --contrast100: var(--grey900);
+    --contrast600: var(--grey600);
+    --contrast800: var(--grey500);
+    --accent: var(--blue300);
+  }
+}

@@ -1,0 +1,27 @@
+@import '../../../../sass/variables';
+
+:host {
+  display: block;
+  margin-left: $length72;
+  padding: $length36 0 $length18;
+
+  .title {
+    font-size: $length24;
+    color: var(--contrast600);
+  }
+
+  .months {
+    display: flex;
+    padding-top: $length14;
+    margin-left: -$length12;
+
+    a {
+      padding: 0 $length12;
+      color: var(--contrast600);
+
+      &.active {
+        color: var(--primary);
+      }
+    }
+  }
+}
