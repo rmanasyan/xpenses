@@ -1,32 +1,52 @@
 import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
-import { HttpClient } from '@angular/common/http';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth, FirebaseError, User } from 'firebase/app';
+import { from, throwError } from 'rxjs';
+import { catchError, filter, tap } from 'rxjs/operators';
 import { AuthStore } from './auth.store';
-import { Auth } from './auth.model';
-import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-  constructor(private authStore: AuthStore,
-              private http: HttpClient) {
+  constructor(private authStore: AuthStore, private afAuth: AngularFireAuth) {
+    this.get().subscribe();
   }
 
   get() {
-    return this.http.get<Auth[]>('https://api.com').pipe(tap(entities => {
-      this.authStore.set(entities);
-    }));
+    this.authStore.setLoading(true);
+
+    return this.afAuth.authState.pipe(
+      tap(() => this.authStore.setLoading(false)),
+      filter((user: User) => !!user),
+      tap(({ email, uid }) => this.authStore.update({ email, uid })),
+      catchError((error: FirebaseError) => {
+        this.authStore.setError(error);
+        return throwError(error);
+      })
+    );
   }
 
-  add(auth: Auth) {
-    this.authStore.add(auth);
+  signIn() {
+    this.authStore.setLoading(true);
+
+    from(this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()))
+      .pipe(
+        catchError((error: FirebaseError) => {
+          this.authStore.setError(error);
+          return throwError(error);
+        })
+      )
+      .subscribe();
   }
 
-  update(id, auth: Partial<Auth>) {
-    this.authStore.update(id, auth);
-  }
-
-  remove(id: ID) {
-    this.authStore.remove(id);
+  signOut() {
+    from(this.afAuth.auth.signOut())
+      .pipe(
+        tap(() => this.authStore.reset()),
+        catchError((error: FirebaseError) => {
+          this.authStore.setError(error);
+          return throwError(error);
+        })
+      )
+      .subscribe();
   }
 }

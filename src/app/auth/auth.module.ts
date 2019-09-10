@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
-  imports: [ CommonModule ],
-  declarations: [ AuthComponent ]
+  imports: [CommonModule],
+  exports: [
+    AuthComponent
+  ],
+  declarations: [AuthComponent]
 })
 export class AuthModule { }

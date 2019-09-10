@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthModule } from '../auth/auth.module';
 
 import { TransactionsRoutingModule } from './transactions-routing.module';
 import { OverviewComponent } from './overview/overview.component';
@@ -9,6 +10,6 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [OverviewComponent, OverviewHeaderComponent, OverviewCategorizedComponent],
-  imports: [CommonModule, TransactionsRoutingModule, SharedModule]
+  imports: [CommonModule, TransactionsRoutingModule, SharedModule, AuthModule]
 })
 export class TransactionsModule {}

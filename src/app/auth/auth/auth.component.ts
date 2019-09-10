@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../state/auth.service';
-import { AuthQuery } from '../state/auth.query';
-import { Auth } from '../state/auth.model';
-import { ID } from '@datorama/akita';
 import { Observable } from 'rxjs';
+import { AuthQuery } from '../state/auth.query';
+import { AuthService } from '../state/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -11,33 +9,19 @@ import { Observable } from 'rxjs';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  auth$: Observable<Auth[]>;
-  isLoading$: Observable<boolean>;
+  email$: Observable<string> = this.authQuery.email$;
+  isLoading$: Observable<boolean> = this.authQuery.selectLoading();
+  isSignedIn$: Observable<boolean> = this.authQuery.isSignedIn$;
 
-  constructor(private authQuery: AuthQuery,
-              private authService: AuthService
-  ) { }
+  constructor(private authQuery: AuthQuery, private authService: AuthService) {}
 
-  ngOnInit() {
-      this.auth$ = this.authQuery.selectAll();
-      this.isLoading$ = this.authQuery.selectLoading();
+  ngOnInit() {}
 
-      // this.authService.get().subscribe({
-     //   error(err) {
-     //     this.error = err;
-     //   }
-    //  });
-    }
+  signIn() {
+    this.authService.signIn();
+  }
 
-    add(auth: Auth) {
-      this.authService.add(auth);
-    }
-
-    update(id: ID, auth: Partial<Auth>) {
-      this.authService.update(id, auth);
-    }
-
-    remove(id: ID) {
-      this.authService.remove(id);
-    }
+  signOut() {
+    this.authService.signOut();
+  }
 }

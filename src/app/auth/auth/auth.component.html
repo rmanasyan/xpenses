@@ -1,8 +1,11 @@
+<div *ngIf="isLoading$ | async">loading...</div>
 
-<ng-template #loading>Loading...</ng-template>
+<div *ngIf="isSignedIn$ | async; else notAuthenticated">
+  {{ email$ | async }}
 
-<ul *ngIf="!(isLoading$ | async); else loading">
-  <li *ngFor="let auth of (auth$ | async)">
-    ...
-  </li>
-</ul>
+  <button (click)="signOut()">Sign out</button>
+</div>
+
+<ng-template #notAuthenticated>
+  <button *ngIf="(isLoading$ | async) === false" (click)="signIn()">Sign in</button>
+</ng-template>
