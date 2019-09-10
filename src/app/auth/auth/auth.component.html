@@ -1,0 +1,8 @@
+
+<ng-template #loading>Loading...</ng-template>
+
+<ul *ngIf="!(isLoading$ | async); else loading">
+  <li *ngFor="let auth of (auth$ | async)">
+    ...
+  </li>
+</ul>
