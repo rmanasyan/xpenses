@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth, FirebaseError, User } from 'firebase/app';
 import { from, throwError } from 'rxjs';
-import { catchError, filter, tap } from 'rxjs/operators';
+import { catchError, filter, first, tap } from 'rxjs/operators';
 import { AuthStore } from './auth.store';
 
 @Injectable({ providedIn: 'root' })
@@ -30,6 +30,7 @@ export class AuthService {
 
     from(this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()))
       .pipe(
+        first(),
         catchError((error: FirebaseError) => {
           this.authStore.setError(error);
           return throwError(error);
@@ -41,6 +42,7 @@ export class AuthService {
   signOut() {
     from(this.afAuth.auth.signOut())
       .pipe(
+        first(),
         tap(() => this.authStore.reset()),
         catchError((error: FirebaseError) => {
           this.authStore.setError(error);
