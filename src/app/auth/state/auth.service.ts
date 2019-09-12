@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth, FirebaseError, User } from 'firebase/app';
 import { from, throwError } from 'rxjs';
 import { catchError, filter, first, tap } from 'rxjs/operators';
+import { prepare } from '../../shared/operators/prepare.operator';
 import { AuthStore } from './auth.store';
 
 @Injectable({ providedIn: 'root' })
@@ -12,9 +13,8 @@ export class AuthService {
   }
 
   get() {
-    this.authStore.setLoading(true);
-
     return this.afAuth.authState.pipe(
+      prepare(() => this.authStore.setLoading(true)),
       tap(() => this.authStore.setLoading(false)),
       filter((user: User) => !!user),
       tap(({ email, uid }) => this.authStore.update({ email, uid })),
@@ -26,10 +26,9 @@ export class AuthService {
   }
 
   signIn() {
-    this.authStore.setLoading(true);
-
     from(this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()))
       .pipe(
+        prepare(() => this.authStore.setLoading(true)),
         first(),
         catchError((error: FirebaseError) => {
           this.authStore.setError(error);

@@ -5,10 +5,10 @@ import { AuthStore } from './auth.store';
 
 @Injectable({ providedIn: 'root' })
 export class AuthQuery extends Query<Auth> {
-  isSignedIn$ = this.select(state => !!state.uid);
+  signedIn$ = this.select(state => !!state.uid);
   email$ = this.select('email');
 
-  isLoggedIn() {
+  signedIn() {
     return !!this.getValue().uid;
   }
 
