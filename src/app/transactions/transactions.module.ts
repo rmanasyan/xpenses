@@ -7,9 +7,10 @@ import { OverviewComponent } from './overview/overview.component';
 import { OverviewHeaderComponent } from './overview/overview-header/overview-header.component';
 import { OverviewCategorizedComponent } from './overview/overview-categorized/overview-categorized.component';
 import { SharedModule } from '../shared/shared.module';
+import { ListComponent } from './overview/list/list.component';
 
 @NgModule({
-  declarations: [OverviewComponent, OverviewHeaderComponent, OverviewCategorizedComponent],
+  declarations: [OverviewComponent, OverviewHeaderComponent, OverviewCategorizedComponent, ListComponent],
   imports: [CommonModule, TransactionsRoutingModule, SharedModule, AuthModule]
 })
 export class TransactionsModule {}

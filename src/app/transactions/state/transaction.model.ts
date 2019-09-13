@@ -2,6 +2,7 @@ import { ID } from '@datorama/akita';
 
 export interface Transaction {
   id: ID;
+  amount: string;
 }
 
 /**
