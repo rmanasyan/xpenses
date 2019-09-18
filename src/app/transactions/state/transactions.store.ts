@@ -5,7 +5,7 @@ import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 export interface TransactionsState extends EntityState<Transaction> {}
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'transactions' })
+@StoreConfig({ name: 'transactions', resettable: true })
 export class TransactionsStore extends EntityStore<TransactionsState> {
 
   constructor() {

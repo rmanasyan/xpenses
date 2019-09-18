@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { withTransaction } from '@datorama/akita';
+import { FirebaseError } from 'firebase';
+import { throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { TransactionsStore } from './transactions.store';
 import { Transaction } from './transaction.model';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionsService {
-  // TODO: dynamic path
-  private collection = this.afs.collection('users/nItUP6v6WmRVDjWk1cnuRPWgIRc2/transactions');
+  private collection: AngularFirestoreCollection;
 
   constructor(
     private transactionsStore: TransactionsStore,
@@ -17,11 +19,12 @@ export class TransactionsService {
   ) {}
 
   get() {
-    this.authQuery.select('uid').subscribe(uid => {
-      console.log('authzzz', uid);
-    });
-
-    return this.collection.stateChanges().pipe(
+    return this.authQuery.select('uid').pipe(
+      map(uid => {
+        this.collection = this.afs.collection(`users/${uid}/transactions`);
+        return this.collection;
+      }),
+      switchMap(collection => collection.stateChanges()),
       withTransaction((actions: DocumentChangeAction<Transaction>[]) => {
         this.transactionsStore.setLoading(false);
 
@@ -44,6 +47,12 @@ export class TransactionsService {
               this.transactionsStore.update(id, entity);
           }
         }
+      }),
+      catchError((error: FirebaseError) => {
+        this.transactionsStore.reset();
+        this.transactionsStore.setLoading(false);
+        this.transactionsStore.setError(error);
+        return throwError(error);
       })
     );
   }
