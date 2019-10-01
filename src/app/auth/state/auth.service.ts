@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   signIn() {
-    from(this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()))
+    from(this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider()))
       .pipe(
         prepare(() => this.authStore.setLoading(true)),
         first(),
