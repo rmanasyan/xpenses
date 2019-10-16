@@ -10,16 +10,19 @@ $length48: 48px;
 $length60: 60px;
 $length72: 72px;
 
+$shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+
 :root {
   --dark: #353a3f;
   --light: #fff;
   --blue300: #a5a6ed; // #a5a6ed, #b3b3dd, #b3b3de
   --blue500: #7272d3; // #7272d3, #5351db, #5050e7
-  --grey100: #f7f7f7;
+  --grey100: #f2f2f2; // #f7f7f7
   --grey500: #d9dbdd;
   --grey600: #999c9f;
   --grey800: #626262;
-  --grey900: #4a4e53;
+  --grey900: #4f5459; // #4a4e53
+
 }
 
 // noinspection CssInvalidMediaFeature

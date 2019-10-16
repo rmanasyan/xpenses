@@ -1,0 +1,36 @@
+<form [formGroup]="transactionForm" (ngSubmit)="save()">
+  <main>
+    <div class="fieldset">
+      <label class="type">
+        <select formControlName="type">
+          <option value="-">-</option>
+          <option value="+">+</option>
+        </select>
+      </label>
+
+      <label class="amount">
+        <input type="number" formControlName="amount" placeholder="0.00">
+      </label>
+    </div>
+
+    <label class="category">
+      <select formControlName="category">
+        <option value="shopping">Shopping</option>
+        <option value="food">Food and Drinks</option>
+      </select>
+    </label>
+
+    <label class="date">
+      <input type="date" formControlName="date" placeholder="date">
+    </label>
+
+    <label class="details">
+      <input type="text" formControlName="details" placeholder="details">
+    </label>
+  </main>
+
+  <footer>
+    <button type="reset">Cancel</button>
+    <button type="submit" [disabled]="!transactionForm.valid">Submit</button>
+  </footer>
+</form>
