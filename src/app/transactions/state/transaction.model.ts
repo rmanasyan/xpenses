@@ -1,12 +1,13 @@
 import { ID } from '@datorama/akita';
+import { firestore } from 'firebase/app';
 
 export interface Transaction {
   id: ID;
-  createdAt: Date;
-  modifiedAt: Date;
+  createdAt: firestore.FieldValue;
+  updatedAt: firestore.FieldValue;
   amount: string;
   category: string;
-  date: Date;
+  date: string;
   details: string;
   type: string;
 }

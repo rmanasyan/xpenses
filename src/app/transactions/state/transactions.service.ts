@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { withTransaction } from '@datorama/akita';
-import { FirebaseError } from 'firebase/app';
+import { FirebaseError, firestore } from 'firebase/app';
 import { throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
@@ -16,7 +16,9 @@ export class TransactionsService {
     private transactionsStore: TransactionsStore,
     private afs: AngularFirestore,
     private authQuery: AuthQuery
-  ) {}
+  ) {
+    this.get().subscribe();
+  }
 
   get() {
     return this.authQuery.select('uid').pipe(
@@ -38,6 +40,7 @@ export class TransactionsService {
 
           switch (action.type) {
             case 'added':
+              // this.transactionsStore.upsert(id, { id, ...entity });
               this.transactionsStore.add({ id, ...entity });
               break;
             case 'removed':
@@ -57,15 +60,26 @@ export class TransactionsService {
     );
   }
 
-  add(amount: string) {
-    this.collection.add({ amount });
+  add(transaction: Partial<Transaction>) {
+    return this.collection.add({
+      ...transaction,
+      createdAt: TransactionsService.timestamp,
+      updatedAt: TransactionsService.timestamp
+    });
   }
 
   remove(id: string) {
-    this.collection.doc(id).delete();
+    return this.collection.doc(id).delete();
   }
 
   update(id, transaction: Partial<Transaction>) {
-    this.collection.doc(id).update(transaction);
+    return this.collection.doc(id).update({
+      ...transaction,
+      updatedAt: TransactionsService.timestamp
+    });
+  }
+
+  private static get timestamp() {
+    return firestore.FieldValue.serverTimestamp();
   }
 }

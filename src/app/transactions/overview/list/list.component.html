@@ -6,7 +6,7 @@
 
   <ul>
     <li *ngFor="let transaction of transactions$ | async; trackBy: trackByFn">
-      {{ transaction.amount }}
+      <a [routerLink]="['/transaction', transaction.id]">{{ transaction.amount }}</a>
       <button (click)="updateTransaction(transaction.id)">update</button>
       <button (click)="removeTransaction(transaction.id)">delete</button>
     </li>

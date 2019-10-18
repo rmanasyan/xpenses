@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ID } from '@datorama/akita';
+import { Transaction } from '../../state/transaction.model';
 
 @Component({
   selector: 'app-transaction-form',
@@ -8,22 +10,37 @@ import { FormBuilder, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransactionFormComponent implements OnInit {
-  transactionForm = this.fb.group({
-    type: ['-'],
+  @Input() data: Transaction;
+  @Output() discard = new EventEmitter();
+  @Output() remove = new EventEmitter<ID>();
+  @Output() save = new EventEmitter<Partial<Transaction>>();
+
+  transactionForm: FormGroup = this.fb.group({
+    id: [''],
     amount: ['', [Validators.required]],
     category: ['shopping'],
-    date: [],
-    details: ['']
+    date: ['2019-10-18'],
+    details: [''],
+    type: ['-']
   });
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    if (this.data) {
+      this.transactionForm.patchValue(this.data);
+    }
   }
 
-  save() {
-    console.log(this.transactionForm.value);
+  emitDiscard() {
+    this.discard.emit();
   }
 
+  emitRemove() {
+    this.remove.emit(this.data.id);
+  }
+
+  emitSave() {
+    this.save.emit(this.transactionForm.value);
+  }
 }

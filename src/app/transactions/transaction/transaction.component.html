@@ -1,1 +1,6 @@
-<app-transaction-form></app-transaction-form>
+<app-transaction-form
+  [data]="transaction$ | async"
+  (discard)="discardTransaction()"
+  (remove)="removeTransaction($event)"
+  (save)="saveTransaction($event)"
+></app-transaction-form>

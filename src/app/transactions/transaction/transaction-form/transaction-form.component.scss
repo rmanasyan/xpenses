@@ -4,7 +4,7 @@ form {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: $length36 0;
+  padding: 0 0;
 
   main {
     flex: 1;
@@ -19,21 +19,21 @@ form {
       margin-bottom: $length16;
 
       &.amount {
-        font-size: $length48;
+        //font-size: $length48;
+        flex: 1;
 
         input {
-          font-size: $length48;
+          //font-size: $length48;
           margin-left: $length12;
           width: 100%;
         }
       }
 
       &.type {
-        font-size: $length48;
+        //font-size: $length48;
 
         select {
-          font-size: $length48;
-          text-align: center;
+          //font-size: $length48;
         }
       }
 
@@ -43,7 +43,7 @@ form {
         }
       }
 
-      & .details {
+      &.details {
         input {
           width: 100%;
         }

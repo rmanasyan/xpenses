@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Component, OnInit } from '@angular/core';
 import { TransactionsQuery } from '../../state/transactions.query';
 import { TransactionsService } from '../../state/transactions.service';
 
@@ -8,21 +7,16 @@ import { TransactionsService } from '../../state/transactions.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent implements OnInit {
   transactions$ = this.transactionsQuery.selectAll();
   loading$ = this.transactionsQuery.selectLoading();
 
   constructor(private transactionsQuery: TransactionsQuery, private transactionsService: TransactionsService) {}
 
-  ngOnInit() {
-    this.transactionsService
-      .get()
-      .pipe(untilDestroyed(this))
-      .subscribe();
-  }
+  ngOnInit() {}
 
   addTransaction(input: HTMLInputElement) {
-    this.transactionsService.add(input.value);
+    this.transactionsService.add({ amount: input.value });
     input.value = '';
   }
 
@@ -32,7 +26,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
   updateTransaction(id: string) {
     const transaction = {
-      amount: Math.random().toFixed(2).toString()
+      amount: Math.random()
+        .toFixed(2)
+        .toString()
     };
 
     this.transactionsService.update(id, transaction);
@@ -41,6 +37,4 @@ export class ListComponent implements OnInit, OnDestroy {
   trackByFn(i, transaction) {
     return transaction.id;
   }
-
-  ngOnDestroy() {}
 }
