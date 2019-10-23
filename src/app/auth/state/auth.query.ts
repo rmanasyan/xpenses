@@ -7,6 +7,7 @@ import { AuthStore } from './auth.store';
 export class AuthQuery extends Query<Auth> {
   signedIn$ = this.select(state => !!state.uid);
   email$ = this.select('email');
+  photoURL$ = this.select('photoURL');
 
   signedIn() {
     return !!this.getValue().uid;
@@ -15,5 +16,4 @@ export class AuthQuery extends Query<Auth> {
   constructor(protected store: AuthStore) {
     super(store);
   }
-
 }

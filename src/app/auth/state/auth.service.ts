@@ -17,7 +17,7 @@ export class AuthService {
       prepare(() => this.authStore.setLoading(true)),
       tap(() => this.authStore.setLoading(false)),
       filter((user: User) => !!user),
-      tap(({ email, uid }) => this.authStore.update({ email, uid })),
+      tap(({ email, photoURL, uid }) => this.authStore.update({ email, photoURL, uid })),
       catchError((error: FirebaseError) => {
         this.authStore.setError(error);
         return throwError(error);

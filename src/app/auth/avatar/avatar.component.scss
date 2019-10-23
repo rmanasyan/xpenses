@@ -1,0 +1,17 @@
+@import '../../../sass/variables';
+
+:host {
+  display: block;
+  width: $length36;
+  height: $length36;
+  padding: $length12 / 2;
+  border-radius: 50%;
+  background: var(--contrast100);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+}

@@ -13,6 +13,8 @@
     width: $length60;
 
     app-svg-icon {
+      width: 100%;
+      height: 100%;
       fill: var(--contrast);
     }
   }

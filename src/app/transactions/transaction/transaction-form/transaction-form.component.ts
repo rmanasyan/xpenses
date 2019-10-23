@@ -19,7 +19,7 @@ export class TransactionFormComponent implements OnInit {
     id: [''],
     amount: ['', [Validators.required]],
     category: ['shopping'],
-    date: ['2019-10-18'],
+    date: [this.today],
     details: [''],
     type: ['-']
   });
@@ -42,5 +42,9 @@ export class TransactionFormComponent implements OnInit {
 
   emitSave() {
     this.save.emit(this.transactionForm.value);
+  }
+
+  get today() {
+    return new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0];
   }
 }

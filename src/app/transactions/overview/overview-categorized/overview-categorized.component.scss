@@ -8,13 +8,12 @@
     align-items: center;
     padding: ($length18 / 2) 0;
 
-    .icon {
+    app-svg-icon {
       width: $length36;
       height: $length36;
       padding: $length12 / 2;
       margin-right: $length12;
       border-radius: 50%;
-      fill: var(--contrast800);
       background: var(--contrast100);
     }
 

@@ -4,8 +4,9 @@ import { Store, StoreConfig } from '@datorama/akita';
 
 export function createInitialState(): Auth {
   return {
-    uid: null,
-    email: null
+    email: null,
+    photoURL: null,
+    uid: null
   };
 }
 

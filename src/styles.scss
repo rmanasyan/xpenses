@@ -59,7 +59,9 @@ input, button, select {
 //}
 
 button {
+  align-items: center;
   box-shadow: $shadow;
+  display: flex;
 
   &:active {
     box-shadow: none;
@@ -73,13 +75,19 @@ button {
     background: var(--primary);
     color: var(--contrast);
   }
+
+  app-svg-icon {
+    height: $length16;
+    margin-right: $length12 / 2;
+    width: $length16;
+  }
 }
 
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.icon {
+app-svg-icon {
   fill: var(--contrast800);
   height: $length24;
   width: $length24;

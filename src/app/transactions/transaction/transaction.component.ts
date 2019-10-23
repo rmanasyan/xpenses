@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Transaction } from '../state/transaction.model';
 import { TransactionsService } from '../state/transactions.service';
 import { TransactionsQuery } from '../state/transactions.query';
@@ -11,7 +12,8 @@ import { TransactionsQuery } from '../state/transactions.query';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransactionComponent implements OnInit {
-  transaction$ = this.transactionsQuery.selectTransaction$;
+  transaction$: Observable<Transaction> = this.transactionsQuery.selectTransaction$;
+  loading$: Observable<boolean> = this.transactionsQuery.selectLoading();
 
   constructor(
     private router: Router,

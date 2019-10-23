@@ -1,0 +1,5 @@
+<img
+  *ngIf="photoURL$ | async"
+  [src]="photoURL$ | async"
+  [alt]="email$ | async"
+>

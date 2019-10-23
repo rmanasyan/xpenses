@@ -9,7 +9,7 @@ export interface Transaction {
   category: string;
   date: string;
   details: string;
-  type: string;
+  type: '-' | '+';
 }
 
 /**

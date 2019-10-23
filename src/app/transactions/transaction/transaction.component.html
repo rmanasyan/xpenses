@@ -1,6 +1,11 @@
-<app-transaction-form
-  [data]="transaction$ | async"
-  (discard)="discardTransaction()"
-  (remove)="removeTransaction($event)"
-  (save)="saveTransaction($event)"
-></app-transaction-form>
+<div *ngIf="loading$ | async; else form">loading form</div>
+
+<ng-template #form>
+  <app-transaction-form
+    [data]="transaction$ | async"
+    (discard)="discardTransaction()"
+    (remove)="removeTransaction($event)"
+    (save)="saveTransaction($event)"
+  ></app-transaction-form>
+</ng-template>
+
