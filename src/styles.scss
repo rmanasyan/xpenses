@@ -51,16 +51,15 @@ input, button, select {
   line-height: 1.25;
   outline: 0;
   padding: .75rem 1rem;
-}
 
-//input:focus {
-//  background-color: var(--contrast);
-//  border-color: var(--contrast800);
-//}
+  &:focus {
+    background-color: var(--contrast);
+    border-color: var(--contrast800);
+  }
+}
 
 button {
   align-items: center;
-  box-shadow: $shadow;
   display: flex;
 
   &:active {

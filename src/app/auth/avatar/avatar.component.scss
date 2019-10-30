@@ -7,6 +7,11 @@
   padding: $length12 / 2;
   border-radius: 50%;
   background: var(--contrast100);
+  overflow: hidden;
+
+  &:hover {
+    background: var(--contrast600);
+  }
 
   img {
     display: block;
