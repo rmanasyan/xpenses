@@ -23,7 +23,7 @@ export class TransactionsService {
   get() {
     return this.authQuery.select('uid').pipe(
       map(uid => {
-        this.collection = this.afs.collection(`users/${uid}/transactions`);
+        this.collection = this.afs.collection(`users/${uid}/transactions`, ref => ref.orderBy('date', 'desc'));
         return this.collection;
       }),
       switchMap(collection => collection.stateChanges()),
