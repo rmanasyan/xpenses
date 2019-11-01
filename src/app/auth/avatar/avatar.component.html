@@ -1,5 +1,7 @@
-<img
-  *ngIf="photoURL$ | async"
-  [src]="photoURL$ | async"
-  [alt]="email$ | async"
->
+<div class="avatar rounded">
+  <img
+    *ngIf="photoURL$ | async"
+    [src]="photoURL$ | async"
+    [alt]="email$ | async"
+  >
+</div>

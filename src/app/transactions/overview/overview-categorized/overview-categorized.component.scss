@@ -9,12 +9,8 @@
     padding: ($length18 / 2) 0;
 
     app-svg-icon {
-      width: $length36;
-      height: $length36;
-      padding: $length12 / 2;
-      margin-right: $length12;
-      border-radius: 50%;
       background: var(--contrast100);
+      margin-right: $length12;
     }
 
     .name {

@@ -6,6 +6,8 @@ import { AuthGuard } from '../auth/auth.guard';
 import { OverviewComponent } from './overview/overview.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionsComponent } from './transactions.component';
+import { ListComponent } from './overview/list/list.component';
+import { OverviewCategorizedComponent } from './overview/overview-categorized/overview-categorized.component';
 
 const redirectUnauthorizedToAuth = () => redirectUnauthorizedTo(['auth']);
 
@@ -17,7 +19,14 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToAuth },
     children: [
-      { path: '', component: OverviewComponent },
+      {
+        path: '',
+        component: OverviewComponent,
+        children: [
+          { path: 'categorized/:date', component: OverviewCategorizedComponent },
+          { path: 'history/:date', component: ListComponent }
+        ]
+      },
       { path: 'transaction', component: TransactionComponent },
       { path: 'transaction/:id', component: TransactionComponent }
     ]

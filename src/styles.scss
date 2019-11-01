@@ -91,3 +91,15 @@ app-svg-icon {
   height: $length24;
   width: $length24;
 }
+
+.rounded {
+  width: $length36;
+  height: $length36;
+  padding: $length12 / 2;
+  border-radius: 50%;
+  background: transparent;
+
+  &:active {
+    background: var(--contrast100);
+  }
+}

@@ -1,17 +1,7 @@
 @import '../../../sass/variables';
 
-:host {
-  display: block;
-  width: $length36;
-  height: $length36;
-  padding: $length12 / 2;
-  border-radius: 50%;
-  background: var(--contrast100);
+.avatar {
   overflow: hidden;
-
-  &:hover {
-    background: var(--contrast600);
-  }
 
   img {
     display: block;

@@ -1,8 +1,13 @@
 <app-overview-header></app-overview-header>
-<app-overview-categorized></app-overview-categorized>
 
-<a class="fab" [routerLink]="['/transaction']">
-  <app-svg-icon icon="icon-plus"></app-svg-icon>
-</a>
+<nav>
+  <a [routerLink]="['/history/2019-06']">
+    <app-svg-icon icon="icon-list" class="rounded"></app-svg-icon>
+  </a>
+</nav>
 
-<app-list></app-list>
+<router-outlet></router-outlet>
+
+<!--<a class="fab" [routerLink]="['/transaction']">-->
+<!--  <app-svg-icon icon="icon-plus"></app-svg-icon>-->
+<!--</a>-->
