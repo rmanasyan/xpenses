@@ -7,6 +7,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { TransactionsStore } from './transactions.store';
 import { Transaction } from './transaction.model';
+import { prepare } from '../../shared/operators/prepare.operator';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionsService {
@@ -22,6 +23,7 @@ export class TransactionsService {
 
   get() {
     return this.authQuery.select('uid').pipe(
+      prepare(() => this.transactionsStore.setLoading(true)),
       map(uid => {
         this.collection = this.afs.collection(`users/${uid}/transactions`, ref => ref.orderBy('date', 'desc'));
         return this.collection;

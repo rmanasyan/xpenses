@@ -1,0 +1,78 @@
+@import '../../../../sass/variables';
+
+// ht: https://nzbin.github.io/three-dots
+$dot-width: $length18 / 2;
+$dot-spacing: $dot-width + $dot-width / 2;
+$dot-color: var(--accent);
+
+@mixin dot($width: $dot-width, $color: $dot-color) {
+  width: $width;
+  height: $width;
+  border-radius: 50%;
+  background-color: $color;
+  color: $color;
+}
+
+:host {
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  .loading-bar {
+    display: flex;
+    justify-content: center;
+  }
+
+  .dot {
+    position: relative;
+
+    @include dot;
+
+    &::before,
+    &::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: 0;
+
+      @include dot;
+    }
+
+    &::before {
+      left: -$dot-width;
+      animation: dot-before 1s infinite ease-in;
+    }
+
+    &::after {
+      left: $dot-width;
+      animation: dot-after 1s infinite ease-in;
+      animation-delay: 0.5s;
+    }
+  }
+
+  @keyframes dot-before {
+    0%,
+    50%,
+    75%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-$dot-spacing);
+    }
+  }
+
+  @keyframes dot-after {
+    0%,
+    50%,
+    75%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX($dot-spacing);
+    }
+  }
+}

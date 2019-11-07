@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Transaction } from './transaction.model';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
+import { Transaction } from './transaction.model';
 
 export interface TransactionsState extends EntityState<Transaction> {}
 
@@ -9,7 +9,7 @@ export interface TransactionsState extends EntityState<Transaction> {}
 export class TransactionsStore extends EntityStore<TransactionsState> {
 
   constructor() {
-    super();
+    super( { loading: false} );
   }
 
 }

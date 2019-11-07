@@ -10,18 +10,20 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    environment.production ? [] : AkitaNgDevtools.forRoot(),
-    AkitaNgRouterStoreModule.forRoot()
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        environment.production ? [] : AkitaNgDevtools.forRoot(),
+        AkitaNgRouterStoreModule.forRoot(),
+        SharedModule
+    ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]
 })
