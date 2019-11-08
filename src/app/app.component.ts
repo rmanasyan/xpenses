@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { merge, Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthQuery } from './auth/state/auth.query';
 import { TransactionsQuery } from './transactions/state/transactions.query';
 
@@ -9,7 +10,10 @@ import { TransactionsQuery } from './transactions/state/transactions.query';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  loading$: Observable<boolean> = merge(this.authQuery.selectLoading(), this.transactionsQuery.selectLoading());
+  loading$: Observable<boolean> = combineLatest([
+    this.authQuery.selectLoading(),
+    this.transactionsQuery.selectLoading()
+  ]).pipe(map(([a, t]) => a || t));
 
   constructor(private authQuery: AuthQuery, private transactionsQuery: TransactionsQuery) {}
 }
