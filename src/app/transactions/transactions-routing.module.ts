@@ -8,6 +8,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionsComponent } from './transactions.component';
 import { ListComponent } from './overview/list/list.component';
 import { OverviewCategorizedComponent } from './overview/overview-categorized/overview-categorized.component';
+import { OverviewGuard } from './overview/overview.guard';
 
 const redirectUnauthorizedToAuth = () => redirectUnauthorizedTo(['auth']);
 
@@ -23,6 +24,7 @@ const routes: Routes = [
         path: '',
         component: OverviewComponent,
         children: [
+          { path: '', canActivate: [OverviewGuard], },
           { path: 'categorized/:date', component: OverviewCategorizedComponent },
           { path: 'history/:date', component: ListComponent }
         ]
