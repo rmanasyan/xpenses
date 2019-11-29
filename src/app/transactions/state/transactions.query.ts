@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Order, QueryConfig, QueryEntity, transaction } from '@datorama/akita';
+import { Order, QueryConfig, QueryEntity } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { map, switchMap } from 'rxjs/operators';
 import { TransactionType } from './transaction.model';
@@ -13,6 +13,33 @@ import { TransactionsState, TransactionsStore } from './transactions.store';
 export class TransactionsQuery extends QueryEntity<TransactionsState> {
   selectTransaction$ = this.routerQuery.selectParams('id').pipe(
     switchMap(id => this.selectEntity(id))
+  );
+
+  selectTotal$ = this.selectAll().pipe(
+    map(transactions => {
+      return transactions.reduce(
+        (total, t) => {
+          const amount: number = t.type === TransactionType.Debit ? -t.amount : +t.amount;
+          return total + amount;
+        },
+        0);
+    })
+  );
+
+  selectIncome$ = this.selectAll().pipe(
+    map(transactions => {
+      return transactions
+        .filter(t => t.type === TransactionType.Credit)
+        .reduce((total, t) => total + +t.amount, 0);
+    })
+  );
+
+  selectExpenses$ = this.selectAll().pipe(
+    map(transactions => {
+      return transactions
+        .filter(t => t.type === TransactionType.Debit)
+        .reduce((total, t) => total + +t.amount, 0);
+    })
   );
 
   selectCategorized$ = this.selectAll().pipe(

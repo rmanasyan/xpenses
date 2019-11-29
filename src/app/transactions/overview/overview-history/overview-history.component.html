@@ -6,7 +6,7 @@
         <span>{{ transaction.details || transaction.category }}</span>
         <span class="date">{{ transaction.date | date:'E d, H:mm' }}</span>
       </div>
-      <div class="amount">-{{ transaction.amount | currency:'UAH':'': '1.0-0' }}</div>
+      <div class="amount">{{ transaction.amount | xCurrency: transaction.type }}</div>
     </a>
   </li>
 </ul>

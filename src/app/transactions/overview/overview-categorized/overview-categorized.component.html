@@ -3,7 +3,7 @@
     <a [routerLink]="['/history/2019-06']" [queryParams]="{ category: incomeGroup[0]}">
       <app-svg-icon [icon]="categoryIcon(incomeGroup[0])" class="rounded"></app-svg-icon>
       <div class="name">{{ categoryName(incomeGroup[0]) }}</div>
-      <div class="total">{{ incomeGroup[1].total | currency:'UAH':'': '1.0-0' }}</div>
+      <div class="total">{{ incomeGroup[1].total | xCurrency }}</div>
     </a>
   </li>
 </ul>
@@ -13,7 +13,7 @@
     <a [routerLink]="['/history/2019-06']" [queryParams]="{ category: expensesGroup[0]}">
       <app-svg-icon [icon]="categoryIcon(expensesGroup[0])" class="rounded"></app-svg-icon>
       <div class="name">{{ categoryName(expensesGroup[0]) }}</div>
-      <div class="total">{{ expensesGroup[1].total | currency:'UAH':'': '1.0-0' }}</div>
+      <div class="total">{{ expensesGroup[1].total | xCurrency }}</div>
     </a>
   </li>
 </ul>
