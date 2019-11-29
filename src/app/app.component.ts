@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { combineQueries } from '@datorama/akita';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthQuery } from './auth/state/auth.query';
 import { TransactionsQuery } from './transactions/state/transactions.query';
@@ -10,7 +11,7 @@ import { TransactionsQuery } from './transactions/state/transactions.query';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  loading$: Observable<boolean> = combineLatest([
+  loading$: Observable<boolean> = combineQueries([
     this.authQuery.selectLoading(),
     this.transactionsQuery.selectLoading()
   ]).pipe(map(([a, t]) => a || t));

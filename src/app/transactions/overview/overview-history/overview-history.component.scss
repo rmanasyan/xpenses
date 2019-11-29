@@ -13,11 +13,17 @@
       margin-right: $length12;
     }
 
-    .name {
+    .details {
       flex-grow: 1;
+
+      .date {
+        display: block;
+        font-size: $length12;
+        color: var(--contrast600);
+      }
     }
 
-    .total {
+    .amount {
       font-size: $length18;
       color: var(--accent);
     }

@@ -12,6 +12,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
 import { TransactionsComponent } from './transactions.component';
 import { AuthModule } from '../auth/auth.module';
+import { OverviewHistoryComponent } from './overview/overview-history/overview-history.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthModule } from '../auth/auth.module';
     ListComponent,
     TransactionComponent,
     TransactionFormComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    OverviewHistoryComponent
   ],
   imports: [CommonModule, TransactionsRoutingModule, SharedModule, ReactiveFormsModule, AuthModule]
 })

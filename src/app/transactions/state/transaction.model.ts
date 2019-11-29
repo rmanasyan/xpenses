@@ -1,6 +1,11 @@
 import { ID } from '@datorama/akita';
 import { firestore } from 'firebase/app';
 
+export enum TransactionType {
+  Debit = '-',
+  Credit = '+'
+}
+
 export interface Transaction {
   id: ID;
   createdAt: firestore.FieldValue;
@@ -9,7 +14,7 @@ export interface Transaction {
   category: string;
   date: string;
   details: string;
-  type: '-' | '+';
+  type: TransactionType;
 }
 
 /**

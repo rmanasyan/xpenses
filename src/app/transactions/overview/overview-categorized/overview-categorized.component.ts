@@ -1,4 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Transaction } from '../../state/transaction.model';
+import { TransactionsQuery } from '../../state/transactions.query';
+import { TransactionsService } from '../../state/transactions.service';
 
 @Component({
   selector: 'app-overview-categorized',
@@ -7,7 +10,60 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewCategorizedComponent implements OnInit {
-  constructor() {}
+  categorizedIncome$ = this.transactionsQuery.selectCategorizedIncome$;
+  categorizedExpenses$ = this.transactionsQuery.selectCategorizedExpenses$;
 
-  ngOnInit() {}
+  constructor(private transactionsQuery: TransactionsQuery, private transactionsService: TransactionsService) {
+  }
+
+  ngOnInit() {
+  }
+
+  categoryName(category: string) {
+    // TODO: load name from categories collection in categories service
+    if (category === 'food') {
+      return 'Food and drinks';
+    }
+    if (category === 'shopping') {
+      return 'Shopping';
+    }
+    if (category === 'digital') {
+      return 'Digital';
+    }
+    if (category === 'misc') {
+      return 'Misc';
+    }
+    if (category === 'salary') {
+      return 'Salary';
+    }
+    if (category === 'salary2') {
+      return 'Salary 2';
+    }
+
+    return category;
+  }
+
+  categoryIcon(category: string) {
+    // TODO: load icon from categories collection
+    if (category === 'food') {
+      return 'icon-bowl';
+    }
+    if (category === 'shopping') {
+      return 'icon-shopping-basket';
+    }
+    if (category === 'digital') {
+      return 'icon-video';
+    }
+    if (category === 'misc') {
+      return 'icon-bucket';
+    }
+    if (category === 'salary') {
+      return 'icon-credit';
+    }
+    if (category === 'salary2') {
+      return 'icon-credit';
+    }
+
+    return 'icon-water';
+  }
 }

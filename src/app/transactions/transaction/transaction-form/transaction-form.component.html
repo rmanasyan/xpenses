@@ -9,7 +9,7 @@
       </label>
 
       <label class="amount">
-        <input type="number" formControlName="amount" placeholder="0.00" />
+        <input type="number" formControlName="amount" placeholder="0.00">
       </label>
     </div>
 
@@ -17,6 +17,10 @@
       <select formControlName="category">
         <option value="shopping">🛍 Shopping</option>
         <option value="food">☕️ Food and Drinks</option>
+        <option value="digital">Digital</option>
+        <option value="misc">Misc</option>
+        <option value="salary">Salary</option>
+        <option value="salary2">Salary 2</option>
       </select>
 
       <a [routerLink]="['/']">
@@ -25,11 +29,11 @@
     </label>
 
     <label class="date">
-      <input type="date" formControlName="date" placeholder="date" />
+      <input type="datetime-local" formControlName="date">
     </label>
 
     <label class="details">
-      <input type="text" formControlName="details" placeholder="details" />
+      <input type="text" formControlName="details" placeholder="details">
     </label>
   </main>
 

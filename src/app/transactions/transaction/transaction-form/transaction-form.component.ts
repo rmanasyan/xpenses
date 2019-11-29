@@ -45,6 +45,7 @@ export class TransactionFormComponent implements OnInit {
   }
 
   get today() {
-    return new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0];
+    // 2019-11-29T14:22:57.202Z
+    return new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('.')[0];
   }
 }
