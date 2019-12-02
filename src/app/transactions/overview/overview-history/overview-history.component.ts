@@ -9,7 +9,7 @@ import { TransactionsService } from '../../state/transactions.service';
   styleUrls: ['./overview-history.component.scss']
 })
 export class OverviewHistoryComponent implements OnInit {
-  transactions$ = this.transactionsQuery.selectAll();
+  transactions$ = this.transactionsQuery.selectFiltered$;
 
   constructor(private transactionsQuery: TransactionsQuery, private transactionsService: TransactionsService) {
   }

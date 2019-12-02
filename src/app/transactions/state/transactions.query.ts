@@ -15,6 +15,12 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     switchMap(id => this.selectEntity(id))
   );
 
+  selectFiltered$ = this.routerQuery.selectQueryParams('category').pipe(
+    switchMap(category => this.selectAll().pipe(
+      map(transactions => category ? transactions.filter(t => t.category === category) : transactions)
+    ))
+  );
+
   selectTotal$ = this.selectAll().pipe(
     map(transactions => {
       return transactions.reduce(
