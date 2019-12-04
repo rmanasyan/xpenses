@@ -3,7 +3,6 @@
 :host {
   display: block;
   margin-left: $length72;
-  padding-bottom: $length18;
 
   .title {
     font-size: $length24;
@@ -12,8 +11,7 @@
 
   .months {
     display: flex;
-    padding-top: $length14;
-    margin-left: -$length12;
+    margin: $length14 0 $length18 (-$length12);
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -28,5 +26,10 @@
         color: var(--primary);
       }
     }
+  }
+
+  .view-toggle {
+    display: flex;
+    justify-content: flex-end;
   }
 }

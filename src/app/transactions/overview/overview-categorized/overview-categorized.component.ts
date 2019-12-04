@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Transaction } from '../../state/transaction.model';
+import { Router } from '@angular/router';
 import { TransactionsQuery } from '../../state/transactions.query';
 import { TransactionsService } from '../../state/transactions.service';
 
@@ -13,10 +13,15 @@ export class OverviewCategorizedComponent implements OnInit {
   categorizedIncome$ = this.transactionsQuery.selectCategorizedIncome$;
   categorizedExpenses$ = this.transactionsQuery.selectCategorizedExpenses$;
 
-  constructor(private transactionsQuery: TransactionsQuery, private transactionsService: TransactionsService) {
+  constructor(private transactionsQuery: TransactionsQuery, private transactionsService: TransactionsService, private router: Router) {
   }
 
   ngOnInit() {
+  }
+
+  get historyLink() {
+    const [, date] = [...this.router.url.match(/(\d{4}-\d{2})/)];
+    return `/history/${date}`;
   }
 
   categoryName(category: string) {

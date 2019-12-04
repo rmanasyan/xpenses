@@ -1,11 +1,6 @@
 @import '../../../sass/variables';
 
 :host {
-  nav {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .fab {
     background: var(--primary);
     border-radius: 50%;
