@@ -161,7 +161,7 @@ export class TransactionsService {
       }),
       switchMap(collection => collection.valueChanges()),
       filter(response => !!response.length),
-      withTransaction(response => {
+      withTransaction((response: Transaction[]) => {
         const startDate = this.xDatePipe.transform(response[0].date, 'yyyy-MM');
         this.updateStartDate(startDate);
       })
