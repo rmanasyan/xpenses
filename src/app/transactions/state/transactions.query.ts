@@ -1,7 +1,9 @@
+import { getLocaleMonthNames } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Order, QueryConfig, QueryEntity } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { map, switchMap } from 'rxjs/operators';
+import { XDatePipe } from '../../shared/pipes/x-date.pipe';
 import { TransactionType } from './transaction.model';
 import { TransactionsState, TransactionsStore } from './transactions.store';
 
@@ -77,7 +79,33 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     })
   );
 
-  constructor(protected store: TransactionsStore, private routerQuery: RouterQuery) {
+  selectStartDate$ = this.select(state => state.ui.startDate);
+
+  selectMonths$ = this.selectStartDate$.pipe(
+    map(date => {
+      const monthNames = getLocaleMonthNames('en', 1, 1);
+      const currentDate = this.xDatePipe.transform(Date.now(), 'yyyy-MM');
+      const startDate = date || currentDate;
+
+      const [startYear, startMonth] = startDate.split('-');
+      const [currentYear, currentMonth] = currentDate.split('-');
+      const numberOfMonths = (+currentYear - +startYear) * 12 + (+currentMonth - +startMonth) + 1;
+
+      return [...Array(numberOfMonths).keys()]
+        .map((value, index) => {
+          const month = (+startMonth + index) % 12 || 12;
+          const monthPadded = ('' + month).padStart(2, '0');
+          const year = +startYear + Math.floor((+startMonth + index - 1) / 12);
+          return {
+            date: `${year}-${monthPadded}`,
+            name: monthNames[month - 1]
+          };
+        })
+        .reverse();
+    })
+  );
+
+  constructor(protected store: TransactionsStore, private routerQuery: RouterQuery, private xDatePipe: XDatePipe) {
     super(store);
   }
 }

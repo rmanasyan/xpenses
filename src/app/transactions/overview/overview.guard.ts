@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivate } from '@angular/router';
+import { XDatePipe } from '../../shared/pipes/x-date.pipe';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OverviewGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private xDatePipe: XDatePipe) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // TODO: get the latest date from transactions history
-    const month = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substring(0, 7);
+    const month = this.xDatePipe.transform(Date.now(), 'yyyy-MM');
 
     this.router.navigate([`categorized/${month}`]);
     return false;

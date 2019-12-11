@@ -8,11 +8,11 @@ export enum TransactionType {
 
 export interface Transaction {
   id: ID;
-  createdAt: firestore.FieldValue;
-  updatedAt: firestore.FieldValue;
+  createdAt: firestore.Timestamp;
+  updatedAt: firestore.Timestamp;
   amount: string;
   category: string;
-  date: string;
+  date: firestore.Timestamp;
   details: string;
   type: TransactionType;
 }

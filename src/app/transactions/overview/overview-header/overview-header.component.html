@@ -3,13 +3,11 @@
   <a [routerLink]="['/transaction']">{{ total$ | async | xCurrency}}</a>
 </h1>
 <nav class="months">
-  <a [routerLink]="['/']" class="active">Jun</a>
-  <a [routerLink]="['/categorized/2019-06']">Jun</a>
-  <a href="#">Jul</a>
-  <a href="#">Aug</a>
-  <a href="#">Sep</a>
-  <a href="#">Nov</a>
-  <a href="#">Dec</a>
+  <a
+    *ngFor="let month of months$ | async"
+    [routerLink]="[monthLink + '/' + month.date]"
+    routerLinkActive="active"
+  >{{month.name}}</a>
 </nav>
 <div class="view-toggle">
   <a [routerLink]="[toggleLink]">

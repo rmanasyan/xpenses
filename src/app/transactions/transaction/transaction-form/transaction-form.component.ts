@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ID } from '@datorama/akita';
+import { XDatePipe } from '../../../shared/pipes/x-date.pipe';
 import { Transaction } from '../../state/transaction.model';
 
 @Component({
@@ -24,11 +25,15 @@ export class TransactionFormComponent implements OnInit {
     type: ['-']
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private xDatePipe: XDatePipe) {}
 
   ngOnInit() {
     if (this.data) {
-      this.transactionForm.patchValue(this.data);
+      // TODO: use ControlValueAccessor or something?
+      const date = this.xDatePipe.transform(this.data.date, 'yyyy-MM-ddTHH:mm');
+      const formValue = {...this.data, date};
+
+      this.transactionForm.patchValue(formValue);
     }
   }
 
@@ -41,11 +46,14 @@ export class TransactionFormComponent implements OnInit {
   }
 
   emitSave() {
+    // TODO: use ControlValueAccessor or something?
+    const dateVal = this.transactionForm.get('date');
+    dateVal.setValue(new Date(dateVal.value));
+
     this.save.emit(this.transactionForm.value);
   }
 
   get today() {
-    // 2019-11-29T14:22:57.202Z
-    return new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('.')[0];
+    return this.xDatePipe.transform(Date.now(), 'yyyy-MM-ddTHH:mm');
   }
 }

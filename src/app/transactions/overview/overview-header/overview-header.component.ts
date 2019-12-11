@@ -11,11 +11,17 @@ export class OverviewHeaderComponent implements OnInit {
   total$ = this.transactionsQuery.selectTotal$;
   income$ = this.transactionsQuery.selectIncome$;
   expenses$ = this.transactionsQuery.selectExpenses$;
+  months$ = this.transactionsQuery.selectMonths$;
 
   constructor(private transactionsQuery: TransactionsQuery, private router: Router) {
   }
 
   ngOnInit() {
+  }
+
+  get monthLink() {
+    const [, path] = [...this.router.url.match(/(categorized|history)/)];
+    return `/${path}`;
   }
 
   get toggleLink() {
