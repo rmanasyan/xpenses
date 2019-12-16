@@ -7,7 +7,6 @@ import { OverviewComponent } from './overview/overview.component';
 import { OverviewHeaderComponent } from './overview/overview-header/overview-header.component';
 import { OverviewCategorizedComponent } from './overview/overview-categorized/overview-categorized.component';
 import { SharedModule } from '../shared/shared.module';
-import { ListComponent } from './overview/list/list.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
 import { TransactionsComponent } from './transactions.component';
@@ -19,7 +18,6 @@ import { OverviewHistoryComponent } from './overview/overview-history/overview-h
     OverviewComponent,
     OverviewHeaderComponent,
     OverviewCategorizedComponent,
-    ListComponent,
     TransactionComponent,
     TransactionFormComponent,
     TransactionsComponent,
