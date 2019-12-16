@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Observable } from 'rxjs';
 import { Transaction } from '../../state/transaction.model';
 import { TransactionsQuery } from '../../state/transactions.query';
 import { TransactionsService } from '../../state/transactions.service';
@@ -8,13 +10,17 @@ import { TransactionsService } from '../../state/transactions.service';
   templateUrl: './overview-history.component.html',
   styleUrls: ['./overview-history.component.scss']
 })
-export class OverviewHistoryComponent implements OnInit {
-  transactions$ = this.transactionsQuery.selectFiltered$;
+export class OverviewHistoryComponent implements OnInit, OnDestroy {
+  filteredTransactions$: Observable<Transaction[]> = this.transactionsQuery.selectFiltered$;
 
   constructor(private transactionsQuery: TransactionsQuery, private transactionsService: TransactionsService) {
   }
 
   ngOnInit() {
+    this.transactionsService.syncMonthTransactions().pipe(untilDestroyed(this)).subscribe();
+  }
+
+  ngOnDestroy(): void {
   }
 
   trackByFn(i, transaction: Transaction) {

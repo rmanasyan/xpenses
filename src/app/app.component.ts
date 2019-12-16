@@ -3,6 +3,7 @@ import { combineQueries } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthQuery } from './auth/state/auth.query';
+import { AuthService } from './auth/state/auth.service';
 import { TransactionsQuery } from './transactions/state/transactions.query';
 
 @Component({
@@ -16,5 +17,7 @@ export class AppComponent {
     this.transactionsQuery.selectLoading()
   ]).pipe(map(([a, t]) => a || t));
 
-  constructor(private authQuery: AuthQuery, private transactionsQuery: TransactionsQuery) {}
+  constructor(private authQuery: AuthQuery, private transactionsQuery: TransactionsQuery, private authService: AuthService) {
+    this.authService.get().subscribe();
+  }
 }

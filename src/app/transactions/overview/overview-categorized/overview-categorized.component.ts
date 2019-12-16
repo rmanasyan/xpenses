@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 import { TransactionsQuery } from '../../state/transactions.query';
 import { TransactionsService } from '../../state/transactions.service';
 
@@ -9,7 +10,7 @@ import { TransactionsService } from '../../state/transactions.service';
   styleUrls: ['./overview-categorized.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OverviewCategorizedComponent implements OnInit {
+export class OverviewCategorizedComponent implements OnInit, OnDestroy {
   categorizedIncome$ = this.transactionsQuery.selectCategorizedIncome$;
   categorizedExpenses$ = this.transactionsQuery.selectCategorizedExpenses$;
 
@@ -17,6 +18,10 @@ export class OverviewCategorizedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.transactionsService.syncMonthTransactions().pipe(untilDestroyed(this)).subscribe();
+  }
+
+  ngOnDestroy(): void {
   }
 
   get historyLink() {

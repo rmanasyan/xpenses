@@ -1,8 +1,8 @@
-import { getLocaleMonthNames } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { Order, QueryConfig, QueryEntity } from '@datorama/akita';
+import { combineQueries, Order, QueryConfig, QueryEntity } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { map, switchMap } from 'rxjs/operators';
+import { getMonthNames } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';
 import { TransactionType } from './transaction.model';
 import { TransactionsState, TransactionsStore } from './transactions.store';
@@ -17,13 +17,26 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     switchMap(id => this.selectEntity(id))
   );
 
+  selectMonthTransactions$ = combineQueries([
+    this.routerQuery.selectParams('date'),
+    this.selectAll()
+  ]).pipe(
+    map(([date, transactions]) => {
+      const currentDate = new Date(date);
+      const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth());
+      const nextMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1);
+      return transactions
+        .filter(t => nextMonthStart > t.date.toDate() && t.date.toDate() >= currentMonthStart);
+    })
+  );
+
   selectFiltered$ = this.routerQuery.selectQueryParams('category').pipe(
-    switchMap(category => this.selectAll().pipe(
+    switchMap(category => this.selectMonthTransactions$.pipe(
       map(transactions => category ? transactions.filter(t => t.category === category) : transactions)
     ))
   );
 
-  selectTotal$ = this.selectAll().pipe(
+  selectTotal$ = this.selectMonthTransactions$.pipe(
     map(transactions => {
       return transactions.reduce(
         (total, t) => {
@@ -34,7 +47,7 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     })
   );
 
-  selectIncome$ = this.selectAll().pipe(
+  selectIncome$ = this.selectMonthTransactions$.pipe(
     map(transactions => {
       return transactions
         .filter(t => t.type === TransactionType.Credit)
@@ -42,7 +55,7 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     })
   );
 
-  selectExpenses$ = this.selectAll().pipe(
+  selectExpenses$ = this.selectMonthTransactions$.pipe(
     map(transactions => {
       return transactions
         .filter(t => t.type === TransactionType.Debit)
@@ -50,7 +63,7 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     })
   );
 
-  selectCategorized$ = this.selectAll().pipe(
+  selectCategorized$ = this.selectMonthTransactions$.pipe(
     map(transactions => {
       return [...transactions.reduce(
         (entryMap, e) => {
@@ -83,7 +96,7 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
 
   selectMonths$ = this.selectStartDate$.pipe(
     map(date => {
-      const monthNames = getLocaleMonthNames('en', 1, 1);
+      const monthNames = getMonthNames();
       const currentDate = this.xDatePipe.transform(Date.now(), 'yyyy-MM');
       const startDate = date || currentDate;
 

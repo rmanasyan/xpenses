@@ -9,7 +9,6 @@ import { AuthStore } from './auth.store';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private authStore: AuthStore, private afAuth: AngularFireAuth) {
-    this.get().subscribe();
   }
 
   get() {

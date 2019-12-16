@@ -1,10 +1,10 @@
 <ul>
-  <li *ngFor="let transaction of transactions$ | async; trackBy: trackByFn">
+  <li *ngFor="let transaction of filteredTransactions$ | async; trackBy: trackByFn">
     <a [routerLink]="['/transaction', transaction.id]">
       <app-svg-icon [icon]="categoryIcon(transaction)" class="rounded"></app-svg-icon>
       <div class="details">
         <span>{{ transaction.details || transaction.category }}</span>
-        <span class="date">{{ transaction.date | xDate:'E d, H:mm': true }}</span>
+        <span class="date">{{ transaction.date | xDate:'E d MMM, H:mm': true }}</span>
       </div>
       <div class="amount">{{ transaction.amount | xCurrency: transaction.type }}</div>
     </a>

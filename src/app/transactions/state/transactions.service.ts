@@ -22,81 +22,26 @@ export class TransactionsService {
     private routerQuery: RouterQuery,
     private xDatePipe: XDatePipe
   ) {
-    this.get().subscribe();
-    this.getStartDate().subscribe();
   }
 
-  get() {
-    return this.authQuery.select('uid').pipe(
-      prepare(() => this.transactionsStore.setLoading(true)),
-      map(uid => {
-        this.collection = this.afs.collection(`users/${uid}/transactions`, ref => ref.orderBy('date', 'desc'));
-        return this.collection;
-      }),
-      switchMap(collection => collection.stateChanges()),
-      withTransaction((actions: DocumentChangeAction<Transaction>[]) => {
-        this.transactionsStore.setLoading(false);
-
-        if (actions.length === 0) {
-          return;
-        }
-
-        for (const action of actions) {
-          const id = action.payload.doc.id;
-          const entity = action.payload.doc.data();
-
-          switch (action.type) {
-            case 'added':
-              // this.transactionsStore.upsert(id, { id, ...entity });
-              this.transactionsStore.add({ id, ...entity });
-              break;
-            case 'removed':
-              this.transactionsStore.remove(id);
-              break;
-            case 'modified':
-              this.transactionsStore.update(id, entity);
-          }
-        }
-      }),
-      catchError((error: FirebaseError) => {
-        this.transactionsStore.reset();
-        this.transactionsStore.setLoading(false);
-        this.transactionsStore.setError(error);
-        return throwError(error);
-      })
-    );
-  }
-
-  get2() {
+  syncMonthTransactions() {
     return combineQueries([
       this.authQuery.select('uid'),
       this.routerQuery.selectParams('date')
     ]).pipe(
-    // this.authQuery.select('uid').pipe(
-      tap(([uid, date]) => {
-        console.log('--- date change', date);
-        if (date) {
-          // this.transactionsStore.reset();
-        }
-      }),
       // TODO: replace prepare
       prepare(() => this.transactionsStore.setLoading(true)),
       map(([uid, date]) => {
-        // console.log('----1', date);
-        // const thisMonthStart = date ? new Date(date) : new Date();
-        const currentMonth = new Date(date);
-        // console.log('--', new Date( thisMonthStart.setMonth(thisMonthStart.getMonth() + 1) ) );
-        const nextMonth = new Date( new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1 ) );
-        console.log('thisMonthStart', currentMonth);
-        console.log('lastMonthEnd', nextMonth);
-        // new Date(new Date().setMonth(new Date().getMonth() - 1))
+        const currentDate = new Date(date);
+        const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() );
+        const nextMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1 );
+
         this.collection = this.afs.collection(
           `users/${uid}/transactions`,
           ref => ref
-            // .where('createdAt', '>', lastMonth)
-            .where('createdAt', '>=', currentMonth)
-            .where('createdAt', '<', nextMonth)
-            .orderBy('createdAt', 'desc'));
+            .where('date', '<', nextMonthStart)
+            .where('date', '>=', currentMonthStart)
+            .orderBy('date', 'desc'));
         return this.collection;
       }),
       switchMap(collection => collection.stateChanges()),
@@ -107,11 +52,11 @@ export class TransactionsService {
           return;
         }
 
-        for (const action of actions) {
-          const id = action.payload.doc.id;
-          const entity = action.payload.doc.data();
+        for (const actn of actions) {
+          const id = actn.payload.doc.id;
+          const entity = actn.payload.doc.data();
 
-          switch (action.type) {
+          switch (actn.type) {
             case 'added':
               // this.transactionsStore.upsert(id, { id, ...entity });
               this.transactionsStore.add({id, ...entity});
@@ -152,7 +97,7 @@ export class TransactionsService {
     });
   }
 
-  getStartDate() {
+  syncMonths() {
     return this.authQuery.select('uid').pipe(
       map(uid => {
         return this.afs.collection(
