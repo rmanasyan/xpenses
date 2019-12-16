@@ -30,7 +30,7 @@ export class TransactionFormComponent implements OnInit {
   ngOnInit() {
     if (this.data) {
       // TODO: use ControlValueAccessor or something?
-      const date = this.xDatePipe.transform(this.data.date, 'yyyy-MM-ddTHH:mm');
+      const date = this.xDatePipe.transform(this.data.date, 'yyyy-MM-ddTHH:mm:ss');
       const formValue = {...this.data, date};
 
       this.transactionForm.patchValue(formValue);
@@ -54,6 +54,6 @@ export class TransactionFormComponent implements OnInit {
   }
 
   get today() {
-    return this.xDatePipe.transform(Date.now(), 'yyyy-MM-ddTHH:mm');
+    return this.xDatePipe.transform(Date.now(), 'yyyy-MM-ddTHH:mm:ss');
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Observable } from 'rxjs';
 import { Transaction } from '../../state/transaction.model';
@@ -8,7 +8,8 @@ import { TransactionsService } from '../../state/transactions.service';
 @Component({
   selector: 'app-overview-history',
   templateUrl: './overview-history.component.html',
-  styleUrls: ['./overview-history.component.scss']
+  styleUrls: ['./overview-history.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewHistoryComponent implements OnInit, OnDestroy {
   filteredTransactions$: Observable<Transaction[]> = this.transactionsQuery.selectFiltered$;

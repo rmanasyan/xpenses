@@ -28,7 +28,7 @@ const routes: Routes = [
         ]
       },
       { path: 'transaction', component: TransactionComponent },
-      { path: 'transaction/:id', component: TransactionComponent }
+      { path: 'transaction/:date/:id', component: TransactionComponent }
     ]
   }
 ];

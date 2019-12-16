@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { combineQueries, Order, QueryConfig, QueryEntity } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { map, switchMap } from 'rxjs/operators';
-import { getMonthNames } from '../../shared/helpers/x-common';
+import { getCurrentMonthStart, getMonthNames, getNextMonthStart } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';
 import { TransactionType } from './transaction.model';
 import { TransactionsState, TransactionsStore } from './transactions.store';
@@ -22,11 +22,8 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     this.selectAll()
   ]).pipe(
     map(([date, transactions]) => {
-      const currentDate = new Date(date);
-      const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth());
-      const nextMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1);
       return transactions
-        .filter(t => nextMonthStart > t.date.toDate() && t.date.toDate() >= currentMonthStart);
+        .filter(t => getNextMonthStart(date) > t.date.toDate() && t.date.toDate() >= getCurrentMonthStart(date));
     })
   );
 

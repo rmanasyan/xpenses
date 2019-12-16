@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
-import { action, combineQueries, withTransaction } from '@datorama/akita';
+import { action, combineQueries, setLoading, withTransaction } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { FirebaseError, firestore } from 'firebase/app';
 import { throwError } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
+import { getCurrentMonthStart, getNextMonthStart } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';
 import { TransactionsStore } from './transactions.store';
 import { Transaction } from './transaction.model';
-import { prepare } from '../../shared/operators/prepare.operator';
 
 @Injectable({providedIn: 'root'})
 export class TransactionsService {
@@ -29,19 +29,15 @@ export class TransactionsService {
       this.authQuery.select('uid'),
       this.routerQuery.selectParams('date')
     ]).pipe(
-      // TODO: replace prepare
-      prepare(() => this.transactionsStore.setLoading(true)),
+      setLoading(this.transactionsStore),
       map(([uid, date]) => {
-        const currentDate = new Date(date);
-        const currentMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() );
-        const nextMonthStart = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1 );
-
         this.collection = this.afs.collection(
           `users/${uid}/transactions`,
           ref => ref
-            .where('date', '<', nextMonthStart)
-            .where('date', '>=', currentMonthStart)
+            .where('date', '<', getNextMonthStart(date))
+            .where('date', '>=', getCurrentMonthStart(date))
             .orderBy('date', 'desc'));
+
         return this.collection;
       }),
       switchMap(collection => collection.stateChanges()),
@@ -58,8 +54,8 @@ export class TransactionsService {
 
           switch (actn.type) {
             case 'added':
-              // this.transactionsStore.upsert(id, { id, ...entity });
-              this.transactionsStore.add({id, ...entity});
+              this.transactionsStore.upsert(id, { id, ...entity });
+              // this.transactionsStore.add({id, ...entity});
               break;
             case 'removed':
               this.transactionsStore.remove(id);
@@ -87,7 +83,7 @@ export class TransactionsService {
   }
 
   remove(id: string) {
-    return this.collection.doc(id).delete();
+    return this.collection.doc(id).delete().then(() => this.transactionsStore.remove(id));
   }
 
   update(id, transaction: Partial<Transaction>) {
