@@ -11,6 +11,10 @@ export class AuthService {
   constructor(private authStore: AuthStore, private afAuth: AngularFireAuth) {
   }
 
+  init() {
+    this.get().subscribe();
+  }
+
   get() {
     return this.afAuth.authState.pipe(
       setLoading(this.authStore),

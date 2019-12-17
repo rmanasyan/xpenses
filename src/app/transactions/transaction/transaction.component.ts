@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Observable } from 'rxjs';
 import { Transaction } from '../state/transaction.model';
 import { TransactionsService } from '../state/transactions.service';
@@ -12,7 +11,7 @@ import { TransactionsQuery } from '../state/transactions.query';
   styleUrls: ['./transaction.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TransactionComponent implements OnInit, OnDestroy {
+export class TransactionComponent implements OnInit {
   transaction$: Observable<Transaction> = this.transactionsQuery.selectTransaction$;
   loading$: Observable<boolean> = this.transactionsQuery.selectLoading();
 
@@ -23,10 +22,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.transactionsService.syncMonthTransactions().pipe(untilDestroyed(this)).subscribe();
-  }
-
-  ngOnDestroy(): void {
   }
 
   discardTransaction() {

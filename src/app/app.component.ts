@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { AuthQuery } from './auth/state/auth.query';
 import { AuthService } from './auth/state/auth.service';
 import { TransactionsQuery } from './transactions/state/transactions.query';
+import { TransactionsService } from './transactions/state/transactions.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,13 @@ export class AppComponent {
     this.transactionsQuery.selectLoading()
   ]).pipe(map(([a, t]) => a || t));
 
-  constructor(private authQuery: AuthQuery, private transactionsQuery: TransactionsQuery, private authService: AuthService) {
-    this.authService.get().subscribe();
+  constructor(
+    private authQuery: AuthQuery,
+    private authService: AuthService,
+    private transactionsQuery: TransactionsQuery,
+    private transactionsService: TransactionsService
+  ) {
+    this.authService.init();
+    this.transactionsService.init();
   }
 }

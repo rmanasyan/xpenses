@@ -24,6 +24,11 @@ export class TransactionsService {
   ) {
   }
 
+  init() {
+    this.syncMonths().subscribe();
+    this.syncMonthTransactions().subscribe();
+  }
+
   syncMonthTransactions() {
     return combineQueries([
       this.authQuery.select('uid'),
@@ -83,7 +88,7 @@ export class TransactionsService {
   }
 
   remove(id: string) {
-    return this.collection.doc(id).delete().then(() => this.transactionsStore.remove(id));
+    return this.collection.doc(id).delete();
   }
 
   update(id, transaction: Partial<Transaction>) {
