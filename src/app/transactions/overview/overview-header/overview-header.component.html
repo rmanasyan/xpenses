@@ -5,12 +5,12 @@
 <nav class="months">
   <a
     *ngFor="let month of months$ | async"
-    [routerLink]="[monthLink + '/' + month.date]"
-    routerLinkActive="active"
+    [routerLink]="[monthLink(month.date)]"
+    [class.active]="isMonthActive(month.date)"
   >{{month.name}}</a>
 </nav>
 <div class="view-toggle">
   <a [routerLink]="[toggleLink]">
-    <app-svg-icon icon="icon-list" class="rounded"></app-svg-icon>
+    <app-svg-icon icon="icon-list" class="rounded" [class.active]="isHistoryViewActive"></app-svg-icon>
   </a>
 </div>

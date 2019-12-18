@@ -99,7 +99,7 @@ app-svg-icon {
   border-radius: 50%;
   background: transparent;
 
-  &:active {
+  &:active, &.active {
     background: var(--contrast100);
   }
 }
