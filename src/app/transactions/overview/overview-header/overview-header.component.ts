@@ -48,6 +48,10 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy {
     return `/${newPath}/${this.urlDate}`;
   }
 
+  get transactionLink(): string {
+    return `/transaction/${this.urlDate}`;
+  }
+
   private parseRouterUrl() {
     const [, path, date] = [...(this.router.url.match(/(categorized|history)\/(\d{4}-\d{2})/) || [])];
     this.urlPath = path;

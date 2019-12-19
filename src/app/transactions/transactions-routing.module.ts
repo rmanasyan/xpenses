@@ -27,7 +27,7 @@ const routes: Routes = [
           { path: 'history/:date', component: OverviewHistoryComponent }
         ]
       },
-      { path: 'transaction', component: TransactionComponent },
+      { path: 'transaction/:date', component: TransactionComponent },
       { path: 'transaction/:date/:id', component: TransactionComponent }
     ]
   }

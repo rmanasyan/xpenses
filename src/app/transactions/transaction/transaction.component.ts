@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { Observable } from 'rxjs';
 import { Transaction } from '../state/transaction.model';
 import { TransactionsService } from '../state/transactions.service';
@@ -17,6 +18,7 @@ export class TransactionComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private routerQuery: RouterQuery,
     private transactionsQuery: TransactionsQuery,
     private transactionsService: TransactionsService
   ) {}
@@ -25,24 +27,24 @@ export class TransactionComponent implements OnInit {
   }
 
   discardTransaction() {
-    this.navigateHome();
+    this.navigateBack();
   }
 
   removeTransaction(id: string) {
-    this.transactionsService.remove(id).then(() => this.navigateHome());
+    this.transactionsService.remove(id).then(() => this.navigateBack());
   }
 
   saveTransaction(transaction: Partial<Transaction>) {
     const { id, ...update } = { ...transaction };
 
     if (id) {
-      this.transactionsService.update(id, update).then(() => this.navigateHome());
+      this.transactionsService.update(id, update).then(() => this.navigateBack());
     } else {
-      this.transactionsService.add(update).then(() => this.navigateHome());
+      this.transactionsService.add(update).then(() => this.navigateBack());
     }
   }
 
-  private navigateHome() {
-    this.router.navigate(['/']);
+  private navigateBack() {
+    this.router.navigate([`/categorized/${this.routerQuery.getParams('date')}`]);
   }
 }

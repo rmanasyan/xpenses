@@ -1,6 +1,6 @@
 <div class="title">{{income$ | async | xCurrency}} / {{expenses$ | async  | xCurrency}}</div>
 <h1 class="total">
-  <a [routerLink]="['/transaction']">{{ total$ | async | xCurrency}}</a>
+  <a [routerLink]="[transactionLink]">{{ total$ | async | xCurrency}}</a>
 </h1>
 <nav class="months">
   <a
