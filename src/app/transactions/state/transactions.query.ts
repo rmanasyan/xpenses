@@ -115,6 +115,13 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     })
   );
 
+  selectParsedRouterUrl$ = this.routerQuery.select(state => state.state.url).pipe(
+    map(url => {
+      const [, path, date] = [...url.match(/(categorized|history)\/(\d{4}-\d{2})/) || []];
+      return { path, date };
+    })
+  );
+
   constructor(protected store: TransactionsStore, private routerQuery: RouterQuery, private xDatePipe: XDatePipe) {
     super(store);
   }

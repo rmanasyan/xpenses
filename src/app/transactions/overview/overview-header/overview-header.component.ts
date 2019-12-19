@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter, startWith } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { TransactionsQuery } from '../../state/transactions.query';
 
@@ -17,16 +15,13 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy {
   urlPath: string;
   urlDate: string;
 
-  constructor(private transactionsQuery: TransactionsQuery, private router: Router) {}
+  constructor(private transactionsQuery: TransactionsQuery) {}
 
   ngOnInit() {
-    this.router.events
-      .pipe(
-        startWith(this.parseRouterUrl()),
-        filter(e => e instanceof NavigationEnd),
-        untilDestroyed(this)
-      )
-      .subscribe(() => this.parseRouterUrl());
+    this.transactionsQuery.selectParsedRouterUrl$.pipe(untilDestroyed(this)).subscribe(({ path, date }) => {
+      this.urlPath = path;
+      this.urlDate = date;
+    });
   }
 
   ngOnDestroy() {}
@@ -50,11 +45,5 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy {
 
   get transactionLink(): string {
     return `/transaction/${this.urlDate}`;
-  }
-
-  private parseRouterUrl() {
-    const [, path, date] = [...(this.router.url.match(/(categorized|history)\/(\d{4}-\d{2})/) || [])];
-    this.urlPath = path;
-    this.urlDate = date;
   }
 }
