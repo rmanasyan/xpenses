@@ -1,0 +1,9 @@
+<input type="text" #category><button (click)="add(category.value)">add</button>
+
+<ng-template #loading>Loading...</ng-template>
+
+<ul *ngIf="!(isLoading$ | async); else loading">
+  <li *ngFor="let category of (categories$ | async)">
+    {{category.name}}
+  </li>
+</ul>
