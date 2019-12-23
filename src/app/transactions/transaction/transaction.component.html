@@ -1,13 +1,11 @@
-<div class="nav-bar">
-  <a [routerLink]="backLink">
-    <app-svg-icon icon="icon-dots-two-horizontal" class="rounded"></app-svg-icon>
-  </a>
-</div>
+<div *ngIf="loading$ | async; else form">loading form</div>
 
-<app-transaction-form
-  *ngIf="!(loading$ | async)"
-  [data]="transaction$ | async"
-  (remove)="removeTransaction($event)"
-  (save)="saveTransaction($event)"
-></app-transaction-form>
+<ng-template #form>
+  <app-transaction-form
+    [data]="transaction$ | async"
+    (discard)="discardTransaction()"
+    (remove)="removeTransaction($event)"
+    (save)="saveTransaction($event)"
+  ></app-transaction-form>
+</ng-template>
 

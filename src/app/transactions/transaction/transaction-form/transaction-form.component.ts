@@ -12,6 +12,7 @@ import { Transaction } from '../../state/transaction.model';
 })
 export class TransactionFormComponent implements OnInit {
   @Input() data: Transaction;
+  @Output() discard = new EventEmitter();
   @Output() remove = new EventEmitter<ID>();
   @Output() save = new EventEmitter<Partial<Transaction>>();
 
@@ -34,6 +35,10 @@ export class TransactionFormComponent implements OnInit {
 
       this.transactionForm.patchValue(formValue, { emitEvent: false });
     }
+  }
+
+  emitDiscard() {
+    this.discard.emit();
   }
 
   emitRemove() {

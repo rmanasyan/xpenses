@@ -39,6 +39,7 @@
 
   <footer>
     <button (click)="emitRemove()" *ngIf="data" type="button">Delete</button>
+    <button type="button" (click)="emitDiscard()">Cancel</button>
     <button type="submit" [disabled]="!transactionForm.valid">Submit</button>
   </footer>
 </form>
