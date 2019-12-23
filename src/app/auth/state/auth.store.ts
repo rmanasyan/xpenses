@@ -6,7 +6,8 @@ export function createInitialState(): Auth {
   return {
     email: null,
     photoURL: null,
-    uid: null
+    uid: null,
+    previousUrl: null
   };
 }
 

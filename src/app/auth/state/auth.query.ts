@@ -9,8 +9,8 @@ export class AuthQuery extends Query<Auth> {
   email$ = this.select('email');
   photoURL$ = this.select('photoURL');
 
-  signedIn() {
-    return !!this.getValue().uid;
+  get previousUrl() {
+    return this.getValue().previousUrl;
   }
 
   constructor(protected store: AuthStore) {

@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { setLoading } from '@datorama/akita';
+import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { auth, FirebaseError, User } from 'firebase/app';
 import { from, throwError } from 'rxjs';
-import { catchError, filter, first, tap } from 'rxjs/operators';
+import { catchError, filter, first, map, pairwise, tap } from 'rxjs/operators';
 import { AuthStore } from './auth.store';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private authStore: AuthStore, private afAuth: AngularFireAuth) {
-  }
+  constructor(private authStore: AuthStore, private afAuth: AngularFireAuth, private routerQuery: RouterQuery) {}
 
   init() {
-    this.get().subscribe();
+    this.sync().subscribe();
+    this.syncRouterState().subscribe();
   }
 
-  get() {
+  sync() {
     return this.afAuth.authState.pipe(
       setLoading(this.authStore),
       first(),
@@ -52,5 +53,14 @@ export class AuthService {
         })
       )
       .subscribe();
+  }
+
+  syncRouterState() {
+    return this.routerQuery
+      .select(state => state.state && state.state.url)
+      .pipe(
+        pairwise(),
+        map(urlsPair => this.authStore.update({ previousUrl: urlsPair[0] || '/' }))
+      );
   }
 }
