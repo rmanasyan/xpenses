@@ -11,6 +11,7 @@
 </nav>
 <div class="view-toggle">
   <a [routerLink]="[toggleLink]">
-    <app-svg-icon icon="icon-list" class="rounded" [class.active]="isHistoryViewActive"></app-svg-icon>
+    <app-svg-icon icon="icon-dots-three-horizontal" class="rounded" *ngIf="!isHistoryViewActive"></app-svg-icon>
+    <app-svg-icon icon="icon-dots-two-horizontal" class="rounded" *ngIf="isHistoryViewActive"></app-svg-icon>
   </a>
 </div>

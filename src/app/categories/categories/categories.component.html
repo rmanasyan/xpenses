@@ -1,9 +1,12 @@
-<input type="text" #category><button (click)="add(category.value)">add</button>
+<div class="nav-bar">
+  <a [routerLink]="backLink">
+    <app-svg-icon icon="icon-dots-two-horizontal" class="rounded"></app-svg-icon>
+  </a>
+</div>
 
-<ng-template #loading>Loading...</ng-template>
-
-<ul *ngIf="!(isLoading$ | async); else loading">
-  <li *ngFor="let category of (categories$ | async)">
-    {{category.name}}
-  </li>
-</ul>
+<app-categories-form
+  *ngIf="!(loading$ | async)"
+  [data]="categories$ | async"
+  (save)="saveCategory($event)"
+  (remove)="removeCategory($event)"
+></app-categories-form>

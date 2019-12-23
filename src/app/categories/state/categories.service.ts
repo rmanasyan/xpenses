@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { setLoading, withTransaction } from '@datorama/akita';
-import { FirebaseError, firestore } from 'firebase/app';
+import { FirebaseError } from 'firebase/app';
 import { throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
@@ -60,23 +60,19 @@ export class CategoriesService {
   add(category: Partial<Category>) {
     return this.collection.add({
       ...category,
-      createdAt: CategoriesService.timestamp,
-      updatedAt: CategoriesService.timestamp
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
   }
 
   update(id, category: Partial<Category>) {
     return this.collection.doc(id).update({
       ...category,
-      updatedAt: CategoriesService.timestamp
+      updatedAt: new Date()
     });
   }
 
   remove(id: string) {
     return this.collection.doc(id).delete();
-  }
-
-  private static get timestamp() {
-    return firestore.FieldValue.serverTimestamp();
   }
 }

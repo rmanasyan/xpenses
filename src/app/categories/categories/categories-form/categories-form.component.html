@@ -1,0 +1,28 @@
+<form *ngIf="categoriesForm" [formGroup]="categoriesForm">
+  <div class="group">
+    <div formGroupName="newCategory">
+      <input type="text" formControlName="name" placeholder="add new category">
+    </div>
+
+    <button [disabled]="newCategory.invalid" (click)="emitSave(newCategory)">
+      <app-svg-icon icon="icon-check"></app-svg-icon>
+    </button>
+  </div>
+  <div
+    class="group"
+    formArrayName="categories"
+    *ngFor="let category of categories.controls; let i = index"
+  >
+    <div [formGroupName]="i">
+      <input type="text" formControlName="name">
+    </div>
+
+    <button [disabled]="category.invalid" (click)="emitSave(category)">
+      <app-svg-icon icon="icon-check"></app-svg-icon>
+    </button>
+
+    <button (click)="emitRemove(category)">
+      <app-svg-icon icon="icon-cross"></app-svg-icon>
+    </button>
+  </div>
+</form>

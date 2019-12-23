@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthQuery } from '../../auth/state/auth.query';
 import { CategoriesService } from '../state/categories.service';
 import { CategoriesQuery } from '../state/categories.query';
 import { Category } from '../state/category.model';
@@ -11,16 +12,34 @@ import { Category } from '../state/category.model';
 })
 export class CategoriesComponent implements OnInit {
   categories$: Observable<Category[]>;
-  isLoading$: Observable<boolean>;
+  loading$: Observable<boolean>;
 
-  constructor(private categoriesQuery: CategoriesQuery, private categoriesService: CategoriesService) {}
+  constructor(
+    private categoriesQuery: CategoriesQuery,
+    private categoriesService: CategoriesService,
+    private authQuery: AuthQuery
+  ) {}
 
   ngOnInit() {
     this.categories$ = this.categoriesQuery.selectAll();
-    this.isLoading$ = this.categoriesQuery.selectLoading();
+    this.loading$ = this.categoriesQuery.selectLoading();
   }
 
-  add(name: string) {
-    this.categoriesService.add({ name });
+  removeCategory(category: Category) {
+    this.categoriesService.remove(category.id);
+  }
+
+  saveCategory(category: Category) {
+    const { id, ...update } = { ...category };
+
+    if (id) {
+      this.categoriesService.update(id, update);
+    } else {
+      this.categoriesService.add(update);
+    }
+  }
+
+  get backLink() {
+    return this.authQuery.previousUrl;
   }
 }

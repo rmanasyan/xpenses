@@ -4,7 +4,7 @@ import { action, combineQueries, setLoading, withTransaction } from '@datorama/a
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { FirebaseError, firestore } from 'firebase/app';
 import { throwError } from 'rxjs';
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { getCurrentMonthStart, getNextMonthStart } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';

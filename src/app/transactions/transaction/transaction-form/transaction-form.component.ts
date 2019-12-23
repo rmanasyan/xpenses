@@ -33,7 +33,7 @@ export class TransactionFormComponent implements OnInit {
       const date = this.xDatePipe.transform(this.data.date, 'yyyy-MM-ddTHH:mm:ss');
       const formValue = {...this.data, date};
 
-      this.transactionForm.patchValue(formValue);
+      this.transactionForm.patchValue(formValue, { emitEvent: false });
     }
   }
 

@@ -1,10 +1,7 @@
-import { ID } from '@datorama/akita';
-import { firestore } from 'firebase';
-
 export interface Category {
-  id: ID;
-  createdAt: firestore.Timestamp;
-  updatedAt: firestore.Timestamp;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
   name: string;
   icon: string;
   sortIndex: number;

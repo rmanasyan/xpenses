@@ -56,6 +56,10 @@ input, button, select {
     background-color: var(--contrast);
     border-color: var(--contrast800);
   }
+
+  &:disabled {
+    opacity: .5;
+  }
 }
 
 button {
