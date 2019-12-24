@@ -7,9 +7,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
+import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SharedModule } from './shared/shared.module';
         AngularFireAuthModule,
         environment.production ? [] : AkitaNgDevtools.forRoot(),
         AkitaNgRouterStoreModule.forRoot(),
-        SharedModule
+        SharedModule,
+        AuthModule
     ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]

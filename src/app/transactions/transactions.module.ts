@@ -10,7 +10,6 @@ import { SharedModule } from '../shared/shared.module';
 import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
 import { TransactionsComponent } from './transactions.component';
-import { AuthModule } from '../auth/auth.module';
 import { OverviewHistoryComponent } from './overview/overview-history/overview-history.component';
 
 @NgModule({
@@ -23,6 +22,6 @@ import { OverviewHistoryComponent } from './overview/overview-history/overview-h
     TransactionsComponent,
     OverviewHistoryComponent
   ],
-  imports: [CommonModule, TransactionsRoutingModule, SharedModule, ReactiveFormsModule, AuthModule]
+  imports: [CommonModule, TransactionsRoutingModule, SharedModule, ReactiveFormsModule]
 })
 export class TransactionsModule {}

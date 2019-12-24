@@ -1,5 +1,9 @@
 <app-loading-bar *ngIf="loading$ | async"></app-loading-bar>
 
 <div class="container">
+  <a class="avatar-link" [routerLink]="['/auth']">
+    <app-avatar></app-avatar>
+  </a>
+
   <router-outlet></router-outlet>
 </div>

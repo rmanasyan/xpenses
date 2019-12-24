@@ -3,4 +3,11 @@
 .container {
   height: 100%;
   padding: $length72 $length20 $length36;
+
+  .avatar-link {
+    display: block;
+    position: absolute;
+    right: $length20;
+    top: $length20;
+  }
 }
