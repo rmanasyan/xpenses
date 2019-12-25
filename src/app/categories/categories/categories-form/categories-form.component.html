@@ -1,28 +1,38 @@
 <form *ngIf="categoriesForm" [formGroup]="categoriesForm">
-  <div class="group">
-    <div formGroupName="newCategory">
-      <input type="text" formControlName="name" placeholder="add new category">
-    </div>
+  <ul>
+    <li>
+      <div class="group" formGroupName="newCategory">
+        <app-icon-select formControlName="icon"></app-icon-select>
 
-    <button [disabled]="newCategory.invalid" (click)="emitSave(newCategory)">
-      <app-svg-icon icon="icon-check"></app-svg-icon>
-    </button>
-  </div>
-  <div
-    class="group"
-    formArrayName="categories"
-    *ngFor="let category of categories.controls; let i = index"
-  >
-    <div [formGroupName]="i">
-      <input type="text" formControlName="name">
-    </div>
+        <input type="text" placeholder="add new category" formControlName="name" (focus)="showRemoveConfirm(null)">
 
-    <button [disabled]="category.invalid" (click)="emitSave(category)">
-      <app-svg-icon icon="icon-check"></app-svg-icon>
-    </button>
+        <button [disabled]="newCategory.invalid" (click)="emitSave(newCategory)">
+          <app-svg-icon icon="icon-plus" class="rounded"></app-svg-icon>
+        </button>
+        <button [disabled]="newCategory.pristine || newCategory.invalid" (click)="newCategory.reset()">
+          <app-svg-icon icon="icon-erase" class="rounded"></app-svg-icon>
+        </button>
+      </div>
+    </li>
+  </ul>
 
-    <button (click)="emitRemove(category)">
-      <app-svg-icon icon="icon-cross"></app-svg-icon>
-    </button>
-  </div>
+  <ul>
+    <li formArrayName="categories" *ngFor="let category of categories.controls; let i = index">
+      <div class="group" [formGroupName]="i">
+        <app-icon-select formControlName="icon"></app-icon-select>
+
+        <input type="text" formControlName="name" (focus)="showRemoveConfirm(null)">
+
+        <button [disabled]="category.invalid || category.pristine" (click)="emitSave(category)">
+          <app-svg-icon icon="icon-dot-single" class="rounded"></app-svg-icon>
+        </button>
+        <button *ngIf="!removeConfirm(category.value.id)" (click)="showRemoveConfirm(category.value.id)">
+          <app-svg-icon icon="icon-cross" class="rounded"></app-svg-icon>
+        </button>
+        <button *ngIf="removeConfirm(category.value.id)" (click)="emitRemove(category)">
+          <app-svg-icon icon="icon-circle-with-cross" class="rounded"></app-svg-icon>
+        </button>
+      </div>
+    </li>
+  </ul>
 </form>

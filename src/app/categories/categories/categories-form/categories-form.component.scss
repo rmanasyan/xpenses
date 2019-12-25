@@ -1,8 +1,38 @@
+@import '../../../../sass/variables';
+
 .group {
   display: flex;
-  margin-bottom: 2px;
+  align-items: center;
+  padding: ($length18 / 2) 0;
+
+  app-icon-select {
+    margin-right: $length12;
+  }
+
+  input {
+    flex-grow: 1;
+  }
 
   button {
-    margin-left: 2px;
+    margin-left: $length12;
+    font-size: $length18;
+    border: none;
+
+    app-svg-icon {
+      fill: var(--accent);
+    }
+  }
+
+  // TODO: update app wide input styles?
+  input, button {
+    height: $length36;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border-color: transparent;
+
+    &:focus {
+      border-bottom-color: var(--contrast800);
+    }
   }
 }

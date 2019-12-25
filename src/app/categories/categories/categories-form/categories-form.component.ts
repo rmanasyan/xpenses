@@ -12,8 +12,8 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
   @Input() data: Category[];
   @Output() save = new EventEmitter<Category>();
   @Output() remove = new EventEmitter<Category>();
-
   categoriesForm: FormGroup;
+  private removeConfirmId: string | null = null;
 
   constructor(private fb: FormBuilder) {}
 
@@ -36,6 +36,14 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
 
   emitRemove(category: AbstractControl) {
     this.remove.emit(category.value as Category);
+  }
+
+  removeConfirm(id: string | null) {
+    return this.removeConfirmId === id;
+  }
+
+  showRemoveConfirm(id: string | null) {
+    this.removeConfirmId = id;
   }
 
   get categories() {

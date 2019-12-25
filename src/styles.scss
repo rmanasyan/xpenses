@@ -100,10 +100,11 @@ app-svg-icon {
   width: $length36;
   height: $length36;
   padding: $length12 / 2;
+  margin: 0;
   border-radius: 50%;
   background: transparent;
 
-  &:active, &.active {
+  &:hover, &:active, &.active {
     background: var(--contrast100);
   }
 }

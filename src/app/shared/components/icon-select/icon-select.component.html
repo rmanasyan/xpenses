@@ -1,0 +1,18 @@
+<div class="icon-select">
+  <app-svg-icon
+    [icon]="selectedIcon"
+    (click)="toggleIcons()"
+    class="rounded"
+  ></app-svg-icon>
+
+  <div class="icons" *ngIf="iconsVisible">
+    <app-svg-icon
+      *ngFor="let icon of icons"
+      [icon]="icon"
+      (click)="selectIcon(icon)"
+      class="rounded"
+    ></app-svg-icon>
+  </div>
+</div>
+
+<div class="overlay" *ngIf="iconsVisible" (click)="toggleIcons()"></div>
