@@ -8,5 +8,4 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class SvgIconComponent {
   @Input() icon: string;
-  @Input() iconSet = 'entypo';
 }
