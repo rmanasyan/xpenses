@@ -1,4 +1,38 @@
-<form [formGroup]="transactionForm" (ngSubmit)="emitSave()">
+<div class="new-form">
+  <header>
+    <app-transaction-type-select></app-transaction-type-select>
+
+    <label class="amount">
+      <input type="number" placeholder="0.00">
+    </label>
+
+    <app-transaction-date-input></app-transaction-date-input>
+  </header>
+
+  <main>
+    <div class="categories-link">
+      <a [routerLink]="['/categories']">
+        <app-svg-icon icon="icon-dots-two-horizontal" class="rounded"></app-svg-icon>
+      </a>
+    </div>
+    <app-transaction-category-select></app-transaction-category-select>
+
+    <label class="details">
+      <input type="text" placeholder="add transaction details">
+    </label>
+  </main>
+
+  <footer>
+    <button type="button">
+      <app-svg-icon icon="icon-cross" class="rounded"></app-svg-icon>
+    </button>
+    <button type="submit">
+      <app-svg-icon icon="icon-dot-single" class="rounded"></app-svg-icon>
+    </button>
+  </footer>
+</div>
+
+<form *ngIf="false" [formGroup]="transactionForm" (ngSubmit)="emitSave()">
   <main>
     <div class="fieldset">
       <label class="type">
@@ -24,7 +58,7 @@
       </select>
 
       <a [routerLink]="['/categories']">
-        <app-svg-icon icon="icon-dots-three-horizontal" class="rounded"></app-svg-icon>
+        <app-svg-icon icon="icon-dots-two-horizontal" class="rounded"></app-svg-icon>
       </a>
     </label>
 

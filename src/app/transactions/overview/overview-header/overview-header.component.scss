@@ -9,6 +9,11 @@
     color: var(--contrast600);
   }
 
+  .total {
+    line-height: 1;
+    font-size: $length48;
+  }
+
   .months {
     display: flex;
     margin: $length14 0 $length18 (-$length12);

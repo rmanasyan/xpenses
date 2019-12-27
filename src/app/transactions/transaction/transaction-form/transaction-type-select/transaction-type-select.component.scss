@@ -1,0 +1,7 @@
+@import '../../../../../sass/variables';
+
+:host {
+  display: block;
+  font-size: $length24;
+  color: var(--contrast600);
+}

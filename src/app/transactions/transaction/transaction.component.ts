@@ -44,6 +44,10 @@ export class TransactionComponent implements OnInit {
     }
   }
 
+  get backLink() {
+    return `/categorized/${this.routerQuery.getParams('date')}`;
+  }
+
   private navigateBack() {
     this.router.navigate([`/categorized/${this.routerQuery.getParams('date')}`]);
   }

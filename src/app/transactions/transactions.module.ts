@@ -11,6 +11,9 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
 import { TransactionsComponent } from './transactions.component';
 import { OverviewHistoryComponent } from './overview/overview-history/overview-history.component';
+import { TransactionTypeSelectComponent } from './transaction/transaction-form/transaction-type-select/transaction-type-select.component';
+import { TransactionCategorySelectComponent } from './transaction/transaction-form/transaction-category-select/transaction-category-select.component';
+import { TransactionDateInputComponent } from './transaction/transaction-form/transaction-date-input/transaction-date-input.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { OverviewHistoryComponent } from './overview/overview-history/overview-h
     TransactionComponent,
     TransactionFormComponent,
     TransactionsComponent,
-    OverviewHistoryComponent
+    OverviewHistoryComponent,
+    TransactionTypeSelectComponent,
+    TransactionCategorySelectComponent,
+    TransactionDateInputComponent
   ],
   imports: [CommonModule, TransactionsRoutingModule, SharedModule, ReactiveFormsModule]
 })
