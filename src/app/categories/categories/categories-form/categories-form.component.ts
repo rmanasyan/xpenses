@@ -1,4 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../state/category.model';
 
@@ -12,6 +22,7 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
   @Input() data: Category[];
   @Output() save = new EventEmitter<Category>();
   @Output() remove = new EventEmitter<Category>();
+  @ViewChild('removeButton', { static: false }) removeButton: ElementRef;
   categoriesForm: FormGroup;
   private removeConfirmId: string | null = null;
 
@@ -44,6 +55,10 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
 
   showRemoveConfirm(id: string | null) {
     this.removeConfirmId = id;
+
+    if (id) {
+      setTimeout(() => this.removeButton.nativeElement.focus(), 0);
+    }
   }
 
   get categories() {

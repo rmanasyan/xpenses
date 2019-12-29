@@ -4,7 +4,7 @@
       <div class="group" formGroupName="newCategory">
         <app-icon-select formControlName="icon"></app-icon-select>
 
-        <input type="text" placeholder="add new category" formControlName="name" (focus)="showRemoveConfirm(null)">
+        <input type="text" placeholder="add new category" formControlName="name">
 
         <button [disabled]="newCategory.pristine || newCategory.invalid" (click)="newCategory.reset()">
           <app-svg-icon icon="icon-erase" class="rounded"></app-svg-icon>
@@ -21,12 +21,12 @@
       <div class="group" [formGroupName]="i">
         <app-icon-select formControlName="icon"></app-icon-select>
 
-        <input type="text" formControlName="name" (focus)="showRemoveConfirm(null)">
+        <input type="text" formControlName="name">
 
         <button *ngIf="!removeConfirm(category.value.id)" (click)="showRemoveConfirm(category.value.id)">
           <app-svg-icon icon="icon-cross" class="rounded"></app-svg-icon>
         </button>
-        <button *ngIf="removeConfirm(category.value.id)" (click)="emitRemove(category)">
+        <button *ngIf="removeConfirm(category.value.id)" (click)="emitRemove(category)" (blur)="showRemoveConfirm(null)" #removeButton>
           <app-svg-icon icon="icon-circle-with-cross" class="rounded"></app-svg-icon>
         </button>
         <button [disabled]="category.invalid || category.pristine" (click)="emitSave(category)">
