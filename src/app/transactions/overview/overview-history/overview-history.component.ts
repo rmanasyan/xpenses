@@ -10,27 +10,16 @@ import { TransactionsQuery } from '../../state/transactions.query';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewHistoryComponent implements OnInit {
-  filteredTransactions$: Observable<Transaction[]> = this.transactionsQuery.selectFiltered$;
+  filteredTransactions$: Observable<Transaction[]>;
 
   constructor(private transactionsQuery: TransactionsQuery) {
   }
 
   ngOnInit() {
+    this.filteredTransactions$ = this.transactionsQuery.selectFiltered$;
   }
 
   trackByFn(i, transaction: Transaction) {
     return transaction.id;
-  }
-
-  categoryIcon(transaction: Transaction) {
-    // TODO: load icon from categories collection
-    if (transaction.category === 'food') { return 'icon-bowl'; }
-    if (transaction.category === 'shopping') { return 'icon-shopping-basket'; }
-    if (transaction.category === 'digital') { return 'icon-video'; }
-    if (transaction.category === 'misc') { return 'icon-bucket'; }
-    if (transaction.category === 'salary') { return 'icon-credit'; }
-    if (transaction.category === 'salary2') { return 'icon-credit'; }
-
-    return 'icon-water';
   }
 }

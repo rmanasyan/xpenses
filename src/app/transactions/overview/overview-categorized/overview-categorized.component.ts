@@ -1,5 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CategoriesQuery } from '../../../categories/state/categories.query';
+import { CategorizedTransaction } from '../../state/transaction.model';
 import { TransactionsQuery } from '../../state/transactions.query';
 
 @Component({
@@ -9,65 +12,22 @@ import { TransactionsQuery } from '../../state/transactions.query';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewCategorizedComponent implements OnInit {
-  categorizedIncome$ = this.transactionsQuery.selectCategorizedIncome$;
-  categorizedExpenses$ = this.transactionsQuery.selectCategorizedExpenses$;
+  categorizedIncome$: Observable<CategorizedTransaction[]>;
+  categorizedExpenses$: Observable<CategorizedTransaction[]>;
 
-  constructor(private transactionsQuery: TransactionsQuery, private router: Router) {
-  }
+  constructor(
+    private transactionsQuery: TransactionsQuery,
+    private categoriesQuery: CategoriesQuery,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.categorizedIncome$ = this.transactionsQuery.selectCategorizedIncome$;
+    this.categorizedExpenses$ = this.transactionsQuery.selectCategorizedExpenses$;
   }
 
   get historyLink() {
     const [, date] = [...this.router.url.match(/(\d{4}-\d{2})/)];
     return `/history/${date}`;
-  }
-
-  categoryName(category: string) {
-    // TODO: load name from categories collection in categories service
-    if (category === 'food') {
-      return 'Food and drinks';
-    }
-    if (category === 'shopping') {
-      return 'Shopping';
-    }
-    if (category === 'digital') {
-      return 'Digital';
-    }
-    if (category === 'misc') {
-      return 'Misc';
-    }
-    if (category === 'salary') {
-      return 'Salary';
-    }
-    if (category === 'salary2') {
-      return 'Salary 2';
-    }
-
-    return category;
-  }
-
-  categoryIcon(category: string) {
-    // TODO: load icon from categories collection
-    if (category === 'food') {
-      return 'icon-bowl';
-    }
-    if (category === 'shopping') {
-      return 'icon-shopping-basket';
-    }
-    if (category === 'digital') {
-      return 'icon-video';
-    }
-    if (category === 'misc') {
-      return 'icon-bucket';
-    }
-    if (category === 'salary') {
-      return 'icon-credit';
-    }
-    if (category === 'salary2') {
-      return 'icon-credit';
-    }
-
-    return 'icon-water';
   }
 }

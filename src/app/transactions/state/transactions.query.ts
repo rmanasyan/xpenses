@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { combineQueries, Order, QueryConfig, QueryEntity } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { map, switchMap } from 'rxjs/operators';
+import { CategoriesQuery } from '../../categories/state/categories.query';
 import { getCurrentMonthStart, getMonthNames, getNextMonthStart } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';
-import { TransactionType } from './transaction.model';
+import { Transaction, TransactionType } from './transaction.model';
 import { TransactionsState, TransactionsStore } from './transactions.store';
 
 @Injectable({providedIn: 'root'})
@@ -19,11 +20,18 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
 
   selectMonthTransactions$ = combineQueries([
     this.routerQuery.selectParams('date'),
-    this.selectAll()
+    this.selectAll(),
+    this.categoriesQuery.selectAll({ asObject: true })
   ]).pipe(
-    map(([date, transactions]) => {
-      return transactions
-        .filter(t => getNextMonthStart(date) > t.date.toDate() && t.date.toDate() >= getCurrentMonthStart(date));
+    map(([date, transactions, categories]) => {
+      return transactions.filter(
+        t => getNextMonthStart(date) > t.date.toDate() && t.date.toDate() >= getCurrentMonthStart(date)
+      ).map((transaction: Transaction) => {
+        return {
+          ...transaction,
+          categoryFull: categories[transaction.category]
+        };
+      });
     })
   );
 
@@ -62,14 +70,15 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
 
   selectCategorized$ = this.selectMonthTransactions$.pipe(
     map(transactions => {
-      return [...transactions.reduce(
-        (entryMap, e) => {
+      return [
+        ...transactions.reduce((entryMap, e) => {
           const amount: number = e.type === TransactionType.Debit ? -e.amount : +e.amount;
           const total: { total: number } = ((entryMap.get(e.category) || {}).total || 0) + amount;
-          return entryMap.set(e.category, {total});
-        },
-        new Map()
-      )];
+          const categoryFull = e.categoryFull;
+
+          return entryMap.set(e.category, { total, categoryFull });
+        }, new Map())
+      ];
     })
   );
 
@@ -122,7 +131,12 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     })
   );
 
-  constructor(protected store: TransactionsStore, private routerQuery: RouterQuery, private xDatePipe: XDatePipe) {
+  constructor(
+    protected store: TransactionsStore,
+    private routerQuery: RouterQuery,
+    private categoriesQuery: CategoriesQuery,
+    private xDatePipe: XDatePipe
+  ) {
     super(store);
   }
 }
