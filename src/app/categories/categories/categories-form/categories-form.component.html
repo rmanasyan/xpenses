@@ -20,7 +20,7 @@
 
   <ul>
     <li formArrayName="categories" *ngFor="let category of categories.controls; let i = index">
-      <div class="group" [formGroupName]="i">
+      <div class="group" formGroupName="{{i}}">
         <app-icon-select formControlName="icon"></app-icon-select>
 
         <label>
