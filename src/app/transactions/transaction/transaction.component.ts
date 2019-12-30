@@ -13,8 +13,8 @@ import { TransactionsQuery } from '../state/transactions.query';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransactionComponent implements OnInit {
-  transaction$: Observable<Transaction> = this.transactionsQuery.selectTransaction$;
-  loading$: Observable<boolean> = this.transactionsQuery.selectLoading();
+  transaction$: Observable<Transaction>;
+  loading$: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -24,6 +24,8 @@ export class TransactionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.transaction$ = this.transactionsQuery.selectTransaction$;
+    this.loading$ = this.transactionsQuery.selectLoading();
   }
 
   discardTransaction() {

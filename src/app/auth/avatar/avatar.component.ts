@@ -8,10 +8,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./avatar.component.scss']
 })
 export class AvatarComponent implements OnInit {
-  email$: Observable<string> = this.authQuery.email$;
-  photoURL$: Observable<string> = this.authQuery.photoURL$;
+  email$: Observable<string>;
+  photoURL$: Observable<string>;
 
   constructor(private authQuery: AuthQuery) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.email$ = this.authQuery.email$;
+    this.photoURL$ = this.authQuery.photoURL$;
+  }
 }

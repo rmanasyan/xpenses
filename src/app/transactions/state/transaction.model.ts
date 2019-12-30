@@ -19,13 +19,9 @@ export interface Transaction {
   type: TransactionType;
 }
 
-export type CategorizedTransaction = [Category['id'], { total: number; categoryFull?: Category }];
-
-/**
- * A factory function that creates Transactions
- */
-export function createTransaction(params: Partial<Transaction>) {
-  return {
-
-  } as Transaction;
+export interface TransactionMonth {
+  date: string;
+  name: string;
 }
+
+export type CategorizedTransaction = [Category['id'], { total: number; categoryFull?: Category }];

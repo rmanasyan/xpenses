@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  loading$: Observable<boolean> = this.authQuery.selectLoading();
-  signedIn$: Observable<boolean> = this.authQuery.signedIn$;
+  loading$: Observable<boolean>;
+  signedIn$: Observable<boolean>;
 
   constructor(private authQuery: AuthQuery, private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loading$ = this.authQuery.selectLoading();
+    this.signedIn$ = this.authQuery.signedIn$;
+  }
 
   signIn() {
     this.authService.signIn();

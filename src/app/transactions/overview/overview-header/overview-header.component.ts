@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Observable } from 'rxjs';
+import { TransactionMonth } from '../../state/transaction.model';
 import { TransactionsQuery } from '../../state/transactions.query';
 
 @Component({
@@ -8,16 +10,21 @@ import { TransactionsQuery } from '../../state/transactions.query';
   styleUrls: ['./overview-header.component.scss']
 })
 export class OverviewHeaderComponent implements OnInit, OnDestroy {
-  total$ = this.transactionsQuery.selectTotal$;
-  income$ = this.transactionsQuery.selectIncome$;
-  expenses$ = this.transactionsQuery.selectExpenses$;
-  months$ = this.transactionsQuery.selectMonths$;
+  total$: Observable<number>;
+  income$: Observable<number>;
+  expenses$: Observable<number>;
+  months$: Observable<TransactionMonth[]>;
   urlPath: string;
   urlDate: string;
 
   constructor(private transactionsQuery: TransactionsQuery) {}
 
   ngOnInit() {
+    this.total$ = this.transactionsQuery.selectTotal$;
+    this.income$ = this.transactionsQuery.selectIncome$;
+    this.expenses$ = this.transactionsQuery.selectExpenses$;
+    this.months$ = this.transactionsQuery.selectMonths$;
+
     this.transactionsQuery.selectParsedRouterUrl$.pipe(untilDestroyed(this)).subscribe(({ path, date }) => {
       this.urlPath = path;
       this.urlDate = date;

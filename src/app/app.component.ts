@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { combineQueries } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,12 +14,8 @@ import { TransactionsService } from './transactions/state/transactions.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  loading$: Observable<boolean> = combineQueries([
-    this.authQuery.selectLoading(),
-    this.transactionsQuery.selectLoading(),
-    this.categoriesQuery.selectLoading()
-  ]).pipe(map(([a, t, c]) => a || t || c));
+export class AppComponent implements OnInit {
+  loading$: Observable<boolean>;
 
   constructor(
     private authQuery: AuthQuery,
@@ -32,5 +28,13 @@ export class AppComponent {
     this.authService.init();
     this.transactionsService.init();
     this.categoriesService.init();
+  }
+
+  ngOnInit() {
+    this.loading$ = combineQueries([
+      this.authQuery.selectLoading(),
+      this.transactionsQuery.selectLoading(),
+      this.categoriesQuery.selectLoading()
+    ]).pipe(map(([a, t, c]) => a || t || c));
   }
 }
