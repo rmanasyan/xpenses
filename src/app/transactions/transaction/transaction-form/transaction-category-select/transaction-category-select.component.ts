@@ -42,4 +42,8 @@ export class TransactionCategorySelectComponent implements OnInit, ControlValueA
   writeValue(obj: any): void {
     this.selectedCategoryId = obj;
   }
+
+  get selectedCategory(): Category | undefined {
+    return this.categories.find(category => category.id === this.selectedCategoryId);
+  }
 }

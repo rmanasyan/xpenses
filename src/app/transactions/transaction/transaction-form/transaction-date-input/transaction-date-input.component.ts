@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { firestore } from 'firebase/app';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Transaction } from '../../../state/transaction.model';
 
 type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
@@ -17,7 +18,7 @@ type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
     }
   ]
 })
-export class TransactionDateInputComponent implements OnInit, ControlValueAccessor {
+export class TransactionDateInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
   controlsVisible = false;
   controlValue: Date;
   dateGroup: FormGroup;
@@ -38,8 +39,10 @@ export class TransactionDateInputComponent implements OnInit, ControlValueAccess
       seconds: ['']
     });
 
-    this.dateGroup.valueChanges.subscribe(form => this.setDate(form));
+    this.dateGroup.valueChanges.pipe(untilDestroyed(this)).subscribe(form => this.setDate(form));
   }
+
+  ngOnDestroy() {}
 
   selectControl(ctrl: ControlName) {
     this.selectedControl = ctrl;

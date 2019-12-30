@@ -2,33 +2,42 @@
 @import 'mixins';
 
 :host {
-  display: block;
-  max-height: $length56 * 4 - $length56 / 2;
-  overflow: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-left: $length72;
   }
 
-  li {
-    @include list-item;
+  ul {
+    display: block;
+    max-height: $length56 * 4 - $length56 / 2;
+    overflow: auto;
 
-    color: var(--contrast600);
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
-    &.selected {
-      color: var(--primary);
+    li {
+      @include list-item;
+
+      color: var(--contrast600);
+
+      &.selected {
+        color: var(--primary);
+
+        app-svg-icon {
+          background: var(--contrast100);
+        }
+      }
 
       app-svg-icon {
-        background: var(--contrast100);
+        margin-right: $length12;
       }
-    }
 
-    app-svg-icon {
-      margin-right: $length12;
-    }
-
-    .name {
-      flex-grow: 1;
+      .name {
+        flex-grow: 1;
+      }
     }
   }
 }
