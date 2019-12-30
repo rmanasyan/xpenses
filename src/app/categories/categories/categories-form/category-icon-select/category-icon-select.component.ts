@@ -55,17 +55,17 @@ const icons = [
 
 @Component({
   selector: 'app-icon-select',
-  templateUrl: './icon-select.component.html',
-  styleUrls: ['./icon-select.component.scss'],
+  templateUrl: './category-icon-select.component.html',
+  styleUrls: ['./category-icon-select.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: IconSelectComponent,
+      useExisting: CategoryIconSelectComponent,
       multi: true
     }
   ]
 })
-export class IconSelectComponent implements OnInit, ControlValueAccessor {
+export class CategoryIconSelectComponent implements OnInit, ControlValueAccessor {
   icons: string[];
   iconsVisible = false;
   selectedIcon: string;
