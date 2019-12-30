@@ -29,15 +29,15 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
       ).map((transaction: Transaction) => {
         return {
           ...transaction,
-          categoryFull: categories[transaction.category]
+          category: categories[transaction.categoryId]
         };
       });
     })
   );
 
   selectFiltered$ = this.routerQuery.selectQueryParams('category').pipe(
-    switchMap(category => this.selectMonthTransactions$.pipe(
-      map(transactions => category ? transactions.filter(t => t.category === category) : transactions)
+    switchMap(categoryId => this.selectMonthTransactions$.pipe(
+      map(transactions => categoryId ? transactions.filter(t => t.categoryId === categoryId) : transactions)
     ))
   );
 
@@ -73,10 +73,10 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
       return [
         ...transactions.reduce((entryMap, e) => {
           const amount: number = e.type === TransactionType.Debit ? -e.amount : +e.amount;
-          const total: { total: number } = ((entryMap.get(e.category) || {}).total || 0) + amount;
-          const categoryFull = e.categoryFull;
+          const total: { total: number } = ((entryMap.get(e.categoryId) || {}).total || 0) + amount;
+          const category = e.category;
 
-          return entryMap.set(e.category, { total, categoryFull });
+          return entryMap.set(e.categoryId, { total, category });
         }, new Map())
       ];
     })

@@ -40,7 +40,7 @@ export class TransactionFormComponent implements OnInit {
     this.transactionForm = this.fb.group({
       id: [''],
       amount: ['', [Validators.required, Validators.min(0)]],
-      category: [''],
+      categoryId: [''],
       date: [firestore.Timestamp.fromDate(new Date())],
       details: [''],
       type: ['-']

@@ -1,8 +1,8 @@
 <ul>
   <li *ngFor="let incomeGroup of categorizedIncome$ | async">
     <a [routerLink]="[historyLink]" [queryParams]="{ category: incomeGroup[0]}">
-      <app-svg-icon class="rounded" [icon]="incomeGroup[1].categoryFull?.icon"></app-svg-icon>
-      <div class="name">{{ incomeGroup[1].categoryFull?.name || incomeGroup[0] }}</div>
+      <app-svg-icon class="rounded" [icon]="incomeGroup[1].category?.icon"></app-svg-icon>
+      <div class="name">{{ incomeGroup[1].category?.name || incomeGroup[0] }}</div>
       <div class="total">{{ incomeGroup[1].total | xCurrency }}</div>
     </a>
   </li>
@@ -11,8 +11,8 @@
 <ul>
   <li *ngFor="let expensesGroup of categorizedExpenses$ | async">
     <a [routerLink]="[historyLink]" [queryParams]="{ category: expensesGroup[0]}">
-      <app-svg-icon class="rounded" [icon]="expensesGroup[1].categoryFull?.icon"></app-svg-icon>
-      <div class="name">{{ expensesGroup[1].categoryFull?.name || expensesGroup[0] }}</div>
+      <app-svg-icon class="rounded" [icon]="expensesGroup[1].category?.icon"></app-svg-icon>
+      <div class="name">{{ expensesGroup[1].category?.name || expensesGroup[0] }}</div>
       <div class="total">{{ expensesGroup[1].total | xCurrency }}</div>
     </a>
   </li>

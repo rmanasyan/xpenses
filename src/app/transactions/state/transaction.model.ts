@@ -12,8 +12,8 @@ export interface Transaction {
   createdAt: firestore.Timestamp;
   updatedAt: firestore.Timestamp;
   amount: string;
-  category: Category['id'];
-  categoryFull?: Category;
+  categoryId: Category['id'];
+  category?: Category;
   date: firestore.Timestamp;
   details: string;
   type: TransactionType;
@@ -24,4 +24,4 @@ export interface TransactionMonth {
   name: string;
 }
 
-export type CategorizedTransaction = [Category['id'], { total: number; categoryFull?: Category }];
+export type CategorizedTransaction = [Category['id'], { total: number; category?: Category }];
