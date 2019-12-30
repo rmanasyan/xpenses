@@ -10,6 +10,7 @@ export class XCurrencyPipe implements PipeTransform {
 
   transform(value: any, transactionType?: TransactionType): string {
     const prefix = transactionType && transactionType === TransactionType.Debit ? '-' : '';
+    value = value || 0;
 
     return prefix + this.decimalPipe.transform(value, '1.0-2');
   }

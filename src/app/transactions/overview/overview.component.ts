@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { TransactionsQuery } from '../state/transactions.query';
 
 @Component({
   selector: 'app-overview',
@@ -7,10 +9,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverviewComponent implements OnInit {
+  loading$: Observable<boolean>;
 
-  constructor() { }
+  constructor(private transactionsQuery: TransactionsQuery) { }
 
   ngOnInit() {
+    this.loading$ = this.transactionsQuery.selectLoading();
   }
 
 }

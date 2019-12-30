@@ -1,7 +1,3 @@
-<app-overview-header></app-overview-header>
+<app-overview-header *ngIf="!(loading$ | async)"></app-overview-header>
 
 <router-outlet></router-outlet>
-
-<!--<a class="fab" [routerLink]="['/transaction']">-->
-<!--  <app-svg-icon icon="icon-plus"></app-svg-icon>-->
-<!--</a>-->
