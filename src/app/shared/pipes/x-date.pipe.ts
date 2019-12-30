@@ -23,7 +23,7 @@ export class XDatePipe implements PipeTransform {
     } else {
       const notToday = new Date(timestamp);
       const today = new Date();
-      const diff = XDatePipe.daysDiff(notToday, today);
+      const diff = Math.abs(XDatePipe.daysDiff(notToday, today));
 
       if (diff < 2) {
         const when = diff === 1 ? 'Yesterday' : 'Today';
