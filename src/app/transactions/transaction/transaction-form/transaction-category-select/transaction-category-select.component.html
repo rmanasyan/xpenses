@@ -1,1 +1,11 @@
-categories
+<ul>
+  <li
+    role="option"
+    *ngFor="let category of categories"
+    (click)="selectCategory(category.id)"
+    [class.selected]="selectedCategoryId === category.id"
+  >
+    <app-svg-icon [icon]="category.icon" class="rounded"></app-svg-icon>
+    <div class="name">{{ category.name }}</div>
+  </li>
+</ul>

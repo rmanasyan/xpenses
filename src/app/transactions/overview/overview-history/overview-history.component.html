@@ -4,7 +4,7 @@
       <app-svg-icon [icon]="transaction.categoryFull?.icon" class="rounded"></app-svg-icon>
       <div class="details">
         <span>{{ transaction.details || transaction.categoryFull?.name || transaction.category }}</span>
-        <span class="date">{{ transaction.date | xDate:'E d MMM, H:mm': true }}</span>
+        <span class="date">{{ transaction.date | xDate:'E, MMM d, y, h:mm': true }}</span>
       </div>
       <div class="amount">{{ transaction.amount | xCurrency: transaction.type }}</div>
     </a>

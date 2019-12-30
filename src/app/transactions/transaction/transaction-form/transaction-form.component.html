@@ -1,79 +1,38 @@
-<div class="new-form">
+<form [formGroup]="transactionForm" (ngSubmit)="emitSave()">
   <header>
-    <app-transaction-type-select></app-transaction-type-select>
+    <app-transaction-type-select formControlName="type"></app-transaction-type-select>
 
     <label class="amount">
-      <input type="number" placeholder="0.00">
+      <input formControlName="amount" type="number" placeholder="0.00">
     </label>
 
-    <app-transaction-date-input></app-transaction-date-input>
+    <app-transaction-date-input formControlName="date"></app-transaction-date-input>
   </header>
 
   <main>
     <div class="categories-link">
-      <a [routerLink]="['/categories']">
-        <app-svg-icon icon="icon-dots-two-horizontal" class="rounded"></app-svg-icon>
+      <a class="rounded" [routerLink]="['/categories']">
+        <app-svg-icon icon="icon-dots-two-horizontal"></app-svg-icon>
       </a>
     </div>
-    <app-transaction-category-select></app-transaction-category-select>
+    <app-transaction-category-select formControlName="category" [categories]="categories$ | async"></app-transaction-category-select>
 
     <label class="details">
-      <input type="text" placeholder="add transaction details">
+      <app-svg-icon icon="icon-text" class="rounded"></app-svg-icon>
+      <input formControlName="details" type="text" placeholder="add transaction details">
     </label>
   </main>
 
   <footer>
-    <button type="button">
-      <app-svg-icon icon="icon-cross" class="rounded"></app-svg-icon>
+    <button type="button" class="rounded" *ngIf="data && !removeConfirm" (click)="toggleConfirm()">
+      <app-svg-icon icon="icon-cross"></app-svg-icon>
     </button>
-    <button type="submit">
-      <app-svg-icon icon="icon-dot-single" class="rounded"></app-svg-icon>
+    <button type="button" class="rounded" *ngIf="removeConfirm" (click)="emitRemove()" (blur)="toggleConfirm()" #removeButton>
+      <app-svg-icon icon="icon-circle-with-cross"></app-svg-icon>
     </button>
-  </footer>
-</div>
 
-<form *ngIf="false" [formGroup]="transactionForm" (ngSubmit)="emitSave()">
-  <main>
-    <div class="fieldset">
-      <label class="type">
-        <select formControlName="type">
-          <option value="-">-</option>
-          <option value="+">+</option>
-        </select>
-      </label>
-
-      <label class="amount">
-        <input type="number" formControlName="amount" placeholder="0.00">
-      </label>
-    </div>
-
-    <label class="category">
-      <select formControlName="category">
-        <option value="shopping">🛍 Shopping</option>
-        <option value="food">☕️ Food and Drinks</option>
-        <option value="digital">Digital</option>
-        <option value="misc">Misc</option>
-        <option value="salary">Salary</option>
-        <option value="salary2">Salary 2</option>
-      </select>
-
-      <a [routerLink]="['/categories']">
-        <app-svg-icon icon="icon-dots-two-horizontal" class="rounded"></app-svg-icon>
-      </a>
-    </label>
-
-    <label class="date">
-      <input type="datetime-local" formControlName="date">
-    </label>
-
-    <label class="details">
-      <input type="text" formControlName="details" placeholder="details">
-    </label>
-  </main>
-
-  <footer>
-    <button (click)="emitRemove()" *ngIf="data" type="button">Delete</button>
-    <button type="button" (click)="emitDiscard()">Cancel</button>
-    <button type="submit" [disabled]="!transactionForm.valid">Submit</button>
+    <button type="submit" class="rounded" [disabled]="!transactionForm.valid">
+      <app-svg-icon icon="icon-dot-single"></app-svg-icon>
+    </button>
   </footer>
 </form>

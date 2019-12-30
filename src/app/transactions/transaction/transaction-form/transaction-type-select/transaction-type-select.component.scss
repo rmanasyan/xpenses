@@ -2,6 +2,19 @@
 
 :host {
   display: block;
+  margin-left: -($length12 / 2);
   font-size: $length24;
   color: var(--contrast600);
+
+  span {
+    color: var(--contrast600);
+
+    &[role] {
+      padding: 0 ($length12 / 2);
+    }
+
+    &.selected {
+      color: var(--primary);
+    }
+  }
 }

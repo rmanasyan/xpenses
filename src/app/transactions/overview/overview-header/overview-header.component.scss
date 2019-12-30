@@ -7,6 +7,10 @@
   .title {
     font-size: $length24;
     color: var(--contrast600);
+
+    .title-spacer {
+      padding: 0 ($length12 / 2);
+    }
   }
 
   .total {

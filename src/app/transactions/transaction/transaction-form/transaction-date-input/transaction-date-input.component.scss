@@ -1,3 +1,72 @@
+@import '../../../../../sass/variables';
+
 :host {
   display: block;
 }
+
+.date-input {
+  position: relative;
+
+  .date-formatted {
+
+  }
+
+  .date-controls {
+    position: absolute;
+    left: -($length72 + $length20);
+    top: $length36;
+    padding: $length20;
+    width: 100vw;
+    overflow: auto;
+    background: var(--contrast100);
+    z-index: 10;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .date-group {
+      display: flex;
+      align-items: center;
+      margin-left: $length12;
+
+      button {
+        margin: 0 $length12;
+
+        app-svg-icon {
+          color: var(--accent);
+        }
+      }
+
+      input {
+        height: $length36;
+        text-align: center;
+        border-bottom: 1px solid transparent;
+
+        &:focus, &.selected {
+          border-bottom-color: var(--contrast800);
+        }
+
+        &.ng-invalid {
+          opacity: 0.6;
+        }
+      }
+
+      span {
+        margin: 0 $length12/2;
+      }
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background: var(--contrast);
+  opacity: 0.5;
+}
+

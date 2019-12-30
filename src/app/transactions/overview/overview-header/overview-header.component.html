@@ -1,7 +1,13 @@
-<div class="title">{{income$ | async | xCurrency}} / {{expenses$ | async  | xCurrency}}</div>
+<div class="title">
+  <span>{{income$ | async | xCurrency}}</span>
+  <span class="title-spacer">/</span>
+  <span>{{expenses$ | async  | xCurrency}}</span>
+</div>
+
 <div class="total">
   <a [routerLink]="[transactionLink]">{{ total$ | async | xCurrency}}</a>
 </div>
+
 <nav class="months">
   <a
     *ngFor="let month of months$ | async"
@@ -9,6 +15,7 @@
     [class.active]="isMonthActive(month.date)"
   >{{month.name}}</a>
 </nav>
+
 <div class="view-toggle">
   <a [routerLink]="[toggleLink]">
     <app-svg-icon icon="icon-dots-two-horizontal" class="rounded" *ngIf="!isHistoryViewActive"></app-svg-icon>

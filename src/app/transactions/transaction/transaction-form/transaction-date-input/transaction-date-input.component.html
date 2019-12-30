@@ -1,1 +1,87 @@
-Today
+<div class="date-input">
+  <span class="date-formatted" role="button" (click)="toggleControls()">
+    {{ controlValue | xDate: 'E, MMM d, y, h:mm':true }}
+  </span>
+
+  <div class="date-controls" *ngIf="controlsVisible">
+    <div [formGroup]="dateGroup" class="date-group">
+      <button type="button" (click)="step(-1)" class="rounded">
+        <app-svg-icon icon="icon-dot-single"></app-svg-icon>
+      </button>
+
+      <label>
+        <input
+          formControlName="year"
+          type="number"
+          min="1981"
+          max="2121"
+          (click)="selectControl('year')"
+          [class.selected]="selectedControl === 'year'"
+          [placeholder]="datePlaceholder | xDate: 'y'"
+        />
+      </label>
+
+      <span>-</span>
+
+      <label>
+        <input
+          formControlName="month"
+          type="number"
+          min="1"
+          max="12"
+          (click)="selectControl('month')"
+          [class.selected]="selectedControl === 'month'"
+          [placeholder]="datePlaceholder | xDate: 'MM'"
+        />
+      </label>
+
+      <span>-</span>
+
+      <label>
+        <input
+          formControlName="date"
+          type="number"
+          min="1"
+          max="31"
+          (click)="selectControl('date')"
+          [class.selected]="selectedControl === 'date'"
+          [placeholder]="datePlaceholder | xDate: 'dd'"
+        />
+      </label>
+
+      <span>,</span>
+
+      <label>
+        <input
+          formControlName="hours"
+          type="number"
+          min="0"
+          max="23"
+          (click)="selectControl('hours')"
+          [class.selected]="selectedControl === 'hours'"
+          [placeholder]="datePlaceholder | xDate: 'hh'"
+        />
+      </label>
+
+      <span>:</span>
+
+      <label>
+        <input
+          formControlName="minutes"
+          type="number"
+          min="0"
+          max="59"
+          (click)="selectControl('minutes')"
+          [class.selected]="selectedControl === 'minutes'"
+          [placeholder]="datePlaceholder | xDate: 'mm'"
+        />
+      </label>
+
+      <button type="button" (click)="step(1)" class="rounded">
+        <app-svg-icon icon="icon-dot-single"></app-svg-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" *ngIf="controlsVisible" (click)="toggleControls()"></div>

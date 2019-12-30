@@ -1,3 +1,34 @@
+@import '../../../../../sass/variables';
+
 :host {
   display: block;
+  max-height: 190px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: ($length18 / 2) 0;
+    color: var(--contrast600);
+
+    &.selected {
+      color: var(--primary);
+
+      app-svg-icon {
+        background: var(--contrast100);
+      }
+    }
+
+    app-svg-icon {
+      margin-right: $length12;
+    }
+
+    .name {
+      flex-grow: 1;
+    }
+  }
 }

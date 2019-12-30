@@ -1,7 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ID } from '@datorama/akita';
-import { XDatePipe } from '../../../shared/pipes/x-date.pipe';
+import { firestore } from 'firebase/app';
+import { Observable } from 'rxjs';
+import { CategoriesQuery } from '../../../categories/state/categories.query';
+import { Category } from '../../../categories/state/category.model';
 import { Transaction } from '../../state/transaction.model';
 
 @Component({
@@ -15,30 +27,28 @@ export class TransactionFormComponent implements OnInit {
   @Output() discard = new EventEmitter();
   @Output() remove = new EventEmitter<ID>();
   @Output() save = new EventEmitter<Partial<Transaction>>();
+  @ViewChild('removeButton', { static: false }) removeButton: ElementRef;
+  categories$: Observable<Category[]>;
+  transactionForm: FormGroup;
+  removeConfirm = false;
 
-  transactionForm: FormGroup = this.fb.group({
-    id: [''],
-    amount: ['', [Validators.required]],
-    category: ['shopping'],
-    date: [this.today],
-    details: [''],
-    type: ['-']
-  });
-
-  constructor(private fb: FormBuilder, private xDatePipe: XDatePipe) {}
+  constructor(private fb: FormBuilder, private categoriesQuery: CategoriesQuery) {}
 
   ngOnInit() {
+    this.categories$ = this.categoriesQuery.selectAll();
+
+    this.transactionForm = this.fb.group({
+      id: [''],
+      amount: ['', [Validators.required, Validators.min(0)]],
+      category: [''],
+      date: [firestore.Timestamp.fromDate(new Date())],
+      details: [''],
+      type: ['-']
+    });
+
     if (this.data) {
-      // TODO: use ControlValueAccessor or something?
-      const date = this.xDatePipe.transform(this.data.date, 'yyyy-MM-ddTHH:mm:ss');
-      const formValue = {...this.data, date};
-
-      this.transactionForm.patchValue(formValue, { emitEvent: false });
+      this.transactionForm.patchValue(this.data, { emitEvent: false });
     }
-  }
-
-  emitDiscard() {
-    this.discard.emit();
   }
 
   emitRemove() {
@@ -46,14 +56,14 @@ export class TransactionFormComponent implements OnInit {
   }
 
   emitSave() {
-    // TODO: use ControlValueAccessor or something?
-    const dateVal = this.transactionForm.get('date');
-    dateVal.setValue(new Date(dateVal.value));
-
     this.save.emit(this.transactionForm.value);
   }
 
-  get today() {
-    return this.xDatePipe.transform(Date.now(), 'yyyy-MM-ddTHH:mm:ss');
+  toggleConfirm() {
+    this.removeConfirm = !this.removeConfirm;
+
+    if (this.removeConfirm) {
+      setTimeout(() => this.removeButton.nativeElement.focus(), 0);
+    }
   }
 }

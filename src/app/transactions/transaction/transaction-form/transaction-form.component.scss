@@ -1,6 +1,6 @@
 @import '../../../../sass/variables';
 
-.new-form {
+form {
   display: block;
 
   header {
@@ -23,6 +23,10 @@
         &:focus {
           border-bottom-color: var(--contrast800);
         }
+
+        &.ng-invalid {
+          opacity: 0.6;
+        }
       }
     }
 
@@ -42,7 +46,23 @@
     }
 
     label.details {
-      display: block;
+      display: flex;
+      align-items: center;
+      padding: $length18 0;
+
+      app-svg-icon {
+        margin-right: $length12;
+      }
+
+      input {
+        width: 100%;
+        height: $length36;
+        border-bottom: 1px solid transparent;
+
+        &:focus {
+          border-bottom-color: var(--contrast800);
+        }
+      }
     }
   }
 
@@ -57,76 +77,6 @@
       app-svg-icon {
         color: var(--accent);
       }
-    }
-  }
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 0 0;
-
-  main {
-    flex: 1;
-
-    .fieldset {
-      display: flex;
-      align-items: stretch;
-    }
-
-    label {
-      display: flex;
-      margin-bottom: $length16;
-
-      &.amount {
-        //font-size: $length48;
-        flex: 1;
-
-        input {
-          //font-size: $length48;
-          margin-left: $length12;
-          width: 100%;
-        }
-      }
-
-      &.type {
-        //font-size: $length48;
-
-        select {
-          //font-size: $length48;
-        }
-      }
-
-      &.category {
-        display: flex;
-        align-items: center;
-
-        select {
-          width: 100%;
-        }
-      }
-
-      &.details {
-        input {
-          width: 100%;
-        }
-      }
-
-      & .date {
-        input {
-          width: 50%;
-        }
-      }
-    }
-  }
-
-  footer {
-    display: flex;
-    justify-content: center;
-
-    button {
-      margin: 0 $length12;
     }
   }
 }

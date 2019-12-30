@@ -40,6 +40,7 @@ export class TransactionComponent implements OnInit {
     if (id) {
       this.transactionsService.update(id, update).then(() => this.navigateBack());
     } else {
+      console.log('update', update);
       this.transactionsService.add(update).then(() => this.navigateBack());
     }
   }

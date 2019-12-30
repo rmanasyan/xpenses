@@ -1,1 +1,9 @@
-inc / exp
+<span role="option"
+  (click)="selectType(transactionType.Credit)"
+  [class.selected]="selectedType == transactionType.Credit"
+>inc</span>
+<span>/</span>
+<span role="option"
+  (click)="selectType(transactionType.Debit)"
+  [class.selected]="selectedType == transactionType.Debit"
+>exp</span>
