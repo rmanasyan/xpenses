@@ -1,3 +1,5 @@
+@import 'variables';
+
 @mixin overlay {
   position: fixed;
   top: 0;
@@ -13,4 +15,11 @@
   &.ng-invalid {
     opacity: 0.6;
   }
+}
+
+@mixin list-item {
+  display: flex;
+  align-items: center;
+  height: $length56;
+  padding: ($length18 / 2) 0;
 }

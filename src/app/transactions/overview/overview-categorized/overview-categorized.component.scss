@@ -1,12 +1,11 @@
 @import 'variables';
+@import 'mixins';
 
 :host {
   display: block;
 
   li a {
-    display: flex;
-    align-items: center;
-    padding: ($length18 / 2) 0;
+    @include list-item;
 
     app-svg-icon {
       background: var(--contrast100);

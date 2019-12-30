@@ -1,8 +1,9 @@
 @import 'variables';
+@import 'mixins';
 
 :host {
   display: block;
-  max-height: 190px;
+  max-height: $length56 * 4 - $length56 / 2;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -10,9 +11,8 @@
   }
 
   li {
-    display: flex;
-    align-items: center;
-    padding: ($length18 / 2) 0;
+    @include list-item;
+
     color: var(--contrast600);
 
     &.selected {
