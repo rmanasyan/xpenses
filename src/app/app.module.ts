@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,11 +21,13 @@ import { SharedModule } from './shared/shared.module';
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
+        AngularFirestoreModule.enablePersistence(),
         AngularFireAuthModule,
         environment.production ? [] : AkitaNgDevtools.forRoot(),
         AkitaNgRouterStoreModule.forRoot(),
         SharedModule,
-        AuthModule
+        AuthModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]
