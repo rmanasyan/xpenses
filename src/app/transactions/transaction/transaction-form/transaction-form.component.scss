@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 form {
   display: block;
@@ -24,9 +25,7 @@ form {
           border-bottom-color: var(--contrast800);
         }
 
-        &.ng-invalid {
-          opacity: 0.6;
-        }
+        @include input-invalid;
       }
     }
 

@@ -1,0 +1,16 @@
+@mixin overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  background: var(--contrast);
+  opacity: 0.6;
+}
+
+@mixin input-invalid {
+  &.ng-invalid {
+    opacity: 0.6;
+  }
+}

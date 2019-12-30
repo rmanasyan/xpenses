@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 :host {
   display: block;
@@ -47,22 +48,13 @@
           border-bottom-color: var(--contrast800);
         }
 
-        &.ng-invalid {
-          opacity: 0.6;
-        }
+        @include input-invalid;
       }
     }
   }
 }
 
 .overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9;
-  background: var(--contrast);
-  opacity: 0.5;
+  @include overlay;
 }
 
