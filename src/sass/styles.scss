@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik:400,500&subset=cyrillic');
-@import './sass/variables';
+@import 'variables';
+@import 'mixins';
 
 *, *:before, *:after {
   box-sizing: border-box;
