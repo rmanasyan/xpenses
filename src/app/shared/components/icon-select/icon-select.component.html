@@ -1,16 +1,18 @@
 <div class="icon-select">
   <app-svg-icon
+    class="rounded"
+    role="button"
     [icon]="selectedIcon"
     (click)="toggleIcons()"
-    class="rounded"
   ></app-svg-icon>
 
   <div class="icons" *ngIf="iconsVisible">
     <app-svg-icon
+      class="rounded"
+      role="button"
       *ngFor="let icon of icons"
       [icon]="icon"
       (click)="selectIcon(icon)"
-      class="rounded"
     ></app-svg-icon>
   </div>
 </div>

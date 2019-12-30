@@ -5,7 +5,7 @@
 
   <div class="date-controls" *ngIf="controlsVisible">
     <div [formGroup]="dateGroup" class="date-group">
-      <button type="button" (click)="step(-1)" class="rounded">
+      <button type="button" class="rounded" (click)="step(-1)">
         <app-svg-icon icon="icon-dot-single"></app-svg-icon>
       </button>
 
@@ -77,7 +77,7 @@
         />
       </label>
 
-      <button type="button" (click)="step(1)" class="rounded">
+      <button class="rounded" type="button" (click)="step(1)">
         <app-svg-icon icon="icon-dot-single"></app-svg-icon>
       </button>
     </div>

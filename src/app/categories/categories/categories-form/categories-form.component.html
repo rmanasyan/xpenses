@@ -4,13 +4,15 @@
       <div class="group" formGroupName="newCategory">
         <app-icon-select formControlName="icon"></app-icon-select>
 
-        <input type="text" placeholder="add new category" formControlName="name">
+        <label>
+          <input type="text" placeholder="add new category" formControlName="name">
+        </label>
 
-        <button [disabled]="newCategory.pristine || newCategory.invalid" (click)="newCategory.reset()">
-          <app-svg-icon icon="icon-erase" class="rounded"></app-svg-icon>
+        <button class="rounded" [disabled]="newCategory.pristine || newCategory.invalid" (click)="newCategory.reset()">
+          <app-svg-icon icon="icon-erase"></app-svg-icon>
         </button>
-        <button [disabled]="newCategory.invalid" (click)="emitSave(newCategory)">
-          <app-svg-icon icon="icon-plus" class="rounded"></app-svg-icon>
+        <button class="rounded" [disabled]="newCategory.invalid" (click)="emitSave(newCategory)">
+          <app-svg-icon icon="icon-plus"></app-svg-icon>
         </button>
       </div>
     </li>
@@ -21,16 +23,19 @@
       <div class="group" [formGroupName]="i">
         <app-icon-select formControlName="icon"></app-icon-select>
 
-        <input type="text" formControlName="name">
+        <label>
+          <input type="text" formControlName="name">
+        </label>
 
-        <button *ngIf="!removeConfirm(category.value.id)" (click)="showRemoveConfirm(category.value.id)">
-          <app-svg-icon icon="icon-cross" class="rounded"></app-svg-icon>
+        <button class="rounded" *ngIf="!removeConfirm(category.value.id)" (click)="showRemoveConfirm(category.value.id)">
+          <app-svg-icon icon="icon-cross"></app-svg-icon>
         </button>
-        <button *ngIf="removeConfirm(category.value.id)" (click)="emitRemove(category)" (blur)="showRemoveConfirm(null)" #removeButton>
-          <app-svg-icon icon="icon-circle-with-cross" class="rounded"></app-svg-icon>
+        <button class="rounded" *ngIf="removeConfirm(category.value.id)" (click)="emitRemove(category)" (blur)="showRemoveConfirm(null)" #removeButton>
+          <app-svg-icon icon="icon-circle-with-cross"></app-svg-icon>
         </button>
-        <button [disabled]="category.invalid || category.pristine" (click)="emitSave(category)">
-          <app-svg-icon icon="icon-dot-single" class="rounded"></app-svg-icon>
+
+        <button class="rounded" [disabled]="category.invalid || category.pristine" (click)="emitSave(category)">
+          <app-svg-icon icon="icon-dot-single"></app-svg-icon>
         </button>
       </div>
     </li>

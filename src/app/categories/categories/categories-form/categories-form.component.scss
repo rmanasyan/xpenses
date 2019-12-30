@@ -9,13 +9,17 @@
     margin-right: $length12;
   }
 
-  input {
+  label {
     flex-grow: 1;
-    height: $length36;
-    border-bottom: 1px solid transparent;
 
-    &:focus {
-      border-bottom-color: var(--contrast800);
+    input {
+      width: 100%;
+      height: $length36;
+      border-bottom: 1px solid transparent;
+
+      &:focus {
+        border-bottom-color: var(--contrast800);
+      }
     }
   }
 
