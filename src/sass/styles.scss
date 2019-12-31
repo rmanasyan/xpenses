@@ -43,16 +43,17 @@ li {
 input, button, select {
   -webkit-appearance: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background-color: transparent;
+  background: transparent;
   border: none;
+  border-radius: 0;
+  outline: 0;
   color: var(--primary);
   font-family: inherit;
   font-size: 100%;
   line-height: 1;
-  outline: 0;
 
   &:disabled {
-    opacity: .5;
+    @include opacity;
   }
 }
 
@@ -64,16 +65,10 @@ a, button, [role=button], [role=option] {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   user-select: none;
+  border-radius: .25rem;
 
   &:active {
-    border-radius: .25rem;
     background: var(--contrast100);
-  }
-
-  &.rounded {
-    &:active {
-      border-radius: 50%;
-    }
   }
 }
 

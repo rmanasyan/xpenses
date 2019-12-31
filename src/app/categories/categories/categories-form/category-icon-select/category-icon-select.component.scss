@@ -27,6 +27,10 @@
     app-svg-icon {
       margin: $length12 / 2;
       flex-shrink: 0;
+
+      &:active {
+        @include opacity;
+      }
     }
   }
 }

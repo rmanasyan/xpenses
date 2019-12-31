@@ -1,5 +1,9 @@
 @import 'variables';
 
+@mixin opacity {
+  opacity: 0.6;
+}
+
 @mixin overlay {
   position: fixed;
   top: 0;
@@ -8,12 +12,12 @@
   left: 0;
   z-index: 9;
   background: var(--contrast);
-  opacity: 0.6;
+  @include opacity;
 }
 
 @mixin input-invalid {
   &.ng-invalid {
-    opacity: 0.6;
+    @include opacity;
   }
 }
 
