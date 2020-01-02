@@ -22,7 +22,7 @@
     <button type="button" class="rounded" *ngIf="data && !removeConfirm" (click)="toggleConfirm()">
       <app-svg-icon icon="icon-cross"></app-svg-icon>
     </button>
-    <button type="button" class="rounded" *ngIf="removeConfirm" (click)="emitRemove()" (blur)="toggleConfirm()" #removeButton>
+    <button type="button" class="rounded" *ngIf="removeConfirm" (mousedown)="emitRemove()" (blur)="toggleConfirm()" #removeButton>
       <app-svg-icon icon="icon-circle-with-cross"></app-svg-icon>
     </button>
 

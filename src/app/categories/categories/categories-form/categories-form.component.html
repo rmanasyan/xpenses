@@ -30,7 +30,7 @@
         <button class="rounded" *ngIf="!removeConfirm(category.value.id)" (click)="showRemoveConfirm(category.value.id)">
           <app-svg-icon icon="icon-cross"></app-svg-icon>
         </button>
-        <button class="rounded" *ngIf="removeConfirm(category.value.id)" (click)="emitRemove(category)" (blur)="showRemoveConfirm(null)" #removeButton>
+        <button class="rounded" *ngIf="removeConfirm(category.value.id)" (mousedown)="emitRemove(category)" (blur)="showRemoveConfirm(null)" #removeButton>
           <app-svg-icon icon="icon-circle-with-cross"></app-svg-icon>
         </button>
 
