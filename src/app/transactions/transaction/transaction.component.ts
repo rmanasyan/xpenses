@@ -28,10 +28,6 @@ export class TransactionComponent implements OnInit {
     this.loading$ = this.transactionsQuery.selectLoading();
   }
 
-  discardTransaction() {
-    this.navigateBack();
-  }
-
   removeTransaction(id: string) {
     this.transactionsService.remove(id).then(() => this.navigateBack());
   }

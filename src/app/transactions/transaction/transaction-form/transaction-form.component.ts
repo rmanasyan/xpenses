@@ -9,7 +9,6 @@ import {
   ViewChild
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ID } from '@datorama/akita';
 import { firestore } from 'firebase/app';
 import { Observable } from 'rxjs';
 import { CategoriesQuery } from '../../../categories/state/categories.query';
@@ -24,8 +23,7 @@ import { Transaction } from '../../state/transaction.model';
 })
 export class TransactionFormComponent implements OnInit {
   @Input() data: Transaction;
-  @Output() discard = new EventEmitter();
-  @Output() remove = new EventEmitter<ID>();
+  @Output() remove = new EventEmitter<string>();
   @Output() save = new EventEmitter<Partial<Transaction>>();
   @ViewChild('removeButton', { static: false }) removeButton: ElementRef;
   @ViewChild('amountInput', { static: false }) amountInput: ElementRef;

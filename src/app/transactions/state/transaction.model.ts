@@ -1,4 +1,3 @@
-import { ID } from '@datorama/akita';
 import { firestore } from 'firebase/app';
 import { Category } from '../../categories/state/category.model';
 
@@ -8,7 +7,7 @@ export enum TransactionType {
 }
 
 export interface Transaction {
-  id: ID;
+  id: string;
   createdAt: firestore.Timestamp;
   updatedAt: firestore.Timestamp;
   amount: string;

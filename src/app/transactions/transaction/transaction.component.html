@@ -7,7 +7,6 @@
 <app-transaction-form
   *ngIf="!(loading$ | async)"
   [data]="transaction$ | async"
-  (discard)="discardTransaction()"
   (remove)="removeTransaction($event)"
   (save)="saveTransaction($event)"
 ></app-transaction-form>
