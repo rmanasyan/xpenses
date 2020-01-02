@@ -16,6 +16,10 @@
   .total {
     line-height: 1;
     font-size: $length48;
+
+    a {
+      display: block;
+    }
   }
 
   .months {

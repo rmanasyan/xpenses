@@ -28,6 +28,7 @@ export class TransactionFormComponent implements OnInit {
   @Output() remove = new EventEmitter<ID>();
   @Output() save = new EventEmitter<Partial<Transaction>>();
   @ViewChild('removeButton', { static: false }) removeButton: ElementRef;
+  @ViewChild('amountInput', { static: false }) amountInput: ElementRef;
   categories$: Observable<Category[]>;
   transactionForm: FormGroup;
   removeConfirm = false;
@@ -36,19 +37,8 @@ export class TransactionFormComponent implements OnInit {
 
   ngOnInit() {
     this.categories$ = this.categoriesQuery.selectAll();
-
-    this.transactionForm = this.fb.group({
-      id: [''],
-      amount: ['', [Validators.required, Validators.min(0)]],
-      categoryId: [''],
-      date: [firestore.Timestamp.fromDate(new Date())],
-      details: [''],
-      type: ['-']
-    });
-
-    if (this.data) {
-      this.transactionForm.patchValue(this.data, { emitEvent: false });
-    }
+    this.buildForm();
+    this.focusInput();
   }
 
   emitRemove() {
@@ -64,6 +54,27 @@ export class TransactionFormComponent implements OnInit {
 
     if (this.removeConfirm) {
       setTimeout(() => this.removeButton.nativeElement.focus(), 0);
+    }
+  }
+
+  private buildForm() {
+    this.transactionForm = this.fb.group({
+      id: [''],
+      amount: ['', [Validators.required, Validators.min(0)]],
+      categoryId: [''],
+      date: [firestore.Timestamp.fromDate(new Date())],
+      details: [''],
+      type: ['-']
+    });
+
+    if (this.data) {
+      this.transactionForm.patchValue(this.data, { emitEvent: false });
+    }
+  }
+
+  private focusInput() {
+    if (!this.data) {
+      setTimeout(() => this.amountInput.nativeElement.focus(), 0);
     }
   }
 }
