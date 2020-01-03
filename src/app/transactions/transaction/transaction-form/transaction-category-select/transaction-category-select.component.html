@@ -13,7 +13,7 @@
     (click)="selectCategory(category.id)"
     [class.selected]="selectedCategoryId === category.id"
   >
-    <app-svg-icon class="rounded" [icon]="category.icon"></app-svg-icon>
-    <div class="name">{{ category.name }}</div>
+    <app-svg-icon class="list-icon rounded" [icon]="category.icon"></app-svg-icon>
+    <div class="list-details name">{{ category.name }}</div>
   </li>
 </ul>

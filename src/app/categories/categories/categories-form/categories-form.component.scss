@@ -4,13 +4,7 @@
 .group {
   @include list-item;
 
-  app-icon-select {
-    margin-right: $length12;
-  }
-
   label {
-    flex-grow: 1;
-
     input {
       width: 100%;
       height: $length36;

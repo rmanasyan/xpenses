@@ -26,4 +26,16 @@
   align-items: center;
   height: $length56;
   padding: ($length18 / 2) 0;
+
+  .list-icon {
+    margin-right: $length12;
+    flex-shrink: 0;
+  }
+
+  .list-details {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

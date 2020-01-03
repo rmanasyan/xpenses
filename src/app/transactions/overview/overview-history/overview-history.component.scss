@@ -9,12 +9,9 @@
 
     app-svg-icon {
       background: var(--contrast100);
-      margin-right: $length12;
     }
 
     .details {
-      flex-grow: 1;
-
       .date {
         display: block;
         font-size: $length12;
