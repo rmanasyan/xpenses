@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 import { OverviewHistoryComponent } from './overview/overview-history/overview-history.component';
 import { OverviewComponent } from './overview/overview.component';
@@ -9,14 +8,10 @@ import { TransactionsComponent } from './transactions.component';
 import { OverviewCategorizedComponent } from './overview/overview-categorized/overview-categorized.component';
 import { OverviewGuard } from './overview/overview.guard';
 
-const redirectUnauthorizedToAuth = () => redirectUnauthorizedTo(['auth']);
-
 const routes: Routes = [
   {
     path: '',
     component: TransactionsComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToAuth },
     children: [
       {
         path: '',

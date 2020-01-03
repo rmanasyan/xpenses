@@ -29,17 +29,20 @@ export class TransactionComponent implements OnInit {
   }
 
   removeTransaction(id: string) {
-    this.transactionsService.remove(id).then(() => this.navigateBack());
+    this.transactionsService.remove(id);
+    this.navigateBack();
   }
 
   saveTransaction(transaction: Partial<Transaction>) {
     const { id, ...update } = { ...transaction };
 
     if (id) {
-      this.transactionsService.update(id, update).then(() => this.navigateBack());
+      this.transactionsService.update(id, update);
     } else {
-      this.transactionsService.add(update).then(() => this.navigateBack());
+      this.transactionsService.add(update);
     }
+
+    this.navigateBack();
   }
 
   get backLink() {

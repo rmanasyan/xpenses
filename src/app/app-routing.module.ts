@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+
+const redirectUnauthorizedToAuth = () => redirectUnauthorizedTo(['auth']);
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./transactions/transactions.module').then(m => m.TransactionsModule)
+    loadChildren: () => import('./transactions/transactions.module').then(m => m.TransactionsModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToAuth }
   },
   {
     path: 'auth',
@@ -12,7 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'categories',
-    loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)
+    loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToAuth }
   },
   {
     path: '**',
@@ -21,7 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
