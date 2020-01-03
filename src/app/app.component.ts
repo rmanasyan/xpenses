@@ -36,5 +36,8 @@ export class AppComponent implements OnInit {
       this.transactionsQuery.selectLoading(),
       this.categoriesQuery.selectLoading()
     ]).pipe(map(([a, t, c]) => a || t || c));
+
+    // fixes :active on ios
+    document.addEventListener('touchstart', () => {}, false);
   }
 }
