@@ -30,7 +30,9 @@ export class AuthService {
   }
 
   signIn() {
-    from(this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider()))
+    const provider = new auth.GoogleAuthProvider().setCustomParameters({ prompt: 'select_account' });
+
+    from(this.afAuth.auth.signInWithRedirect(provider))
       .pipe(
         setLoading(this.authStore),
         first(),
