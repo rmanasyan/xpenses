@@ -1,0 +1,15 @@
+:host {
+  app-svg-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--contrast100);
+    color: var(--accent);
+    animation: pulse 1.5s infinite ease;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0; }
+    20% { opacity: 1; }
+  }
+}
