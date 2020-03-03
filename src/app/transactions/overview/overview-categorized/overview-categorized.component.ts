@@ -4,12 +4,16 @@ import { Observable } from 'rxjs';
 import { CategoriesQuery } from '../../../categories/state/categories.query';
 import { CategorizedTransaction } from '../../state/transaction.model';
 import { TransactionsQuery } from '../../state/transactions.query';
+import { fadeThroughAnimation } from '../../../shared/animations/fade-through.animation';
 
 @Component({
   selector: 'app-overview-categorized',
   templateUrl: './overview-categorized.component.html',
   styleUrls: ['./overview-categorized.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeThroughAnimation],
+  // tslint:disable-next-line:no-host-metadata-property
+  host: { '[@fadeThroughAnimation]': '' }
 })
 export class OverviewCategorizedComponent implements OnInit {
   categorizedIncome$: Observable<CategorizedTransaction[]>;

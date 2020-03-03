@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TransactionsQuery } from '../state/transactions.query';
+import { fadeThroughAnimation } from '../../shared/animations/fade-through.animation';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeThroughAnimation],
+  // tslint:disable-next-line:no-host-metadata-property
+  host: { '[@fadeThroughAnimation]': '' }
 })
 export class OverviewComponent implements OnInit {
   loading$: Observable<boolean>;

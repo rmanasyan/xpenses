@@ -5,12 +5,16 @@ import { Observable } from 'rxjs';
 import { Transaction } from '../state/transaction.model';
 import { TransactionsService } from '../state/transactions.service';
 import { TransactionsQuery } from '../state/transactions.query';
+import { fadeThroughAnimation } from '../../shared/animations/fade-through.animation';
 
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
   styleUrls: ['./transaction.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeThroughAnimation],
+  // tslint:disable-next-line:no-host-metadata-property
+  host: { '[@fadeThroughAnimation]': '' }
 })
 export class TransactionComponent implements OnInit {
   transaction$: Observable<Transaction>;
