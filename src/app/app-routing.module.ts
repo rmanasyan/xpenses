@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules, RouteReuseStrategy } from '@angular/router';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { AppRouteReuseStrategy } from './app-route-reuse-strategy';
 
 const redirectUnauthorizedToAuth = () => redirectUnauthorizedTo(['auth']);
 
@@ -29,6 +30,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: AppRouteReuseStrategy
+    }
+  ],
 })
 export class AppRoutingModule {}
