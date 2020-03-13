@@ -3,15 +3,11 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthQuery } from '../state/auth.query';
 import { AuthService } from '../state/auth.service';
-import { fadeThroughAnimation } from '../../shared/animations/fade-through.animation';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
-  animations: [fadeThroughAnimation],
-  // tslint:disable-next-line:no-host-metadata-property
-  host: { '[@fadeThroughAnimation]': '' }
+  styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
   loading$: Observable<boolean>;

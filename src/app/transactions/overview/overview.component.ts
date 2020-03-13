@@ -9,8 +9,6 @@ import { fadeThroughAnimation } from '../../shared/animations/fade-through.anima
   styleUrls: ['./overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeThroughAnimation],
-  // tslint:disable-next-line:no-host-metadata-property
-  host: { '[@fadeThroughAnimation]': '' }
 })
 export class OverviewComponent implements OnInit {
   loading$: Observable<boolean>;

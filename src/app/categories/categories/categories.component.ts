@@ -4,15 +4,11 @@ import { AuthQuery } from '../../auth/state/auth.query';
 import { CategoriesService } from '../state/categories.service';
 import { CategoriesQuery } from '../state/categories.query';
 import { Category } from '../state/category.model';
-import { fadeThroughAnimation } from '../../shared/animations/fade-through.animation';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss'],
-  animations: [fadeThroughAnimation],
-  // tslint:disable-next-line:no-host-metadata-property
-  host: { '[@fadeThroughAnimation]': '' }
+  styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
   categories$: Observable<Category[]>;

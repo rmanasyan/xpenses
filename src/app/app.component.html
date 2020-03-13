@@ -5,8 +5,8 @@
     <app-avatar></app-avatar>
   </a>
 
-  <div class="router-outlet-container">
-    <router-outlet></router-outlet>
+  <div [@fadeThroughAnimation]="outlet?.activatedRouteData" >
+    <router-outlet #outlet="outlet"></router-outlet>
   </div>
 </div>
 
