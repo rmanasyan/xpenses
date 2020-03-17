@@ -4,7 +4,7 @@ import { action, combineQueries, withTransaction } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { FirebaseError, firestore } from 'firebase/app';
 import { throwError } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { getCurrentMonthStart, getNextMonthStart } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';
@@ -34,9 +34,8 @@ export class TransactionsService {
       this.authQuery.select('uid'),
       this.routerQuery.selectParams('date')
     ]).pipe(
+      tap(() => this.transactionsStore.setLoading(true)),
       map(([uid, date]) => {
-        this.transactionsStore.setLoading(true);
-
         this.collection = this.afs.collection(
           `users/${uid}/transactions`,
           ref => ref
@@ -47,9 +46,8 @@ export class TransactionsService {
         return this.collection;
       }),
       switchMap(collection => collection.stateChanges()),
+      tap(() => this.transactionsStore.setLoading(false)),
       withTransaction((actions: DocumentChangeAction<Transaction>[]) => {
-        this.transactionsStore.setLoading(false);
-
         if (actions.length === 0) {
           return;
         }
