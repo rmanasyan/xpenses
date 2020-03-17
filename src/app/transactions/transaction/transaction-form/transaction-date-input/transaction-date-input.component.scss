@@ -3,62 +3,60 @@
 
 :host {
   display: block;
-}
 
-.date-input {
-  position: relative;
+  .date-input {
+    position: relative;
 
-  .date-formatted {
+    .date-input-dialog {
+      .date-controls {
+        position: absolute;
+        left: -($length72 + $length20);
+        top: $length36;
+        padding: $length20;
+        width: 100vw;
+        overflow: auto;
+        background: var(--contrast100);
+        z-index: 10;
 
-  }
-
-  .date-controls {
-    position: absolute;
-    left: -($length72 + $length20);
-    top: $length36;
-    padding: $length20;
-    width: 100vw;
-    overflow: auto;
-    background: var(--contrast100);
-    z-index: 10;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    .date-group {
-      display: flex;
-      align-items: center;
-      margin-left: $length12;
-
-      button {
-        margin: 0 $length12;
-
-        &:active {
-          @include opacity;
+        &::-webkit-scrollbar {
+          display: none;
         }
 
-        app-svg-icon {
-          color: var(--accent);
+        .date-group {
+          display: flex;
+          align-items: center;
+          margin-left: $length12;
+
+          button {
+            margin: 0 $length12;
+
+            &:active {
+              @include opacity;
+            }
+
+            app-svg-icon {
+              color: var(--accent);
+            }
+          }
+
+          input {
+            height: $length36;
+            text-align: center;
+            border-bottom: 1px solid transparent;
+
+            &:focus,
+            &.selected {
+              border-bottom-color: var(--contrast800);
+            }
+
+            @include input-invalid;
+          }
         }
       }
 
-      input {
-        height: $length36;
-        text-align: center;
-        border-bottom: 1px solid transparent;
-
-        &:focus, &.selected {
-          border-bottom-color: var(--contrast800);
-        }
-
-        @include input-invalid;
+      .overlay {
+        @include overlay;
       }
     }
   }
 }
-
-.overlay {
-  @include overlay;
-}
-

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { fade } from '../../../../shared/animations/fade.animation';
 
 const icons = [
   'icon-address',
@@ -57,6 +58,7 @@ const icons = [
   selector: 'app-icon-select',
   templateUrl: './category-icon-select.component.html',
   styleUrls: ['./category-icon-select.component.scss'],
+  animations: [fade],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

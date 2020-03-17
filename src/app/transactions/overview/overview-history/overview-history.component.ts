@@ -11,12 +11,14 @@ import { TransactionsQuery } from '../../state/transactions.query';
 })
 export class OverviewHistoryComponent implements OnInit {
   filteredTransactions$: Observable<Transaction[]>;
+  loading$: Observable<boolean>;
 
   constructor(private transactionsQuery: TransactionsQuery) {
   }
 
   ngOnInit() {
     this.filteredTransactions$ = this.transactionsQuery.selectFiltered$;
+    this.loading$ = this.transactionsQuery.selectLoading();
   }
 
   trackByFn(i, transaction: Transaction) {

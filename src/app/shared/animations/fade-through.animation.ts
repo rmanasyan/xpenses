@@ -1,7 +1,9 @@
 import { trigger, animate, transition, style, query, group } from '@angular/animations';
 
-// https://material.io/design/motion/the-motion-system.html#fade-through
-export const fadeThroughAnimation = trigger('fadeThroughAnimation', [
+/**
+ * https://material.io/design/motion/the-motion-system.html#fade-through
+ */
+export const fadeThrough = trigger('fadeThrough', [
   transition('* <=> *', [
     style({ position: 'relative' }),
     query(
@@ -19,18 +21,6 @@ export const fadeThroughAnimation = trigger('fadeThroughAnimation', [
     ),
     group([
       query(
-        ':leave',
-        [
-          animate(
-            '90ms ease-in',
-            style({
-              opacity: 0
-            })
-          )
-        ],
-        { optional: true }
-      ),
-      query(
         ':enter',
         [
           style({
@@ -42,6 +32,18 @@ export const fadeThroughAnimation = trigger('fadeThroughAnimation', [
             style({
               opacity: 1,
               transform: 'scale(1)'
+            })
+          )
+        ],
+        { optional: true }
+      ),
+      query(
+        ':leave',
+        [
+          animate(
+            '90ms ease-in',
+            style({
+              opacity: 0
             })
           )
         ],

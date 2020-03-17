@@ -1,10 +1,12 @@
 <form [formGroup]="transactionForm" (ngSubmit)="emitSave()">
   <header>
-    <app-transaction-type-select formControlName="type"></app-transaction-type-select>
+    <div class="amount-container">
+      <app-transaction-type-select formControlName="type"></app-transaction-type-select>
 
-    <label class="amount">
-      <input formControlName="amount" type="number" placeholder="0.00" #amountInput>
-    </label>
+      <label class="amount">
+        <input formControlName="amount" type="number" placeholder="0.00" #amountInput>
+      </label>
+    </div>
 
     <app-transaction-date-input formControlName="date"></app-transaction-date-input>
   </header>

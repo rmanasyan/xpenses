@@ -8,13 +8,13 @@ import { CategoriesQuery } from './categories/state/categories.query';
 import { CategoriesService } from './categories/state/categories.service';
 import { TransactionsQuery } from './transactions/state/transactions.query';
 import { TransactionsService } from './transactions/state/transactions.service';
-import { fadeThroughAnimation } from './shared/animations/fade-through.animation';
+import { fadeThrough } from './shared/animations/fade-through.animation';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [fadeThroughAnimation],
+  animations: [fadeThrough],
 })
 export class AppComponent implements OnInit {
   loading$: Observable<boolean>;

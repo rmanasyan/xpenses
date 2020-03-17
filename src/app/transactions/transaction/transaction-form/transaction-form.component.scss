@@ -7,25 +7,25 @@ form {
   header {
     margin-left: $length72;
 
-    app-transaction-type-select {
+    .amount-container {
+      height: $length88;
 
-    }
-
-    label.amount {
-      display: block;
-      height: $length48;
-
-      input {
-        font-size: $length48;
+      label.amount {
+        display: block;
         height: $length48;
-        width: 100%;
-        border-bottom: 1px solid transparent;
 
-        &:focus {
-          border-bottom-color: var(--contrast800);
+        input {
+          font-size: $length48;
+          height: $length48;
+          width: 100%;
+          border-bottom: 1px solid transparent;
+
+          &:focus {
+            border-bottom-color: var(--contrast800);
+          }
+
+          @include input-invalid;
         }
-
-        @include input-invalid;
       }
     }
 

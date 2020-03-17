@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
-import { action, combineQueries, setLoading, withTransaction } from '@datorama/akita';
+import { action, combineQueries, withTransaction } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import { FirebaseError, firestore } from 'firebase/app';
 import { throwError } from 'rxjs';
@@ -34,8 +34,9 @@ export class TransactionsService {
       this.authQuery.select('uid'),
       this.routerQuery.selectParams('date')
     ]).pipe(
-      setLoading(this.transactionsStore),
       map(([uid, date]) => {
+        this.transactionsStore.setLoading(true);
+
         this.collection = this.afs.collection(
           `users/${uid}/transactions`,
           ref => ref

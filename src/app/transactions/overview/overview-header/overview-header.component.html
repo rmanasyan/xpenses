@@ -1,11 +1,15 @@
-<div class="title">
-  <span>{{income$ | async | xCurrency}}</span>
-  <span class="title-spacer">/</span>
-  <span>{{expenses$ | async | xCurrency}}</span>
-</div>
+<div class="totals-container">
+  <div class="totals" *ngIf="!(loading$ | async)" @fadeIn>
+    <div class="title">
+      <span>{{income$ | async | xCurrency}}</span>
+      <span class="title-spacer">/</span>
+      <span>{{expenses$ | async | xCurrency}}</span>
+    </div>
 
-<div class="total">
-  <a [routerLink]="[transactionLink]">{{ total$ | async | xCurrency}}</a>
+    <div class="total">
+      <a [routerLink]="[transactionLink]">{{ total$ | async | xCurrency}}</a>
+    </div>
+  </div>
 </div>
 
 <nav class="months">

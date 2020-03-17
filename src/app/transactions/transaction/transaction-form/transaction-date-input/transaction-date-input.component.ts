@@ -3,6 +3,7 @@ import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Valida
 import { firestore } from 'firebase/app';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Transaction } from '../../../state/transaction.model';
+import { fade } from '../../../../shared/animations/fade.animation';
 
 type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
 
@@ -10,6 +11,7 @@ type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
   selector: 'app-transaction-date-input',
   templateUrl: './transaction-date-input.component.html',
   styleUrls: ['./transaction-date-input.component.scss'],
+  animations: [fade],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

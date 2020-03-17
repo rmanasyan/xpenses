@@ -10,3 +10,13 @@
     </a>
   </li>
 </ul>
+
+<ul *ngIf="loading$ | async">
+  <li>
+    <a>
+      <app-svg-icon class="list-icon rounded"></app-svg-icon>
+      <div class="list-details">.</div>
+      <div class="amount">.</div>
+    </a>
+  </li>
+</ul>

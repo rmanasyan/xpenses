@@ -6,15 +6,18 @@
     (click)="toggleIcons()"
   ></app-svg-icon>
 
-  <div class="icons" *ngIf="iconsVisible">
-    <app-svg-icon
-      class="rounded"
-      role="button"
-      *ngFor="let icon of icons"
-      [icon]="icon"
-      (click)="selectIcon(icon)"
-    ></app-svg-icon>
+  <div class="icon-select-dialog" *ngIf="iconsVisible" @fade>
+    <div class="icons animation-dialog">
+      <app-svg-icon
+        class="rounded"
+        role="button"
+        *ngFor="let icon of icons"
+        [icon]="icon"
+        (click)="selectIcon(icon)"
+      ></app-svg-icon>
+    </div>
+
+    <div class="overlay animation-scrim" (click)="toggleIcons()"></div>
   </div>
 </div>
 
-<div class="overlay" *ngIf="iconsVisible" (click)="toggleIcons()"></div>

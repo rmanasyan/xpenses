@@ -3,6 +3,7 @@
 .container {
   min-height: 100%;
   padding: $length72 $length20 $length36;
+  overflow: hidden; // fix scrolls during x axis animation
 
   .avatar-link {
     display: block;

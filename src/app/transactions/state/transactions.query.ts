@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineQueries, Order, QueryConfig, QueryEntity } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
-import { map, switchMap } from 'rxjs/operators';
+import { map, pairwise, startWith, switchMap } from 'rxjs/operators';
 import { CategoriesQuery } from '../../categories/state/categories.query';
 import { getCurrentMonthStart, getMonthNames, getNextMonthStart } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';
@@ -128,6 +128,27 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
     map(url => {
       const [, path, date] = [...url.match(/(categorized|history)\/(\d{4}-\d{2})/) || []];
       return { path, date };
+    })
+  );
+
+  selectRouteAnimationOptions$ = this.selectParsedRouterUrl$.pipe(
+    startWith({
+      path: 'categorized',
+      date: '3020-01'
+    }),
+    pairwise(),
+    map(([prev, curr]) => {
+      const samePath = prev.path === curr.path;
+      const prevDateNumber = prev.date && prev.date.replace(/-/g, '');
+      const currDateNumber = curr.date && curr.date.replace(/-/g, '');
+
+      return {
+        value: samePath ? currDateNumber : curr.path,
+        params: {
+          directionEnter: prevDateNumber > currDateNumber ? '' : '-',
+          directionLeave: prevDateNumber > currDateNumber ? '-' : ''
+        }
+      };
     })
   );
 

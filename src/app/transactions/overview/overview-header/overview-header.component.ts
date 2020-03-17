@@ -3,17 +3,21 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Observable } from 'rxjs';
 import { TransactionMonth } from '../../state/transaction.model';
 import { TransactionsQuery } from '../../state/transactions.query';
+import { fadeIn } from '../../../shared/animations/fade-in.animation';
 
 @Component({
   selector: 'app-overview-header',
   templateUrl: './overview-header.component.html',
-  styleUrls: ['./overview-header.component.scss']
+  styleUrls: ['./overview-header.component.scss'],
+  animations: [fadeIn]
 })
 export class OverviewHeaderComponent implements OnInit, OnDestroy {
   total$: Observable<number>;
   income$: Observable<number>;
   expenses$: Observable<number>;
   months$: Observable<TransactionMonth[]>;
+  routeAnimationOptions$: Observable<any>;
+  loading$: Observable<boolean>;
   urlPath: string;
   urlDate: string;
 
@@ -24,6 +28,8 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy {
     this.income$ = this.transactionsQuery.selectIncome$;
     this.expenses$ = this.transactionsQuery.selectExpenses$;
     this.months$ = this.transactionsQuery.selectMonths$;
+    this.routeAnimationOptions$ = this.transactionsQuery.selectRouteAnimationOptions$;
+    this.loading$ = this.transactionsQuery.selectLoading();
 
     this.transactionsQuery.selectParsedRouterUrl$.pipe(untilDestroyed(this)).subscribe(({ path, date }) => {
       this.urlPath = path;

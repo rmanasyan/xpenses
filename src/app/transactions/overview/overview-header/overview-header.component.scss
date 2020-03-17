@@ -4,21 +4,28 @@
   display: block;
   margin-left: $length72;
 
-  .title {
-    font-size: $length24;
-    color: var(--contrast600);
+  .totals-container {
+    position: relative;
+    height: $length88; // match transaction form corresponding elements height
 
-    .title-spacer {
-      padding: 0 ($length12 / 2);
-    }
-  }
+    .totals {
+      .title {
+        font-size: $length24;
+        color: var(--contrast600);
 
-  .total {
-    line-height: 1;
-    font-size: $length48;
+        .title-spacer {
+          padding: 0 ($length12 / 2);
+        }
+      }
 
-    a {
-      display: block;
+      .total {
+        line-height: 1;
+        font-size: $length48;
+
+        a {
+          display: block;
+        }
+      }
     }
   }
 

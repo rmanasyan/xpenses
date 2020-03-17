@@ -1,5 +1,5 @@
-<app-overview-header *ngIf="!(loading$ | async)"></app-overview-header>
+<app-overview-header></app-overview-header>
 
-<div [@fadeThroughAnimation]="outlet?.activatedRouteData" >
-  <router-outlet #outlet="outlet"></router-outlet>
+<div [@sharedAxis]="routeAnimationOptions$ | async">
+  <router-outlet></router-outlet>
 </div>

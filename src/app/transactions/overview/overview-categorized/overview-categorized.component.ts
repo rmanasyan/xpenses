@@ -14,6 +14,7 @@ import { TransactionsQuery } from '../../state/transactions.query';
 export class OverviewCategorizedComponent implements OnInit {
   categorizedIncome$: Observable<CategorizedTransaction[]>;
   categorizedExpenses$: Observable<CategorizedTransaction[]>;
+  loading$: Observable<boolean>;
 
   constructor(
     private transactionsQuery: TransactionsQuery,
@@ -24,6 +25,7 @@ export class OverviewCategorizedComponent implements OnInit {
   ngOnInit() {
     this.categorizedIncome$ = this.transactionsQuery.selectCategorizedIncome$;
     this.categorizedExpenses$ = this.transactionsQuery.selectCategorizedExpenses$;
+    this.loading$ = this.transactionsQuery.selectLoading();
   }
 
   get historyLink() {

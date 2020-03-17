@@ -3,85 +3,87 @@
     {{ controlValue | xDate: 'E, MMM d, y, H:mm':true }}
   </span>
 
-  <div class="date-controls" *ngIf="controlsVisible">
-    <div [formGroup]="dateGroup" class="date-group">
-      <button type="button" class="rounded" (click)="step(-1)">
-        <app-svg-icon icon="icon-dot-single"></app-svg-icon>
-      </button>
+  <div class="date-input-dialog" *ngIf="controlsVisible" @fade>
+    <div class="date-controls animation-dialog">
+      <div [formGroup]="dateGroup" class="date-group">
+        <button type="button" class="rounded" (click)="step(-1)">
+          <app-svg-icon icon="icon-dot-single"></app-svg-icon>
+        </button>
 
-      <label>
-        <input
-          formControlName="year"
-          type="number"
-          min="1981"
-          max="2121"
-          (click)="selectControl('year')"
-          [class.selected]="selectedControl === 'year'"
-          [placeholder]="datePlaceholder | xDate: 'y'"
-        />
-      </label>
+        <label>
+          <input
+            formControlName="year"
+            type="number"
+            min="1981"
+            max="2121"
+            (click)="selectControl('year')"
+            [class.selected]="selectedControl === 'year'"
+            [placeholder]="datePlaceholder | xDate: 'y'"
+          />
+        </label>
 
-      <span>-</span>
+        <span>-</span>
 
-      <label>
-        <input
-          formControlName="month"
-          type="number"
-          min="1"
-          max="12"
-          (click)="selectControl('month')"
-          [class.selected]="selectedControl === 'month'"
-          [placeholder]="datePlaceholder | xDate: 'MM'"
-        />
-      </label>
+        <label>
+          <input
+            formControlName="month"
+            type="number"
+            min="1"
+            max="12"
+            (click)="selectControl('month')"
+            [class.selected]="selectedControl === 'month'"
+            [placeholder]="datePlaceholder | xDate: 'MM'"
+          />
+        </label>
 
-      <span>-</span>
+        <span>-</span>
 
-      <label>
-        <input
-          formControlName="date"
-          type="number"
-          min="1"
-          max="31"
-          (click)="selectControl('date')"
-          [class.selected]="selectedControl === 'date'"
-          [placeholder]="datePlaceholder | xDate: 'dd'"
-        />
-      </label>
+        <label>
+          <input
+            formControlName="date"
+            type="number"
+            min="1"
+            max="31"
+            (click)="selectControl('date')"
+            [class.selected]="selectedControl === 'date'"
+            [placeholder]="datePlaceholder | xDate: 'dd'"
+          />
+        </label>
 
-      <span>,</span>
+        <span>,</span>
 
-      <label>
-        <input
-          formControlName="hours"
-          type="number"
-          min="0"
-          max="23"
-          (click)="selectControl('hours')"
-          [class.selected]="selectedControl === 'hours'"
-          [placeholder]="datePlaceholder | xDate: 'hh'"
-        />
-      </label>
+        <label>
+          <input
+            formControlName="hours"
+            type="number"
+            min="0"
+            max="23"
+            (click)="selectControl('hours')"
+            [class.selected]="selectedControl === 'hours'"
+            [placeholder]="datePlaceholder | xDate: 'hh'"
+          />
+        </label>
 
-      <span>:</span>
+        <span>:</span>
 
-      <label>
-        <input
-          formControlName="minutes"
-          type="number"
-          min="0"
-          max="59"
-          (click)="selectControl('minutes')"
-          [class.selected]="selectedControl === 'minutes'"
-          [placeholder]="datePlaceholder | xDate: 'mm'"
-        />
-      </label>
+        <label>
+          <input
+            formControlName="minutes"
+            type="number"
+            min="0"
+            max="59"
+            (click)="selectControl('minutes')"
+            [class.selected]="selectedControl === 'minutes'"
+            [placeholder]="datePlaceholder | xDate: 'mm'"
+          />
+        </label>
 
-      <button class="rounded" type="button" (click)="step(1)">
-        <app-svg-icon icon="icon-dot-single"></app-svg-icon>
-      </button>
+        <button class="rounded" type="button" (click)="step(1)">
+          <app-svg-icon icon="icon-dot-single"></app-svg-icon>
+        </button>
+      </div>
     </div>
+
+    <div class="overlay animation-scrim" (click)="toggleControls()"></div>
   </div>
 </div>
-
-<div class="overlay" *ngIf="controlsVisible" (click)="toggleControls()"></div>
