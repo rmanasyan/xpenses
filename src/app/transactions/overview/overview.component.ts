@@ -12,10 +12,19 @@ import { sharedAxis } from '../../shared/animations/shared-axis.animation';
 })
 export class OverviewComponent implements OnInit {
   routeAnimationOptions$: Observable<any>;
+  dateOffset = 0;
 
   constructor(private transactionsQuery: TransactionsQuery) { }
 
   ngOnInit() {
     this.routeAnimationOptions$ = this.transactionsQuery.selectRouteAnimationOptions$;
+  }
+
+  prevMonth() {
+    this.dateOffset--;
+  }
+
+  nextMonth() {
+    this.dateOffset++;
   }
 }

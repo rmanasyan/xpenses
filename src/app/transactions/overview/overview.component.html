@@ -1,5 +1,10 @@
-<app-overview-header></app-overview-header>
+<app-overview-header [dateOffset]="dateOffset"></app-overview-header>
 
-<div [@sharedAxis]="routeAnimationOptions$ | async">
+<div
+  class="router-outlet-container"
+  [@sharedAxis]="routeAnimationOptions$ | async"
+  (swipeleft)="prevMonth()"
+  (swiperight)="nextMonth()"
+>
   <router-outlet></router-outlet>
 </div>

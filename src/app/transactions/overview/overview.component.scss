@@ -1,1 +1,3 @@
-
+.router-outlet-container {
+  min-height: 50vh; // allow some usable area to swipe on if the content is empty
+}

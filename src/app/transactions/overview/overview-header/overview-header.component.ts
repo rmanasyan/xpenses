@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 import { TransactionMonth } from '../../state/transaction.model';
 import { TransactionsQuery } from '../../state/transactions.query';
 import { fadeIn } from '../../../shared/animations/fade-in.animation';
@@ -11,7 +13,8 @@ import { fadeIn } from '../../../shared/animations/fade-in.animation';
   styleUrls: ['./overview-header.component.scss'],
   animations: [fadeIn]
 })
-export class OverviewHeaderComponent implements OnInit, OnDestroy {
+export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() dateOffset: number;
   total$: Observable<number>;
   income$: Observable<number>;
   expenses$: Observable<number>;
@@ -20,16 +23,19 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   urlPath: string;
   urlDate: string;
+  monthDates: TransactionMonth['date'][];
 
-  constructor(private transactionsQuery: TransactionsQuery) {}
+  constructor(private transactionsQuery: TransactionsQuery, private router: Router) {}
 
   ngOnInit() {
     this.total$ = this.transactionsQuery.selectTotal$;
     this.income$ = this.transactionsQuery.selectIncome$;
     this.expenses$ = this.transactionsQuery.selectExpenses$;
-    this.months$ = this.transactionsQuery.selectMonths$;
     this.routeAnimationOptions$ = this.transactionsQuery.selectRouteAnimationOptions$;
     this.loading$ = this.transactionsQuery.selectLoading();
+    this.months$ = this.transactionsQuery.selectMonths$.pipe(tap(months => {
+      this.monthDates = months.map(month => month.date);
+    }));
 
     this.transactionsQuery.selectParsedRouterUrl$.pipe(untilDestroyed(this)).subscribe(({ path, date }) => {
       this.urlPath = path;
@@ -38,6 +44,13 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.dateOffset.firstChange) {
+      const { previousValue, currentValue } = changes.dateOffset;
+      this.changeMonth(currentValue - previousValue);
+    }
+  }
 
   isMonthActive(date: string): boolean {
     return this.urlDate === date;
@@ -58,5 +71,14 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy {
 
   get transactionLink(): string {
     return `/transaction/${this.urlDate}`;
+  }
+
+  private changeMonth(increment: number): void {
+    const dateIndex = this.monthDates.indexOf(this.urlDate);
+    const newDate = this.monthDates[dateIndex - increment];
+
+    if (newDate) {
+      this.router.navigate([`/${this.urlPath}/${newDate}`]);
+    }
   }
 }

@@ -1,5 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -12,8 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppHammerConfig } from './app-hammer-config';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [AngularFireAuthGuard],
+  providers: [
+    AngularFireAuthGuard,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: AppHammerConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
