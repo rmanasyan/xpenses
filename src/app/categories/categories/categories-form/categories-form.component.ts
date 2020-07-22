@@ -22,7 +22,7 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
   @Input() data: Category[];
   @Output() save = new EventEmitter<Category>();
   @Output() remove = new EventEmitter<Category>();
-  @ViewChild('removeButton', { static: false }) removeButton: ElementRef;
+  @ViewChild('removeButton') removeButton: ElementRef;
   categoriesForm: FormGroup;
   private removeConfirmId: string | null = null;
 

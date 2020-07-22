@@ -25,8 +25,8 @@ export class TransactionFormComponent implements OnInit {
   @Input() data: Transaction;
   @Output() remove = new EventEmitter<string>();
   @Output() save = new EventEmitter<Partial<Transaction>>();
-  @ViewChild('removeButton', { static: false }) removeButton: ElementRef;
-  @ViewChild('amountInput', { static: false }) amountInput: ElementRef;
+  @ViewChild('removeButton') removeButton: ElementRef;
+  @ViewChild('amountInput') amountInput: ElementRef;
   categories$: Observable<Category[]>;
   transactionForm: FormGroup;
   removeConfirm = false;

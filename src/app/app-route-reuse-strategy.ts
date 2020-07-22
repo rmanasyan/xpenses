@@ -1,7 +1,9 @@
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from '@angular/router';
 import { OverviewCategorizedComponent } from './transactions/overview/overview-categorized/overview-categorized.component';
 import { OverviewHistoryComponent } from './transactions/overview/overview-history/overview-history.component';
 
+@Injectable()
 export class AppRouteReuseStrategy implements RouteReuseStrategy {
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     return false;
