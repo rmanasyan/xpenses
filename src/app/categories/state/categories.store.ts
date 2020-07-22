@@ -8,6 +8,8 @@ export interface CategoriesState extends EntityState<Category> {}
 @StoreConfig({ name: 'categories' })
 export class CategoriesStore extends EntityStore<CategoriesState> {
   constructor() {
-    super();
+    super({
+      loading: false
+    });
   }
 }

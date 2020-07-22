@@ -31,7 +31,7 @@ export class TransactionsService {
 
   syncMonthTransactions() {
     return combineQueries([
-      this.authQuery.select('uid'),
+      this.authQuery.uid$,
       this.routerQuery.selectParams('date')
     ]).pipe(
       tap(() => this.transactionsStore.setLoading(true)),
@@ -98,7 +98,7 @@ export class TransactionsService {
   }
 
   syncMonths() {
-    return this.authQuery.select('uid').pipe(
+    return this.authQuery.uid$.pipe(
       map(uid => {
         return this.afs.collection(
           `users/${uid}/transactions`,

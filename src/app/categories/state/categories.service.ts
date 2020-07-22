@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
-import { setLoading, withTransaction } from '@datorama/akita';
+import { withTransaction } from '@datorama/akita';
 import { FirebaseError } from 'firebase/app';
 import { throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { CategoriesStore } from './categories.store';
 import { Category } from './category.model';
@@ -19,17 +19,16 @@ export class CategoriesService {
   }
 
   syncCategories() {
-    return this.authQuery.select('uid').pipe(
-      setLoading(this.categoriesStore),
+    return this.authQuery.uid$.pipe(
+      tap(() => this.categoriesStore.setLoading(true)),
       map(uid => {
         this.collection = this.afs.collection(`users/${uid}/categories`, ref => ref.orderBy('name', 'asc'));
 
         return this.collection;
       }),
       switchMap(collection => collection.stateChanges()),
+      tap(() => this.categoriesStore.setLoading(false)),
       withTransaction((actions: DocumentChangeAction<Category>[]) => {
-        this.categoriesStore.setLoading(false);
-
         if (!actions.length) {
           return;
         }
