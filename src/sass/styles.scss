@@ -65,6 +65,7 @@ a, button, [role=button], [role=option] {
   cursor: pointer;
   user-select: none;
   border-radius: .25rem;
+  transition: background 200ms ease-out;
 
   &:active {
     background: var(--contrast100);
@@ -87,7 +88,7 @@ app-svg-icon {
 }
 
 // styled inputs
-input, button, select {
+input, button {
   &.default {
     background: var(--contrast100);
     border-radius: .25rem;
@@ -108,5 +109,20 @@ button.default {
     height: $length16;
     margin-right: $length12 / 2;
     width: $length16;
+  }
+}
+
+// hovers only on desktop
+@media(hover: hover) and (pointer: fine) {
+  a, button, [role=button], [role=option] {
+    &:hover {
+      background: var(--contrast100);
+    }
+  }
+
+  input, button {
+    &.default:hover {
+      background: var(--contrast);
+    }
   }
 }
