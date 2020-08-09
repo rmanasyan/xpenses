@@ -29,7 +29,7 @@ export class OverviewCategorizedComponent implements OnInit {
   }
 
   get historyLink() {
-    const [, date] = [...this.router.url.match(/(\d{4}-\d{2})/)];
+    const [, date] = [...this.router.url.match(/(\d{4}-\d{2})/) || []];
     return `/history/${date}`;
   }
 }

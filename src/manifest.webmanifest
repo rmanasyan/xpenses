@@ -17,5 +17,13 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add Transaction",
+      "short_name": "Add Transaction",
+      "url": "/transaction",
+      "icons": [{ "src": "assets/icons/shortcut-192x192.png", "sizes": "192x192" }]
+    }
   ]
 }
