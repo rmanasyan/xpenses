@@ -1,7 +1,7 @@
 <div class="date-input">
-  <span class="date-formatted" role="button" (click)="toggleControls()">
+  <div class="date-formatted" role="button" (click)="toggleControls()">
     {{ controlValue | xDate: 'E, MMM d, y, H:mm':true }}
-  </span>
+  </div>
 
   <div class="date-input-dialog" *ngIf="controlsVisible" @fade>
     <div class="date-controls animation-dialog">

@@ -7,6 +7,12 @@
   .date-input {
     position: relative;
 
+    .date-formatted {
+      display: inline-flex;
+      padding: 0 $length12;
+      margin-left: (-$length12);
+    }
+
     .date-input-dialog {
       .date-controls {
         position: absolute;
