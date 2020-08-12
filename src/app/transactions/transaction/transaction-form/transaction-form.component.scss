@@ -8,7 +8,7 @@ form {
     margin-left: $length72;
 
     .amount-container {
-      height: $length88;
+      @include header-top-bar-height;
 
       label.amount {
         display: block;

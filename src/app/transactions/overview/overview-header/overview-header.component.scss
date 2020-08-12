@@ -6,8 +6,8 @@
   margin-left: $length72;
 
   .totals-container {
+    @include header-top-bar-height; // match transaction form corresponding elements height
     position: relative;
-    height: $length88; // match transaction form corresponding elements height
 
     .totals {
       .title {

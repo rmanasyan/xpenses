@@ -43,3 +43,7 @@
 @mixin header-nav-item-padding {
   padding: $length3 $length12;
 }
+
+@mixin header-top-bar-height {
+  height: $length88;
+}
