@@ -17,7 +17,10 @@
     *ngFor="let month of months$ | async"
     [routerLink]="[monthLink(month.date)]"
     [class.active]="isMonthActive(month.date)"
-  >{{month.name}}</a>
+  >
+    {{month.name}}
+    <span *ngIf="month.index === 1">, {{month.year}}</span>
+  </a>
 </nav>
 
 <div class="view-toggle">

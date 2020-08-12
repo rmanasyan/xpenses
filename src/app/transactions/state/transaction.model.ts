@@ -20,7 +20,9 @@ export interface Transaction {
 
 export interface TransactionMonth {
   date: string;
+  index: number;
   name: string;
+  year: number;
 }
 
 export type CategorizedTransaction = [Category['id'], { total: number; category?: Category }];

@@ -8,8 +8,8 @@
     position: relative;
 
     .date-formatted {
+      @include header-nav-item-padding;
       display: inline-flex;
-      padding: 0 $length12;
       margin-left: (-$length12);
     }
 

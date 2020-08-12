@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 :host {
   display: block;
@@ -39,11 +40,18 @@
     }
 
     a {
-      padding: 0 $length12;
+      @include header-nav-item-padding;
+      display: flex;
+      align-items: baseline;
       color: var(--contrast600);
 
       &.active {
         color: var(--primary);
+      }
+
+      span {
+        font-size: $length14;
+        white-space: nowrap;
       }
     }
   }

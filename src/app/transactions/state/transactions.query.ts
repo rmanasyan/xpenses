@@ -117,7 +117,9 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
           const year = +startYear + Math.floor((+startMonth + index - 1) / 12);
           return {
             date: `${year}-${monthPadded}`,
-            name: monthNames[month - 1]
+            index: month,
+            name: monthNames[month - 1],
+            year
           };
         })
         .reverse();

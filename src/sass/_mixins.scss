@@ -39,3 +39,7 @@
     white-space: nowrap;
   }
 }
+
+@mixin header-nav-item-padding {
+  padding: $length3 $length12;
+}
