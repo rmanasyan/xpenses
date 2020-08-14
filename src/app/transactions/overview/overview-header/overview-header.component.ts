@@ -1,4 +1,14 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  SimpleChanges,
+  ViewChildren
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -15,6 +25,7 @@ import { fadeIn } from '../../../shared/animations/fade-in.animation';
 })
 export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
   @Input() dateOffset: number;
+  @ViewChildren('monthRef') monthRefs: QueryList<ElementRef>;
   total$: Observable<number>;
   income$: Observable<number>;
   expenses$: Observable<number>;
@@ -27,15 +38,30 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private transactionsQuery: TransactionsQuery, private router: Router) {}
 
+  get isHistoryViewActive(): boolean {
+    return this.urlPath === 'history';
+  }
+
+  get toggleLink(): string {
+    const newPath = this.urlPath === 'categorized' ? 'history' : 'categorized';
+    return `/${newPath}/${this.urlDate}`;
+  }
+
+  get transactionLink(): string {
+    return `/transaction/${this.urlDate}`;
+  }
+
   ngOnInit() {
     this.total$ = this.transactionsQuery.selectTotal$;
     this.income$ = this.transactionsQuery.selectIncome$;
     this.expenses$ = this.transactionsQuery.selectExpenses$;
     this.routeAnimationOptions$ = this.transactionsQuery.selectRouteAnimationOptions$;
     this.loading$ = this.transactionsQuery.selectLoading();
-    this.months$ = this.transactionsQuery.selectMonths$.pipe(tap(months => {
-      this.monthDates = months.map(month => month.date);
-    }));
+    this.months$ = this.transactionsQuery.selectMonths$.pipe(
+      tap(months => {
+        this.monthDates = months.map(month => month.date);
+      })
+    );
 
     this.transactionsQuery.selectParsedRouterUrl$.pipe(untilDestroyed(this)).subscribe(({ path, date }) => {
       this.urlPath = path;
@@ -60,25 +86,27 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
     return `/${this.urlPath}/${date}`;
   }
 
-  get isHistoryViewActive(): boolean {
-    return this.urlPath === 'history';
-  }
-
-  get toggleLink(): string {
-    const newPath = this.urlPath === 'categorized' ? 'history' : 'categorized';
-    return `/${newPath}/${this.urlDate}`;
-  }
-
-  get transactionLink(): string {
-    return `/transaction/${this.urlDate}`;
-  }
-
   private changeMonth(increment: number): void {
     const dateIndex = this.monthDates.indexOf(this.urlDate);
-    const newDate = this.monthDates[dateIndex - increment];
+    const newDateIndex = dateIndex - increment;
+    const newDate = this.monthDates[newDateIndex];
+
+    if (newDateIndex >= 0) {
+      this.scrollMonthIntoView(newDateIndex);
+    }
 
     if (newDate) {
       this.router.navigate([`/${this.urlPath}/${newDate}`]);
     }
+  }
+
+  private scrollMonthIntoView(dateIndex: number): void {
+    this.monthRefs
+      .find((item, index) => index === dateIndex)
+      ?.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest'
+      });
   }
 }

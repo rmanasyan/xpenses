@@ -17,6 +17,7 @@
     *ngFor="let month of months$ | async"
     [routerLink]="[monthLink(month.date)]"
     [class.active]="isMonthActive(month.date)"
+    #monthRef
   >
     {{month.name}}
     <span *ngIf="month.index === 1">, {{month.year}}</span>
