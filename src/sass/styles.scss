@@ -65,7 +65,7 @@ a, button, [role=button], [role=option] {
   cursor: pointer;
   user-select: none;
   border-radius: .25rem;
-  transition: background 200ms ease-out;
+  transition: all 200ms ease-out;
 
   &:active {
     background: var(--contrast100);
