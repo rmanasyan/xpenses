@@ -2,6 +2,7 @@
   <app-svg-icon
     class="rounded"
     role="button"
+    [class.disabled]="disabledState"
     [icon]="selectedIcon"
     (click)="toggleIcons()"
   ></app-svg-icon>

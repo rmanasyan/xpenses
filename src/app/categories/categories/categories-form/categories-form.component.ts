@@ -53,10 +53,12 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
     return this.removeConfirmId === id;
   }
 
-  showRemoveConfirm(id: string | null) {
+  showRemoveConfirm(id: string | null, index?: number) {
+    this.categories.enable();
     this.removeConfirmId = id;
 
     if (id) {
+      this.categories.at(index).disable();
       setTimeout(() => this.removeButton.nativeElement.focus(), 0);
     }
   }

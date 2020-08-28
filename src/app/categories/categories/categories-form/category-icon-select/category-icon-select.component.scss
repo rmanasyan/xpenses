@@ -6,6 +6,11 @@
 
   app-svg-icon {
     background: var(--contrast100);
+
+    &.disabled {
+      pointer-events: none;
+      @include opacity;
+    }
   }
 
   .icon-select-dialog {

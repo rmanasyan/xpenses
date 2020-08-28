@@ -27,7 +27,7 @@
           <input type="text" formControlName="name">
         </label>
 
-        <button class="rounded" *ngIf="!removeConfirm(category.value.id)" (click)="showRemoveConfirm(category.value.id)">
+        <button class="rounded" *ngIf="!removeConfirm(category.value.id)" (click)="showRemoveConfirm(category.value.id, i)">
           <app-svg-icon icon="icon-cross"></app-svg-icon>
         </button>
         <button class="rounded" *ngIf="removeConfirm(category.value.id)" (mousedown)="emitRemove(category)" (blur)="showRemoveConfirm(null)" #removeButton>

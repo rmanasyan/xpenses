@@ -71,6 +71,7 @@ export class CategoryIconSelectComponent implements OnInit, ControlValueAccessor
   icons: string[];
   iconsVisible = false;
   selectedIcon: string;
+  disabledState = false;
   onChange = (_: any) => {};
   onTouched = () => {};
 
@@ -101,5 +102,9 @@ export class CategoryIconSelectComponent implements OnInit, ControlValueAccessor
 
   writeValue(value: string): void {
     this.selectedIcon = value;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabledState = isDisabled;
   }
 }
