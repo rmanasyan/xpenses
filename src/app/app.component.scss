@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 app-loading-indicator,
 .avatar-link {
@@ -6,6 +7,10 @@ app-loading-indicator,
   position: absolute;
   right: $length20;
   top: $length20;
+}
+
+.avatar-link.loading {
+  @include opacity;
 }
 
 .container {
