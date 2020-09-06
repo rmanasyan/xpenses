@@ -7,11 +7,28 @@ import { XCurrencyPipe } from './pipes/x-currency.pipe';
 import { XDatePipe } from './pipes/x-date.pipe';
 import { SvgSymbolDefsComponent } from './components/svg-symbol-defs/svg-symbol-defs.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { VersionComponent } from './components/version/version.component';
 
 @NgModule({
-  declarations: [SvgIconComponent, LoadingBarComponent, XCurrencyPipe, XDatePipe, SvgSymbolDefsComponent, LoadingIndicatorComponent],
+  declarations: [
+    LoadingBarComponent,
+    LoadingIndicatorComponent,
+    SvgIconComponent,
+    SvgSymbolDefsComponent,
+    VersionComponent,
+    XCurrencyPipe,
+    XDatePipe,
+  ],
   providers: [XCurrencyPipe, XDatePipe, DecimalPipe, DatePipe],
   imports: [CommonModule, HttpClientModule],
-  exports: [SvgIconComponent, LoadingBarComponent, XCurrencyPipe, XDatePipe, SvgSymbolDefsComponent, LoadingIndicatorComponent]
+  exports: [
+    LoadingBarComponent,
+    LoadingIndicatorComponent,
+    SvgIconComponent,
+    SvgSymbolDefsComponent,
+    VersionComponent,
+    XCurrencyPipe,
+    XDatePipe,
+  ]
 })
 export class SharedModule {}

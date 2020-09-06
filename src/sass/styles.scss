@@ -64,7 +64,7 @@ input::-webkit-inner-spin-button {
 a, button, [role=button], [role=option] {
   cursor: pointer;
   user-select: none;
-  border-radius: .25rem;
+  border-radius: $length4;
   transition: all 200ms ease-out;
 
   &:active {
@@ -91,8 +91,8 @@ app-svg-icon {
 input, button {
   &.default {
     background: var(--contrast100);
-    border-radius: .25rem;
-    padding: .75rem 1rem;
+    border-radius: $length4;
+    padding: $length12 $length16;
     line-height: 1.25;
 
     &:active {

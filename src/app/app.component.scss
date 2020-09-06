@@ -1,14 +1,15 @@
 @import 'variables';
 
+app-loading-indicator,
+.avatar-link {
+  display: block;
+  position: absolute;
+  right: $length20;
+  top: $length20;
+}
+
 .container {
   min-height: 100%;
   padding: $length72 $length20 $length36;
   overflow: hidden; // fix scrolls during x axis animation
-
-  .avatar-link {
-    display: block;
-    position: absolute;
-    right: $length20;
-    top: $length20;
-  }
 }
