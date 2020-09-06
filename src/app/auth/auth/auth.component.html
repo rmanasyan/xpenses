@@ -1,18 +1,18 @@
 <div class="auth">
   <ng-container *ngIf="signedIn$ | async; else notAuthenticated">
-    <button class="default" (click)="signOut()">
+    <button class="text-button" (click)="signOut()">
       <app-svg-icon icon="icon-emoji-neutral"></app-svg-icon>
       Sign out
     </button>
 
-    <button class="default" (click)="start()">
+    <button class="text-button" (click)="start()">
       <app-svg-icon icon="icon-emoji-happy"></app-svg-icon>
       Start
     </button>
   </ng-container>
 
   <ng-template #notAuthenticated>
-    <button class="default" [disabled]="loading$ | async" (click)="signIn()">
+    <button class="text-button" [disabled]="loading$ | async" (click)="signIn()">
       <app-svg-icon icon="icon-emoji-flirt"></app-svg-icon>
       Sign in with Google
     </button>

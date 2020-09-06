@@ -87,23 +87,10 @@ app-svg-icon {
   background: transparent;
 }
 
-// styled inputs
-input, button {
-  &.default {
-    background: var(--contrast100);
-    border-radius: $length4;
-    padding: $length12 $length16;
-    line-height: 1.25;
-
-    &:active {
-      background: var(--contrast);
-    }
-  }
-}
-
-button.default {
+button.text-button {
   align-items: center;
   display: flex;
+  padding: $length12 $length16;
 
   app-svg-icon {
     height: $length16;
@@ -117,12 +104,6 @@ button.default {
   a, button, [role=button], [role=option] {
     &:hover {
       background: var(--contrast100);
-    }
-  }
-
-  input, button {
-    &.default:hover {
-      background: var(--contrast);
     }
   }
 }
