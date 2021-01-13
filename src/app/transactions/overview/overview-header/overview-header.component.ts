@@ -7,7 +7,7 @@ import {
   OnInit,
   QueryList,
   SimpleChanges,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ import { fadeIn } from '../../../shared/animations/fade-in.animation';
   selector: 'app-overview-header',
   templateUrl: './overview-header.component.html',
   styleUrls: ['./overview-header.component.scss'],
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
   @Input() dateOffset: number;
@@ -34,9 +34,18 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
   loading$: Observable<boolean>;
   urlPath: string;
   urlDate: string;
+  urlParam: string;
   monthDates: TransactionMonth['date'][];
 
   constructor(private transactionsQuery: TransactionsQuery, private router: Router) {}
+
+  get isCategorizedViewActive(): boolean {
+    return this.urlPath === 'categorized' || this.urlParam === 'category';
+  }
+
+  get isDailyViewActive(): boolean {
+    return this.urlPath === 'daily' || this.urlParam === 'day';
+  }
 
   get isHistoryViewActive(): boolean {
     return this.urlPath === 'history';
@@ -58,14 +67,15 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
     this.routeAnimationOptions$ = this.transactionsQuery.selectRouteAnimationOptions$;
     this.loading$ = this.transactionsQuery.selectLoading();
     this.months$ = this.transactionsQuery.selectMonths$.pipe(
-      tap(months => {
-        this.monthDates = months.map(month => month.date);
+      tap((months) => {
+        this.monthDates = months.map((month) => month.date);
       })
     );
 
-    this.transactionsQuery.selectParsedRouterUrl$.pipe(untilDestroyed(this)).subscribe(({ path, date }) => {
+    this.transactionsQuery.selectParsedRouterUrl$.pipe(untilDestroyed(this)).subscribe(({ path, date, param }) => {
       this.urlPath = path;
       this.urlDate = date;
+      this.urlParam = param;
     });
   }
 
@@ -106,7 +116,7 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
       ?.nativeElement.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
-        inline: 'nearest'
+        inline: 'nearest',
       });
   }
 }

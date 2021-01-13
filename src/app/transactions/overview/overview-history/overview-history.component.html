@@ -6,17 +6,9 @@
         <span>{{ transaction.details || transaction.category?.name || transaction.categoryId }}</span>
         <span class="date">{{ transaction.date | xDate:'E, MMM d, y, H:mm': true }}</span>
       </div>
-      <div class="amount">{{ transaction.amount | xCurrency: transaction.type }}</div>
+      <div class="list-accent amount">{{ transaction.amount | xCurrency: transaction.type }}</div>
     </a>
   </li>
 </ul>
 
-<ul *ngIf="loading$ | async">
-  <li>
-    <a>
-      <app-svg-icon class="list-icon rounded"></app-svg-icon>
-      <div class="list-details">.</div>
-      <div class="amount">.</div>
-    </a>
-  </li>
-</ul>
+<app-loading-indicator *ngIf="loading$ | async"></app-loading-indicator>

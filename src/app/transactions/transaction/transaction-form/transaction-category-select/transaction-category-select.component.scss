@@ -28,7 +28,7 @@
       &.selected {
         color: var(--primary);
 
-        app-svg-icon {
+        .list-icon {
           background: var(--contrast100);
         }
       }

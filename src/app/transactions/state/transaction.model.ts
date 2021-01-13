@@ -3,7 +3,7 @@ import { Category } from '../../categories/state/category.model';
 
 export enum TransactionType {
   Debit = '-',
-  Credit = '+'
+  Credit = '+',
 }
 
 export interface Transaction {
@@ -25,4 +25,15 @@ export interface TransactionMonth {
   year: number;
 }
 
-export type CategorizedTransaction = [Category['id'], { total: number; category?: Category }];
+export type CategorizedTransaction = {
+  categoryId: Category['id'];
+  total: number;
+  category?: Category;
+};
+
+export type DailyTransaction = {
+  day: string;
+  date: Transaction['date'];
+  dayTotal: number;
+  dayTransactionsAmount: number;
+};

@@ -1,0 +1,13 @@
+<ul>
+  <li *ngFor="let dailyGroup of daily$ | async">
+    <a [routerLink]="[historyLink]" [queryParams]="{ day: dailyGroup.day }">
+      <div class="list-icon rounded">
+        <span class="text-icon">{{ dailyGroup.day }}</span>
+      </div>
+      <div class="list-details day-total">{{ dailyGroup.dayTotal | xCurrency }}</div>
+      <div class="list-accent day-transactions-total">{{ dailyGroup.dayTransactionsAmount | xCurrency }}</div>
+    </a>
+  </li>
+</ul>
+
+<app-loading-indicator *ngIf="loading$ | async"></app-loading-indicator>

@@ -7,6 +7,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionsComponent } from './transactions.component';
 import { OverviewCategorizedComponent } from './overview/overview-categorized/overview-categorized.component';
 import { OverviewGuard } from './overview/overview.guard';
+import { OverviewDailyComponent } from './overview/overview-daily/overview-daily.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
         children: [
           { path: '', canActivate: [OverviewGuard], },
           { path: 'categorized/:date', component: OverviewCategorizedComponent },
+          { path: 'daily/:date', component: OverviewDailyComponent },
           { path: 'history/:date', component: OverviewHistoryComponent }
         ]
       },

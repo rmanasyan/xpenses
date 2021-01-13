@@ -59,5 +59,17 @@
   .view-toggle {
     display: flex;
     justify-content: flex-end;
+
+    a {
+      app-svg-icon {
+        color: var(--contrast600);
+      }
+
+      &.active {
+        app-svg-icon {
+          color: var(--contrast800);
+        }
+      }
+    }
   }
 }

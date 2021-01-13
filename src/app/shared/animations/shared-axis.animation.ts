@@ -60,7 +60,7 @@ const xAxis = animation([
 ]);
 
 export const sharedAxis = trigger('sharedAxis', [
-  transition('* => categorized, * => history', [
+  transition('* => categorized, * => daily, * => history', [
     useAnimation(zAxis)
   ]),
   transition('* <=> *', [

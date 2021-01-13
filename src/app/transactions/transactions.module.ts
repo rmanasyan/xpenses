@@ -14,20 +14,22 @@ import { OverviewHistoryComponent } from './overview/overview-history/overview-h
 import { TransactionTypeSelectComponent } from './transaction/transaction-form/transaction-type-select/transaction-type-select.component';
 import { TransactionCategorySelectComponent } from './transaction/transaction-form/transaction-category-select/transaction-category-select.component';
 import { TransactionDateInputComponent } from './transaction/transaction-form/transaction-date-input/transaction-date-input.component';
+import { OverviewDailyComponent } from './overview/overview-daily/overview-daily.component';
 
 @NgModule({
   declarations: [
     OverviewComponent,
     OverviewHeaderComponent,
     OverviewCategorizedComponent,
+    OverviewDailyComponent,
+    OverviewHistoryComponent,
     TransactionComponent,
     TransactionFormComponent,
     TransactionsComponent,
-    OverviewHistoryComponent,
     TransactionTypeSelectComponent,
     TransactionCategorySelectComponent,
-    TransactionDateInputComponent
+    TransactionDateInputComponent,
   ],
-  imports: [CommonModule, TransactionsRoutingModule, SharedModule, ReactiveFormsModule]
+  imports: [CommonModule, TransactionsRoutingModule, SharedModule, ReactiveFormsModule],
 })
 export class TransactionsModule {}

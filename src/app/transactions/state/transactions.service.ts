@@ -11,7 +11,7 @@ import { XDatePipe } from '../../shared/pipes/x-date.pipe';
 import { TransactionsStore } from './transactions.store';
 import { Transaction } from './transaction.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class TransactionsService {
   private collection: AngularFirestoreCollection;
 
@@ -21,7 +21,10 @@ export class TransactionsService {
     private authQuery: AuthQuery,
     private routerQuery: RouterQuery,
     private xDatePipe: XDatePipe
-  ) {
+  ) {}
+
+  private static get timestamp() {
+    return firestore.FieldValue.serverTimestamp();
   }
 
   init() {
@@ -30,22 +33,19 @@ export class TransactionsService {
   }
 
   syncMonthTransactions() {
-    return combineQueries([
-      this.authQuery.uid$,
-      this.routerQuery.selectParams('date')
-    ]).pipe(
+    return combineQueries([this.authQuery.uid$, this.routerQuery.selectParams('date')]).pipe(
       tap(() => this.transactionsStore.setLoading(true)),
       map(([uid, date]) => {
-        this.collection = this.afs.collection(
-          `users/${uid}/transactions`,
-          ref => ref
+        this.collection = this.afs.collection(`users/${uid}/transactions`, (ref) =>
+          ref
             .where('date', '<', getNextMonthStart(date))
             .where('date', '>=', getCurrentMonthStart(date))
-            .orderBy('date', 'desc'));
+            .orderBy('date', 'desc')
+        );
 
         return this.collection;
       }),
-      switchMap(collection => collection.stateChanges()),
+      switchMap((collection) => collection.stateChanges()),
       tap(() => this.transactionsStore.setLoading(false)),
       withTransaction((actions: DocumentChangeAction<Transaction>[]) => {
         if (actions.length === 0) {
@@ -82,7 +82,7 @@ export class TransactionsService {
     return this.collection.add({
       ...transaction,
       createdAt: TransactionsService.timestamp,
-      updatedAt: TransactionsService.timestamp
+      updatedAt: TransactionsService.timestamp,
     });
   }
 
@@ -93,19 +93,17 @@ export class TransactionsService {
   update(id, transaction: Partial<Transaction>) {
     return this.collection.doc(id).update({
       ...transaction,
-      updatedAt: TransactionsService.timestamp
+      updatedAt: TransactionsService.timestamp,
     });
   }
 
   syncMonths() {
     return this.authQuery.uid$.pipe(
-      map(uid => {
-        return this.afs.collection(
-          `users/${uid}/transactions`,
-          ref => ref.orderBy('date', 'asc').limit(1));
+      map((uid) => {
+        return this.afs.collection(`users/${uid}/transactions`, (ref) => ref.orderBy('date', 'asc').limit(1));
       }),
-      switchMap(collection => collection.valueChanges()),
-      filter(response => !!response.length),
+      switchMap((collection) => collection.valueChanges()),
+      filter((response) => !!response.length),
       withTransaction((response: Transaction[]) => {
         const startDate = this.xDatePipe.transform(response[0].date, 'yyyy-MM');
         this.updateStartDate(startDate);
@@ -116,11 +114,7 @@ export class TransactionsService {
   @action('Update startDate')
   updateStartDate(startDate: string) {
     this.transactionsStore.update({
-      ui: {startDate}
+      ui: { startDate },
     });
-  }
-
-  private static get timestamp() {
-    return firestore.FieldValue.serverTimestamp();
   }
 }

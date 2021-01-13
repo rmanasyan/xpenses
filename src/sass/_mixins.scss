@@ -30,6 +30,11 @@
   .list-icon {
     margin-right: $length12;
     flex-shrink: 0;
+    background: var(--contrast100);
+
+    &--transparent {
+      background: transparent;
+    }
   }
 
   .list-details {
@@ -37,6 +42,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .list-accent {
+    margin-left: $length12;
+    font-size: $length18;
+    color: var(--accent);
   }
 }
 

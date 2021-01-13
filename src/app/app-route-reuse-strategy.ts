@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from '@angular/router';
 import { OverviewCategorizedComponent } from './transactions/overview/overview-categorized/overview-categorized.component';
 import { OverviewHistoryComponent } from './transactions/overview/overview-history/overview-history.component';
+import { OverviewDailyComponent } from './transactions/overview/overview-daily/overview-daily.component';
 
 @Injectable()
 export class AppRouteReuseStrategy implements RouteReuseStrategy {
@@ -20,7 +21,9 @@ export class AppRouteReuseStrategy implements RouteReuseStrategy {
   }
 
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-    return curr.component === OverviewCategorizedComponent || curr.component === OverviewHistoryComponent
+    return curr.component === OverviewCategorizedComponent ||
+      curr.component === OverviewDailyComponent ||
+      curr.component === OverviewHistoryComponent
       ? false
       : future.routeConfig === curr.routeConfig;
   }

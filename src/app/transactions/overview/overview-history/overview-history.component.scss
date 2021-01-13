@@ -7,10 +7,6 @@
   li a {
     @include list-item;
 
-    app-svg-icon {
-      background: var(--contrast100);
-    }
-
     .details {
       .date {
         display: block;
@@ -18,12 +14,6 @@
         color: var(--contrast600);
         line-height: 0.8;
       }
-    }
-
-    .amount {
-      margin-left: $length12;
-      font-size: $length18;
-      color: var(--accent);
     }
   }
 }

@@ -2,7 +2,7 @@
   <ul>
     <li>
       <div class="group" formGroupName="newCategory">
-        <app-icon-select formControlName="icon" class="list-icon"></app-icon-select>
+        <app-icon-select formControlName="icon" class="list-icon list-icon--transparent"></app-icon-select>
 
         <label class="list-details">
           <input type="text" placeholder="add new category" formControlName="name">
@@ -21,7 +21,7 @@
   <ul>
     <li formArrayName="categories" *ngFor="let category of categories.controls; let i = index">
       <div class="group" formGroupName="{{i}}">
-        <app-icon-select formControlName="icon" class="list-icon"></app-icon-select>
+        <app-icon-select formControlName="icon" class="list-icon list-icon--transparent"></app-icon-select>
 
         <label class="list-details">
           <input type="text" formControlName="name">

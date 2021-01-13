@@ -1,13 +1,13 @@
 <div class="totals-container">
   <div class="totals" *ngIf="!(loading$ | async)" @fadeIn>
     <div class="title">
-      <span>{{income$ | async | xCurrency}}</span>
+      <span>{{ income$ | async | xCurrency }}</span>
       <span class="title-spacer">/</span>
-      <span>{{expenses$ | async | xCurrency}}</span>
+      <span>{{ expenses$ | async | xCurrency }}</span>
     </div>
 
     <div class="total">
-      <a [routerLink]="[transactionLink]">{{ total$ | async | xCurrency}}</a>
+      <a [routerLink]="[transactionLink]">{{ total$ | async | xCurrency }}</a>
     </div>
   </div>
 </div>
@@ -19,14 +19,19 @@
     [class.active]="isMonthActive(month.date)"
     #monthRef
   >
-    {{month.name}}
-    <span *ngIf="month.index === 1">, {{month.year}}</span>
+    {{ month.name }}
+    <span *ngIf="month.index === 1">, {{ month.year }}</span>
   </a>
 </nav>
 
 <div class="view-toggle">
-  <a class="rounded" [routerLink]="[toggleLink]">
-    <app-svg-icon icon="icon-dots-two-horizontal" *ngIf="!isHistoryViewActive"></app-svg-icon>
-    <app-svg-icon icon="icon-dots-three-horizontal" *ngIf="isHistoryViewActive"></app-svg-icon>
+  <a class="rounded" [class.active]="isCategorizedViewActive" [routerLink]="['/categorized', urlDate]">
+    <app-svg-icon icon="icon-dot-single"></app-svg-icon>
+  </a>
+  <a class="rounded" [class.active]="isDailyViewActive" [routerLink]="['/daily', urlDate]">
+    <app-svg-icon icon="icon-dot-single"></app-svg-icon>
+  </a>
+  <a class="rounded" [class.active]="isHistoryViewActive" [routerLink]="['/history', urlDate]">
+    <app-svg-icon icon="icon-dot-single"></app-svg-icon>
   </a>
 </div>
