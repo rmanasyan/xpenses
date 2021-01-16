@@ -1,12 +1,12 @@
 @import 'variables';
 
 :host {
-  display: block;
+  display: flex;
   margin-left: -($length12 / 2);
   font-size: $length24;
   color: var(--contrast600);
 
-  span {
+  .option {
     color: var(--contrast600);
 
     &[role] {

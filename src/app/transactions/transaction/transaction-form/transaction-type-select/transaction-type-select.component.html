@@ -1,9 +1,19 @@
-<span role="option"
+<div
   (click)="selectType(transactionType.Credit)"
   [class.selected]="selectedType == transactionType.Credit"
->inc</span>
-<span>/</span>
-<span role="option"
+  class="option"
+  role="option"
+  tabindex="0"
+>
+  inc
+</div>
+<div>/</div>
+<div
   (click)="selectType(transactionType.Debit)"
   [class.selected]="selectedType == transactionType.Debit"
->exp</span>
+  class="option"
+  role="option"
+  tabindex="0"
+>
+  exp
+</div>

@@ -1,9 +1,9 @@
 <div class="totals-container">
   <div class="totals" *ngIf="!(loading$ | async)" @fadeIn>
     <div class="title">
-      <span>{{ income$ | async | xCurrency }}</span>
-      <span class="title-spacer">/</span>
-      <span>{{ expenses$ | async | xCurrency }}</span>
+      <div class="label-income">{{ income$ | async | xCurrency }}</div>
+      <div class="title-spacer">/</div>
+      <div class="label-expenses">{{ expenses$ | async | xCurrency }}</div>
     </div>
 
     <div class="total">

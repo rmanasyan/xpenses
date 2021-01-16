@@ -11,6 +11,7 @@
 
     .totals {
       .title {
+        display: flex;
         font-size: $length24;
         color: var(--contrast600);
 
