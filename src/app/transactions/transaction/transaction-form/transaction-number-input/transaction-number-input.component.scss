@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: block;
+
+  .number-input-value {
+    .number-input-placeholder {
+      @include opacity;
+    }
+  }
+
+  .number-input-dialog-container {
+    .number-input-dialog {
+      @include dialog;
+
+      margin-top: $length12;
+      padding: $length20;
+
+      .number-input-values {
+        width: 12em;
+        height: 9em;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        margin: 0 auto;
+        font-size: $length24;
+
+        .number-input-value {
+          display: grid;
+          place-items: center;
+        }
+      }
+    }
+
+    .overlay {
+      @include overlay;
+    }
+  }
+}

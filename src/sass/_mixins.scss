@@ -15,9 +15,22 @@
   @include opacity;
 }
 
+@mixin dialog {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  background: var(--contrast100);
+  z-index: 10;
+}
+
+@mixin error {
+  color: var(--error);
+}
+
 @mixin input-invalid {
   &.ng-invalid {
-    @include opacity;
+    @include error;
   }
 }
 

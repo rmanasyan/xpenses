@@ -15,6 +15,7 @@ import { TransactionTypeSelectComponent } from './transaction/transaction-form/t
 import { TransactionCategorySelectComponent } from './transaction/transaction-form/transaction-category-select/transaction-category-select.component';
 import { TransactionDateInputComponent } from './transaction/transaction-form/transaction-date-input/transaction-date-input.component';
 import { OverviewDailyComponent } from './overview/overview-daily/overview-daily.component';
+import { TransactionNumberInputComponent } from './transaction/transaction-form/transaction-number-input/transaction-number-input.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { OverviewDailyComponent } from './overview/overview-daily/overview-daily
     TransactionTypeSelectComponent,
     TransactionCategorySelectComponent,
     TransactionDateInputComponent,
+    TransactionNumberInputComponent,
   ],
   imports: [CommonModule, TransactionsRoutingModule, SharedModule, ReactiveFormsModule],
 })

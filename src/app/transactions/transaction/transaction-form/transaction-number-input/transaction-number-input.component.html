@@ -1,0 +1,34 @@
+<div
+  #numberInputValueEl
+  (click)="toggleControls(numberInputValueEl)"
+  class="number-input-value"
+  role="button"
+  tabindex="0"
+>
+  <ng-container *ngIf="controlValueRaw; else placeholderTemplate">
+    {{ controlValueRaw }}
+  </ng-container>
+  <ng-template #placeholderTemplate>
+    <div class="number-input-placeholder">{{ placeholder }}</div>
+  </ng-template>
+</div>
+
+<div *ngIf="controlsVisible" @fade class="number-input-dialog-container">
+  <div [style.top.px]="dialogPositionTop" class="number-input-dialog animation-dialog">
+    <div class="number-input-values">
+      <div
+        (click)="setInputValue(inputValue)"
+        *ngFor="let inputValue of inputValues"
+        class="number-input-value darker"
+        role="button"
+      >
+        {{ inputValue }}
+      </div>
+      <div (click)="setInputValue(false)" class="number-input-value darker" role="button">
+        <app-svg-icon icon="icon-erase"></app-svg-icon>
+      </div>
+    </div>
+  </div>
+
+  <div (click)="toggleControls()" class="overlay animation-scrim"></div>
+</div>
