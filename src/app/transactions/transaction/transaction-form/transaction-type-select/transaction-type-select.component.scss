@@ -4,10 +4,10 @@
   display: flex;
   margin-left: -($length12 / 2);
   font-size: $length24;
-  color: var(--contrast600);
+  color: var(--contrast400);
 
   .option {
-    color: var(--contrast600);
+    color: var(--contrast400);
 
     &[role] {
       padding: 0 ($length12 / 2);

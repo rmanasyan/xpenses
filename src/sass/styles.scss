@@ -19,7 +19,6 @@ html, body {
 
 a {
   color: var(--primary);
-  outline: 0;
   text-decoration: none;
 }
 
@@ -64,11 +63,29 @@ input::-webkit-inner-spin-button {
 a, button, [role=button], [role=option] {
   cursor: pointer;
   user-select: none;
+  outline: none;
   border-radius: $length4;
   transition: all 200ms ease-out;
 
   &:active {
     background: var(--contrast100);
+  }
+
+  &.darker:active {
+    background: var(--contrast300);
+  }
+}
+
+// hovers only on desktop
+@media(hover: hover) and (pointer: fine) {
+  a, button, [role=button], [role=option] {
+    &:hover {
+      background: var(--contrast100);
+    }
+
+    &.darker:hover {
+      background: var(--contrast300);
+    }
   }
 }
 
@@ -77,7 +94,7 @@ app-svg-icon, .text-icon {
   place-items: center;
   height: $length24;
   width: $length24;
-  color: var(--contrast800);
+  color: var(--contrast500);
   font-weight: $weight500;
   font-size: $length14;
 }
@@ -100,14 +117,5 @@ button.text-button {
     height: $length16;
     margin-right: $length12 / 2;
     width: $length16;
-  }
-}
-
-// hovers only on desktop
-@media(hover: hover) and (pointer: fine) {
-  a, button, [role=button], [role=option] {
-    &:hover {
-      background: var(--contrast100);
-    }
   }
 }

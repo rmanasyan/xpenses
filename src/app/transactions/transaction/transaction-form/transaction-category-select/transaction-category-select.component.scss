@@ -23,7 +23,7 @@
     li {
       @include list-item;
 
-      color: var(--contrast600);
+      color: var(--contrast400);
 
       &.selected {
         color: var(--primary);

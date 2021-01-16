@@ -35,14 +35,6 @@
 
           button {
             margin: 0 $length12;
-
-            &:active {
-              @include opacity;
-            }
-
-            app-svg-icon {
-              color: var(--accent);
-            }
           }
 
           input {
@@ -52,7 +44,7 @@
 
             &:focus,
             &.selected {
-              border-bottom-color: var(--contrast800);
+              border-bottom-color: var(--contrast500);
             }
 
             @include input-invalid;

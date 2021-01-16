@@ -13,7 +13,7 @@
       .title {
         display: flex;
         font-size: $length24;
-        color: var(--contrast600);
+        color: var(--contrast400);
 
         .title-spacer {
           padding: 0 ($length12 / 2);
@@ -44,7 +44,7 @@
       @include header-nav-item-padding;
       display: flex;
       align-items: baseline;
-      color: var(--contrast600);
+      color: var(--contrast400);
 
       &.active {
         color: var(--primary);
@@ -63,12 +63,12 @@
 
     a {
       app-svg-icon {
-        color: var(--contrast600);
+        color: var(--contrast300);
       }
 
       &.active {
         app-svg-icon {
-          color: var(--contrast800);
+          color: var(--contrast500);
         }
       }
     }
