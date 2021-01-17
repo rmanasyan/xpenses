@@ -71,6 +71,10 @@ a, button, [role=button], [role=option] {
     background: var(--contrast100);
   }
 
+  &.darker {
+    background: var(--contrast100);
+  }
+
   &.darker:active {
     background: var(--contrast300);
   }
@@ -79,11 +83,12 @@ a, button, [role=button], [role=option] {
 // hovers only on desktop
 @media(hover: hover) and (pointer: fine) {
   a, button, [role=button], [role=option] {
-    &:hover {
+    // TODO: remove focus to avoid sticky bg?
+    &:hover, &:focus {
       background: var(--contrast100);
     }
 
-    &.darker:hover {
+    &.darker:hover, &.darker:focus {
       background: var(--contrast300);
     }
   }

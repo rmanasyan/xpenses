@@ -1,25 +1,25 @@
 <div class="date-input">
-  <div class="date-formatted" role="button" (click)="toggleControls()">
+  <div (click)="toggleControls()" class="date-formatted" role="button" tabindex="0">
     {{ controlValue | xDate: 'E, MMM d, y, H:mm':true }}
   </div>
 
-  <div class="date-input-dialog" *ngIf="controlsVisible" @fade>
+  <div *ngIf="controlsVisible" @fade class="date-input-dialog">
     <div class="date-controls animation-dialog">
       <div [formGroup]="dateGroup" class="date-group">
-        <button type="button" class="rounded darker" (click)="step(-1)">
+        <button (click)="step(-1)" class="rounded darker" type="button">
           <app-svg-icon icon="icon-dot-single"></app-svg-icon>
         </button>
 
         <label>
           <input
-            formControlName="year"
-            type="number"
-            inputmode="decimal"
-            min="1981"
-            max="2121"
             (click)="selectControl('year')"
             [class.selected]="selectedControl === 'year'"
             [placeholder]="datePlaceholder | xDate: 'y'"
+            formControlName="year"
+            inputmode="decimal"
+            max="2121"
+            min="1981"
+            type="number"
           />
         </label>
 
@@ -27,13 +27,13 @@
 
         <label>
           <input
-            formControlName="month"
-            type="number"
-            min="1"
-            max="12"
             (click)="selectControl('month')"
             [class.selected]="selectedControl === 'month'"
             [placeholder]="datePlaceholder | xDate: 'MM'"
+            formControlName="month"
+            max="12"
+            min="1"
+            type="number"
           />
         </label>
 
@@ -41,13 +41,13 @@
 
         <label>
           <input
-            formControlName="date"
-            type="number"
-            min="1"
-            max="31"
             (click)="selectControl('date')"
             [class.selected]="selectedControl === 'date'"
             [placeholder]="datePlaceholder | xDate: 'dd'"
+            formControlName="date"
+            max="31"
+            min="1"
+            type="number"
           />
         </label>
 
@@ -55,13 +55,13 @@
 
         <label>
           <input
-            formControlName="hours"
-            type="number"
-            min="0"
-            max="23"
             (click)="selectControl('hours')"
             [class.selected]="selectedControl === 'hours'"
             [placeholder]="datePlaceholder | xDate: 'hh'"
+            formControlName="hours"
+            max="23"
+            min="0"
+            type="number"
           />
         </label>
 
@@ -69,22 +69,22 @@
 
         <label>
           <input
-            formControlName="minutes"
-            type="number"
-            min="0"
-            max="59"
             (click)="selectControl('minutes')"
             [class.selected]="selectedControl === 'minutes'"
             [placeholder]="datePlaceholder | xDate: 'mm'"
+            formControlName="minutes"
+            max="59"
+            min="0"
+            type="number"
           />
         </label>
 
-        <button class="rounded darker" type="button" (click)="step(1)">
+        <button (click)="step(1)" class="rounded darker" type="button">
           <app-svg-icon icon="icon-dot-single"></app-svg-icon>
         </button>
       </div>
     </div>
 
-    <div class="overlay animation-scrim" (click)="toggleControls()"></div>
+    <div (click)="toggleControls()" class="overlay animation-scrim"></div>
   </div>
 </div>

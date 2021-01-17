@@ -1,19 +1,20 @@
 <header>
   <app-svg-icon [icon]="selectedCategory?.icon"></app-svg-icon>
 
-  <a class="rounded" [routerLink]="['/categories']">
+  <a [routerLink]="['/categories']" class="rounded">
     <app-svg-icon icon="icon-chevron-right"></app-svg-icon>
   </a>
 </header>
 
 <ul>
   <li
-    role="option"
-    *ngFor="let category of categories"
     (click)="selectCategory(category.id)"
+    *ngFor="let category of categories"
     [class.selected]="selectedCategoryId === category.id"
+    role="option"
+    tabindex="0"
   >
-    <app-svg-icon class="list-icon list-icon--transparent rounded" [icon]="category.icon"></app-svg-icon>
+    <app-svg-icon [icon]="category.icon" class="list-icon list-icon--transparent rounded"></app-svg-icon>
     <div class="list-details name">{{ category.name }}</div>
   </li>
 </ul>

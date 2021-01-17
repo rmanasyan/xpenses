@@ -1,24 +1,25 @@
 <div class="icon-select">
   <app-svg-icon
-    class="rounded"
-    role="button"
+    (click)="toggleIcons()"
     [class.disabled]="disabledState"
     [icon]="selectedIcon"
-    (click)="toggleIcons()"
+    class="rounded darker"
+    role="button"
+    tabindex="0"
   ></app-svg-icon>
 
-  <div class="icon-select-dialog" *ngIf="iconsVisible" @fade>
+  <div *ngIf="iconsVisible" @fade class="icon-select-dialog">
     <div class="icons animation-dialog">
       <app-svg-icon
-        class="rounded"
-        role="button"
+        (click)="selectIcon(icon)"
         *ngFor="let icon of icons"
         [icon]="icon"
-        (click)="selectIcon(icon)"
+        class="rounded darker"
+        role="button"
+        tabindex="0"
       ></app-svg-icon>
     </div>
 
-    <div class="overlay animation-scrim" (click)="toggleIcons()"></div>
+    <div (click)="toggleIcons()" class="overlay animation-scrim"></div>
   </div>
 </div>
-
