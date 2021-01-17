@@ -19,16 +19,16 @@
       <div
         (click)="setInputValue(inputValue)"
         *ngFor="let inputValue of inputValues"
+        [id]="'number-input-value-' + inputValue"
         class="number-input-value darker"
         role="button"
+        tabindex="0"
       >
-        {{ inputValue }}
-      </div>
-      <div (click)="setInputValue(false)" class="number-input-value darker" role="button">
-        <app-svg-icon icon="icon-erase"></app-svg-icon>
+        <ng-container *ngIf="inputValue !== 'Backspace'">{{ inputValue }}</ng-container>
+        <app-svg-icon *ngIf="inputValue === 'Backspace'" icon="icon-erase"></app-svg-icon>
       </div>
     </div>
   </div>
 
-  <div (click)="toggleControls()" class="overlay animation-scrim"></div>
+  <div (click)="toggleControls()" (document:keydown.escape)="toggleControls()" class="overlay animation-scrim"></div>
 </div>

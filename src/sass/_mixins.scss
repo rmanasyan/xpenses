@@ -71,3 +71,11 @@
 @mixin header-top-bar-height {
   height: $length88;
 }
+
+@mixin overflow-auto {
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

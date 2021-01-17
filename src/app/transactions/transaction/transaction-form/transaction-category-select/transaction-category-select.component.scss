@@ -14,11 +14,8 @@
   ul {
     display: block;
     max-height: $length56 * $visible-categories - $length56 / 2;
-    overflow: auto;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    @include overflow-auto;
 
     li {
       @include list-item;

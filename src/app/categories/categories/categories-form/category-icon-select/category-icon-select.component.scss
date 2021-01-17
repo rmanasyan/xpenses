@@ -20,13 +20,10 @@
       display: flex;
       align-items: center;
       width: 100vw;
-      overflow: auto;
       background: var(--contrast100);
       z-index: 10;
 
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      @include overflow-auto;
 
       app-svg-icon {
         margin: $length12 / 2;

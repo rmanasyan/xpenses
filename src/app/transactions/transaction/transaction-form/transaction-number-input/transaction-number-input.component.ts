@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { fade } from '../../../../shared/animations/fade.animation';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isNumber } from '@datorama/akita';
@@ -21,7 +21,8 @@ export class TransactionNumberInputComponent implements OnInit, ControlValueAcce
   controlsVisible = false;
   controlValueRaw = '';
   dialogPositionTop: number;
-  inputValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0'];
+  inputValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'Backspace'];
+  inputValuesRegex = new RegExp(/[0-9.]|(Backspace)/);
 
   constructor() {}
 
@@ -31,6 +32,15 @@ export class TransactionNumberInputComponent implements OnInit, ControlValueAcce
 
   set controlValue(value: number | null) {
     this.controlValueRaw = value ? value + '' : '';
+  }
+
+  @HostListener('keydown', ['$event'])
+  keydown(event: KeyboardEvent) {
+    if (this.inputValuesRegex.test(event.key)) {
+      event.preventDefault();
+      document.getElementById(`number-input-value-${event.key}`)?.focus();
+      this.setInputValue(event.key);
+    }
   }
 
   onChange = (_: any) => {};
@@ -44,12 +54,14 @@ export class TransactionNumberInputComponent implements OnInit, ControlValueAcce
     this.controlsVisible = !this.controlsVisible;
   }
 
-  setInputValue(inputValue: string | boolean) {
-    if (typeof inputValue === 'string' && /[0-9.]/.test(inputValue)) {
-      const concatenated = this.controlValueRaw.concat(inputValue);
-      this.controlValueRaw = isNumber(concatenated) ? concatenated : this.controlValueRaw;
-    } else if (inputValue === false) {
-      this.controlValueRaw = this.controlValueRaw.slice(0, -1);
+  setInputValue(inputValue: string) {
+    if (this.inputValuesRegex.test(inputValue)) {
+      if (inputValue !== 'Backspace') {
+        const concatenated = this.controlValueRaw.concat(inputValue);
+        this.controlValueRaw = isNumber(concatenated) ? concatenated : this.controlValueRaw;
+      } else {
+        this.controlValueRaw = this.controlValueRaw.slice(0, -1);
+      }
     }
 
     this.onChange(this.controlValue);
