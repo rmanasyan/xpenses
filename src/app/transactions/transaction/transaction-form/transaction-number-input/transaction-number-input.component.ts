@@ -1,20 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { fade } from '../../../../shared/animations/fade.animation';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isNumber } from '@datorama/akita';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TransactionsQuery } from '../../../state/transactions.query';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { fade } from '../../../../shared/animations/fade.animation';
 
+@UntilDestroy()
 @Component({
   selector: 'app-transaction-number-input',
   templateUrl: './transaction-number-input.component.html',
@@ -29,7 +21,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
     },
   ],
 })
-export class TransactionNumberInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class TransactionNumberInputComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder: string;
   // tslint:disable-next-line:no-input-rename
   @Input('open') shouldOpenControls = false;
@@ -66,14 +58,12 @@ export class TransactionNumberInputComponent implements OnInit, OnDestroy, Contr
 
   ngOnInit(): void {
     if (this.shouldOpenControls) {
-      this.transactionsQuery.selectAnimationDone$.pipe(untilDestroyed(this)).subscribe((res) => {
+      this.transactionsQuery.selectAnimationDone$.pipe(untilDestroyed(this)).subscribe(() => {
         this.toggleControls();
         setTimeout(() => this.inputValueEl?.nativeElement.focus());
       });
     }
   }
-
-  ngOnDestroy(): void {}
 
   toggleControls() {
     this.controlsVisibleSubject.next(!this.controlsVisibleSubject.value);

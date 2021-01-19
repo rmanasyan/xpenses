@@ -1,36 +1,26 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  SimpleChanges,
-  ViewChildren,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TransactionMonth } from '../../state/transaction.model';
 import { TransactionsQuery } from '../../state/transactions.query';
 import { fadeIn } from '../../../shared/animations/fade-in.animation';
 
+@UntilDestroy()
 @Component({
   selector: 'app-overview-header',
   templateUrl: './overview-header.component.html',
   styleUrls: ['./overview-header.component.scss'],
   animations: [fadeIn],
 })
-export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
+export class OverviewHeaderComponent implements OnInit, OnChanges {
   @Input() dateOffset: number;
   @ViewChildren('monthRef') monthRefs: QueryList<ElementRef>;
   total$: Observable<number>;
   income$: Observable<number>;
   expenses$: Observable<number>;
   months$: Observable<TransactionMonth[]>;
-  routeAnimationOptions$: Observable<any>;
   loading$: Observable<boolean>;
   urlPath: string;
   urlDate: string;
@@ -64,7 +54,6 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
     this.total$ = this.transactionsQuery.selectTotal$;
     this.income$ = this.transactionsQuery.selectIncome$;
     this.expenses$ = this.transactionsQuery.selectExpenses$;
-    this.routeAnimationOptions$ = this.transactionsQuery.selectRouteAnimationOptions$;
     this.loading$ = this.transactionsQuery.selectLoading();
     this.months$ = this.transactionsQuery.selectMonths$.pipe(
       tap((months) => {
@@ -78,8 +67,6 @@ export class OverviewHeaderComponent implements OnInit, OnDestroy, OnChanges {
       this.urlParam = param;
     });
   }
-
-  ngOnDestroy() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.dateOffset.firstChange) {

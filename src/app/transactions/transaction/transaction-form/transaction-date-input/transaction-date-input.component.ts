@@ -1,12 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { firestore } from 'firebase/app';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Transaction } from '../../../state/transaction.model';
 import { fade } from '../../../../shared/animations/fade.animation';
 
 type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
 
+@UntilDestroy()
 @Component({
   selector: 'app-transaction-date-input',
   templateUrl: './transaction-date-input.component.html',
@@ -16,20 +17,22 @@ type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: TransactionDateInputComponent,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class TransactionDateInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class TransactionDateInputComponent implements OnInit, ControlValueAccessor {
   controlsVisible = false;
   controlValue: Date;
   dateGroup: FormGroup;
   datePlaceholder: Date;
   selectedControl: ControlName = 'date';
-  onChange = (_: any) => {};
-  onTouched = () => {};
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
+
+  onChange = (_: any) => {};
+
+  onTouched = () => {};
 
   ngOnInit() {
     this.dateGroup = this.fb.group({
@@ -38,13 +41,11 @@ export class TransactionDateInputComponent implements OnInit, OnDestroy, Control
       date: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
       hours: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
       minutes: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
-      seconds: ['']
+      seconds: [''],
     });
 
-    this.dateGroup.valueChanges.pipe(untilDestroyed(this)).subscribe(form => this.setDate(form));
+    this.dateGroup.valueChanges.pipe(untilDestroyed(this)).subscribe((form) => this.setDate(form));
   }
-
-  ngOnDestroy() {}
 
   selectControl(ctrl: ControlName) {
     this.selectedControl = ctrl;
