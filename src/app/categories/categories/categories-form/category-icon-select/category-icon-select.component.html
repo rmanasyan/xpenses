@@ -1,25 +1,29 @@
 <div class="icon-select">
-  <app-svg-icon
-    (click)="toggleIcons()"
-    [class.disabled]="disabledState"
-    [icon]="selectedIcon"
-    class="rounded darker"
-    role="button"
-    tabindex="0"
-  ></app-svg-icon>
+  <div #selectedIconEl class="selected-icon">
+    <app-svg-icon
+      (click)="toggleIcons()"
+      [class.disabled]="disabledState"
+      [icon]="selectedIcon"
+      class="rounded darker"
+      role="button"
+      tabindex="0"
+    ></app-svg-icon>
+  </div>
 
-  <div *ngIf="iconsVisible" @fade class="icon-select-dialog">
-    <div class="icons animation-dialog">
-      <app-svg-icon
-        (click)="selectIcon(icon)"
-        *ngFor="let icon of icons"
-        [icon]="icon"
-        class="rounded darker"
-        role="button"
-        tabindex="0"
-      ></app-svg-icon>
+  <div *ngIf="iconsVisible" @fade class="icon-select-dialog-container">
+    <div [appPositionBy]="selectedIconEl" class="icons-dialog animation-dialog">
+      <div class="icons">
+        <app-svg-icon
+          (click)="selectIcon(icon)"
+          *ngFor="let icon of icons"
+          [icon]="icon"
+          class="rounded darker"
+          role="button"
+          tabindex="0"
+        ></app-svg-icon>
+      </div>
     </div>
 
-    <div (click)="toggleIcons()" class="overlay animation-scrim"></div>
+    <div (click)="toggleIcons()" (document:keydown.escape)="toggleIcons()" class="overlay animation-scrim"></div>
   </div>
 </div>

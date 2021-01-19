@@ -22,6 +22,7 @@
   width: 100vw;
   background: var(--contrast100);
   z-index: 10;
+  @include overflow-auto;
 }
 
 @mixin error {

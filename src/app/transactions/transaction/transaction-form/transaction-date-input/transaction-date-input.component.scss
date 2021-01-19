@@ -13,17 +13,12 @@
       margin-left: (-$length12);
     }
 
-    .date-input-dialog {
+    .date-input-dialog-container {
       .date-controls {
-        position: absolute;
-        left: -($length72 + $length20);
-        top: $length36;
-        padding: $length20;
-        width: 100vw;
-        background: var(--contrast100);
-        z-index: 10;
+        @include dialog;
 
-        @include overflow-auto;
+        margin-top: $length4;
+        padding: $length20;
 
         .date-group {
           display: flex;

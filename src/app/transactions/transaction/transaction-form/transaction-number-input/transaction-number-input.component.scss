@@ -16,6 +16,7 @@
   .number-input-dialog-container {
     .number-input-dialog {
       @include dialog;
+
       display: grid;
       justify-content: center;
 

@@ -1,10 +1,10 @@
 <div class="date-input">
-  <div (click)="toggleControls()" class="date-formatted" role="button" tabindex="0">
+  <div #dateFormattedEl (click)="toggleControls()" class="date-formatted" role="button" tabindex="0">
     {{ controlValue | xDate: 'E, MMM d, y, H:mm':true }}
   </div>
 
-  <div *ngIf="controlsVisible" @fade class="date-input-dialog">
-    <div class="date-controls animation-dialog">
+  <div *ngIf="controlsVisible" @fade class="date-input-dialog-container">
+    <div [appPositionBy]="dateFormattedEl" class="date-controls animation-dialog">
       <div [formGroup]="dateGroup" class="date-group">
         <button (click)="step(-1)" class="rounded darker" type="button">
           <app-svg-icon icon="icon-dot-single"></app-svg-icon>
@@ -85,6 +85,6 @@
       </div>
     </div>
 
-    <div (click)="toggleControls()" class="overlay animation-scrim"></div>
+    <div (click)="toggleControls()" (document:keydown.escape)="toggleControls()" class="overlay animation-scrim"></div>
   </div>
 </div>

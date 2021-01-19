@@ -4,33 +4,33 @@
 .icon-select {
   position: relative;
 
-  app-svg-icon {
-    &.disabled {
-      pointer-events: none;
-      @include opacity;
+  .selected-icon {
+    app-svg-icon {
+      &.disabled {
+        pointer-events: none;
+        @include opacity;
+      }
     }
   }
 
-  .icon-select-dialog {
-    .icons {
-      position: absolute;
-      left: -($length20);
-      top: $length36 + 5px; // icon height + gap
-      padding: 9px 14px; // align with the next row icon
-      display: flex;
-      align-items: center;
-      width: 100vw;
-      background: var(--contrast100);
-      z-index: 10;
+  .icon-select-dialog-container {
+    .icons-dialog {
+      @include dialog;
 
-      @include overflow-auto;
+      margin-top: $length4;
+      padding: $length14;
 
-      app-svg-icon {
-        margin: $length12 / 2;
-        flex-shrink: 0;
+      .icons {
+        display: flex;
+        align-items: center;
 
-        &:active {
-          @include opacity;
+        app-svg-icon {
+          margin: $length12 / 2;
+          flex-shrink: 0;
+
+          &:active {
+            @include opacity;
+          }
         }
       }
     }
