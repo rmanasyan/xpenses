@@ -29,12 +29,14 @@ export class TransactionFormComponent implements OnInit {
   categories$: Observable<Category[]>;
   transactionForm: FormGroup;
   removeConfirm = false;
+  openNumberInput = false;
 
   constructor(private fb: FormBuilder, private categoriesQuery: CategoriesQuery) {}
 
   ngOnInit() {
     this.categories$ = this.categoriesQuery.selectAll();
     this.buildForm();
+    this.openNumberInput = !this.data;
   }
 
   emitRemove() {

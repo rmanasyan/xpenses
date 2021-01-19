@@ -12,7 +12,12 @@ export class TransactionsStore extends EntityStore<TransactionsState> {
   constructor() {
     super({
       loading: false,
-      ui: { startDate: '' }
+      ui: {
+        startDate: ''
+      },
+      animation: {
+        done: true
+      }
     });
   }
 

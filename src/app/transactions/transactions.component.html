@@ -1,3 +1,7 @@
-<div [@fadeThrough]="outlet?.activatedRouteData">
+<div
+  (@fadeThrough.done)="updateAnimationState(true)"
+  (@fadeThrough.start)="updateAnimationState(false)"
+  [@fadeThrough]="outlet?.activatedRouteData"
+>
   <router-outlet #outlet="outlet"></router-outlet>
 </div>

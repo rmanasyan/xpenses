@@ -117,4 +117,11 @@ export class TransactionsService {
       ui: { startDate },
     });
   }
+
+  @action('Update transactionsRoutingAnimation')
+  updateAnimationDone(isDone: boolean) {
+    this.transactionsStore.update({
+      animation: { done: isDone },
+    });
+  }
 }

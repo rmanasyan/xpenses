@@ -3,7 +3,7 @@
     <div class="amount-container">
       <app-transaction-type-select formControlName="type"></app-transaction-type-select>
 
-      <app-transaction-number-input formControlName="amount" placeholder="0.00"></app-transaction-number-input>
+      <app-transaction-number-input [open]="openNumberInput" formControlName="amount" placeholder="0.00"></app-transaction-number-input>
     </div>
 
     <app-transaction-date-input formControlName="date"></app-transaction-date-input>

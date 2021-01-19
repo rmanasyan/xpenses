@@ -1,12 +1,25 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { fade } from '../../../../shared/animations/fade.animation';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isNumber } from '@datorama/akita';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { TransactionsQuery } from '../../../state/transactions.query';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-transaction-number-input',
   templateUrl: './transaction-number-input.component.html',
   styleUrls: ['./transaction-number-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fade],
   providers: [
     {
@@ -16,15 +29,19 @@ import { isNumber } from '@datorama/akita';
     },
   ],
 })
-export class TransactionNumberInputComponent implements OnInit, ControlValueAccessor {
+export class TransactionNumberInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() placeholder: string;
-  controlsVisible = false;
+  // tslint:disable-next-line:no-input-rename
+  @Input('open') shouldOpenControls = false;
+  @ViewChild('inputValueEl') inputValueEl: ElementRef;
+
   controlValueRaw = '';
-  dialogPositionTop: number;
   inputValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'Backspace'];
   inputValuesRegex = new RegExp(/[0-9.]|(Backspace)/);
+  controlsVisibleSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  controlsVisible$: Observable<boolean> = this.controlsVisibleSubject.asObservable();
 
-  constructor() {}
+  constructor(private transactionsQuery: TransactionsQuery) {}
 
   get controlValue(): number | null {
     return this.controlValueRaw ? Number(this.controlValueRaw) : null;
@@ -38,7 +55,7 @@ export class TransactionNumberInputComponent implements OnInit, ControlValueAcce
   keydown(event: KeyboardEvent) {
     if (this.inputValuesRegex.test(event.key)) {
       event.preventDefault();
-      document.getElementById(`number-input-value-${event.key}`)?.focus();
+      document.getElementById(`input-value-${event.key}`)?.focus();
       this.setInputValue(event.key);
     }
   }
@@ -47,11 +64,19 @@ export class TransactionNumberInputComponent implements OnInit, ControlValueAcce
 
   onTouched = () => {};
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.shouldOpenControls) {
+      this.transactionsQuery.selectAnimationDone$.pipe(untilDestroyed(this)).subscribe((res) => {
+        this.toggleControls();
+        setTimeout(() => this.inputValueEl?.nativeElement.focus());
+      });
+    }
+  }
 
-  toggleControls(trigger?: HTMLElement) {
-    this.dialogPositionTop = trigger?.offsetTop + trigger?.offsetHeight;
-    this.controlsVisible = !this.controlsVisible;
+  ngOnDestroy(): void {}
+
+  toggleControls() {
+    this.controlsVisibleSubject.next(!this.controlsVisibleSubject.value);
   }
 
   setInputValue(inputValue: string) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeThrough } from '../shared/animations/fade-through.animation';
+import { TransactionsService } from './state/transactions.service';
 
 @Component({
   selector: 'app-transactions',
@@ -8,7 +9,11 @@ import { fadeThrough } from '../shared/animations/fade-through.animation';
   animations: [fadeThrough],
 })
 export class TransactionsComponent implements OnInit {
-  constructor() {}
+  constructor(private transactionsService: TransactionsService) {}
 
   ngOnInit() {}
+
+  updateAnimationState(isDone: boolean) {
+    this.transactionsService.updateAnimationDone(isDone);
+  }
 }

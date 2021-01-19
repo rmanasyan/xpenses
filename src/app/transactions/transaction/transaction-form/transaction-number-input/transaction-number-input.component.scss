@@ -5,6 +5,7 @@
   display: block;
 
   .number-input-value {
+    height: $length48;
     @include overflow-auto;
 
     .number-input-placeholder {
@@ -21,7 +22,7 @@
       margin-top: $length12;
       padding: $length20;
 
-      .number-input-values {
+      .input-values {
         width: 12em;
         height: 9em;
         display: grid;
@@ -29,7 +30,7 @@
         grid-template-rows: repeat(4, 1fr);
         font-size: $length24;
 
-        .number-input-value {
+        .input-value {
           display: grid;
           place-items: center;
         }

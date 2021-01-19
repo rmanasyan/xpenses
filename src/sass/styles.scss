@@ -60,6 +60,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
+[tabindex="-1"] {
+  outline: none;
+}
+
 a, button, [role=button], [role=option] {
   cursor: pointer;
   user-select: none;

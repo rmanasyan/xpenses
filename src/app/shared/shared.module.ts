@@ -9,6 +9,7 @@ import { SvgSymbolDefsComponent } from './components/svg-symbol-defs/svg-symbol-
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { VersionComponent } from './components/version/version.component';
 import { TabindexClickDirective } from './directives/tabindex-click.directive';
+import { PositionByDirective } from './directives/position-by.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TabindexClickDirective } from './directives/tabindex-click.directive';
     XCurrencyPipe,
     XDatePipe,
     TabindexClickDirective,
+    PositionByDirective,
   ],
   providers: [XCurrencyPipe, XDatePipe, DecimalPipe, DatePipe],
   imports: [CommonModule, HttpClientModule],
@@ -31,7 +33,8 @@ import { TabindexClickDirective } from './directives/tabindex-click.directive';
     VersionComponent,
     XCurrencyPipe,
     XDatePipe,
-    TabindexClickDirective
+    TabindexClickDirective,
+    PositionByDirective
   ]
 })
 export class SharedModule {}

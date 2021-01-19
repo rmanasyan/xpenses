@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineQueries, Order, QueryConfig, QueryEntity } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
-import { map, pairwise, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { filter, map, pairwise, shareReplay, skip, startWith, switchMap } from 'rxjs/operators';
 import { CategoriesQuery } from '../../categories/state/categories.query';
 import { getCurrentMonthStart, getMonthNames, getNextMonthStart } from '../../shared/helpers/x-common';
 import { XDatePipe } from '../../shared/pipes/x-date.pipe';
@@ -199,6 +199,11 @@ export class TransactionsQuery extends QueryEntity<TransactionsState> {
       };
     }),
     shareReplay()
+  );
+
+  selectAnimationDone$: Observable<boolean> = this.select((state) => state.animation.done).pipe(
+    skip(1),
+    filter((done) => !!done)
   );
 
   constructor(
