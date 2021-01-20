@@ -1,6 +1,6 @@
 import { getLocaleMonthNames } from '@angular/common';
 
-export function getMonthNames(): string[] {
+export function getMonthNames(): ReadonlyArray<string> {
   return getLocaleMonthNames('en', 1, 1);
 }
 
