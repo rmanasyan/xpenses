@@ -1,4 +1,4 @@
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
 import { Category } from '../../categories/state/category.model';
 
 export enum TransactionType {
@@ -8,12 +8,12 @@ export enum TransactionType {
 
 export interface Transaction {
   id: string;
-  createdAt: firestore.Timestamp;
-  updatedAt: firestore.Timestamp;
+  createdAt: firebase.firestore.Timestamp;
+  updatedAt: firebase.firestore.Timestamp;
   amount: string;
   categoryId: Category['id'];
   category?: Category;
-  date: firestore.Timestamp;
+  date: firebase.firestore.Timestamp;
   details: string;
   type: TransactionType;
 }

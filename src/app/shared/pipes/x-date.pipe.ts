@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
 
 @Pipe({
   name: 'xDate'
@@ -15,7 +15,7 @@ export class XDatePipe implements PipeTransform {
   }
 
   transform(timestamp: any, format: string, asToday = false): string {
-    timestamp = timestamp instanceof firestore.Timestamp ? timestamp.toDate() : timestamp;
+    timestamp = timestamp instanceof firebase.firestore.Timestamp ? timestamp.toDate() : timestamp;
     const defaultTransform = this.datePipe.transform(timestamp, format);
 
     if (asToday === false) {

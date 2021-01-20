@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { firestore } from 'firebase/app';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import firebase from 'firebase/app';
 import { Transaction } from '../../../state/transaction.model';
 import { fade } from '../../../../shared/animations/fade.animation';
 
@@ -59,7 +59,7 @@ export class TransactionDateInputComponent implements OnInit, ControlValueAccess
   setDate(form) {
     if (this.dateGroup.valid) {
       this.controlValue = new Date(form.year, form.month - 1, form.date, form.hours, form.minutes, form.seconds);
-      this.onChange(firestore.Timestamp.fromDate(this.controlValue));
+      this.onChange(firebase.firestore.Timestamp.fromDate(this.controlValue));
       this.onTouched();
     }
   }

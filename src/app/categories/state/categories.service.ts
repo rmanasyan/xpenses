@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { withTransaction } from '@datorama/akita';
-import { FirebaseError } from 'firebase/app';
+import firebase from 'firebase/app';
 import { throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
@@ -21,12 +21,12 @@ export class CategoriesService {
   syncCategories() {
     return this.authQuery.uid$.pipe(
       tap(() => this.categoriesStore.setLoading(true)),
-      map(uid => {
-        this.collection = this.afs.collection(`users/${uid}/categories`, ref => ref.orderBy('name', 'asc'));
+      map((uid) => {
+        this.collection = this.afs.collection(`users/${uid}/categories`, (ref) => ref.orderBy('name', 'asc'));
 
         return this.collection;
       }),
-      switchMap(collection => collection.stateChanges()),
+      switchMap((collection) => collection.stateChanges()),
       tap(() => this.categoriesStore.setLoading(false)),
       withTransaction((actions: DocumentChangeAction<Category>[]) => {
         if (!actions.length) {
@@ -49,7 +49,7 @@ export class CategoriesService {
           }
         }
       }),
-      catchError((error: FirebaseError) => {
+      catchError((error: firebase.FirebaseError) => {
         this.categoriesStore.setError(error);
         return throwError(error);
       })
@@ -60,14 +60,14 @@ export class CategoriesService {
     return this.collection.add({
       ...category,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
   }
 
   update(id, category: Partial<Category>) {
     return this.collection.doc(id).update({
       ...category,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
   }
 

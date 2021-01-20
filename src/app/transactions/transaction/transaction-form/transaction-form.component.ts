@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { CategoriesQuery } from '../../../categories/state/categories.query';
 import { Category } from '../../../categories/state/category.model';
@@ -60,7 +60,7 @@ export class TransactionFormComponent implements OnInit {
       id: [''],
       amount: ['', [Validators.required, Validators.min(0)]],
       categoryId: [''],
-      date: [firestore.Timestamp.fromDate(new Date())],
+      date: [firebase.firestore.Timestamp.fromDate(new Date())],
       details: [''],
       type: ['-'],
     });

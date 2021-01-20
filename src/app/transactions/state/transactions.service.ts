@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { action, combineQueries, withTransaction } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
-import { FirebaseError, firestore } from 'firebase/app';
+import firebase from 'firebase/app';
 import { throwError } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
@@ -24,7 +24,7 @@ export class TransactionsService {
   ) {}
 
   private static get timestamp() {
-    return firestore.FieldValue.serverTimestamp();
+    return firebase.firestore.FieldValue.serverTimestamp();
   }
 
   init() {
@@ -69,7 +69,7 @@ export class TransactionsService {
           }
         }
       }),
-      catchError((error: FirebaseError) => {
+      catchError((error: firebase.FirebaseError) => {
         this.transactionsStore.reset();
         this.transactionsStore.setLoading(false);
         this.transactionsStore.setError(error);
