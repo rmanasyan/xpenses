@@ -20,7 +20,7 @@
     "@angular/forms": "~11.1.0",
     "@angular/platform-browser": "~11.1.0",
     "@angular/platform-browser-dynamic": "~11.1.0",
-    "@angular/pwa": "^0.1100.7",
+    "@angular/pwa": "^0.1101.0",
     "@angular/router": "~11.1.0",
     "@angular/service-worker": "~11.1.0",
     "@datorama/akita": "^6.0.0",
