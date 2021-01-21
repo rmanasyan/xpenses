@@ -1,8 +1,8 @@
 {
   "name": "Xpenses",
   "short_name": "Xpenses",
-  "theme_color": "#353a3f",
-  "background_color": "#353a3f",
+  "theme_color": "#27272a",
+  "background_color": "#27272a",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
