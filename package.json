@@ -1,6 +1,6 @@
 {
   "name": "xpenses",
-  "version": "1.3.1",
+  "version": "2.1.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
