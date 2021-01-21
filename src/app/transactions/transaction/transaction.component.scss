@@ -1,3 +1,9 @@
-.nav-bar a {
-  float: right;
+.nav-bar {
+  position: relative;
+
+  a {
+    display: block;
+    position: absolute;
+    right: 0;
+  }
 }
