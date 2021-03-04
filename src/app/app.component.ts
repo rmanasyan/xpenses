@@ -41,5 +41,7 @@ export class AppComponent implements OnInit {
 
     // fixes :active on ios
     document.addEventListener('touchstart', () => {}, false);
+    // fixes double tap on ios
+    document.addEventListener('click', () => {}, false);
   }
 }

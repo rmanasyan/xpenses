@@ -67,6 +67,7 @@ input::-webkit-inner-spin-button {
 a, button, [role=button], [role=option] {
   cursor: pointer;
   user-select: none;
+  touch-action: none;
   outline: none;
   border-radius: $length4;
   transition: all 200ms ease-out;
