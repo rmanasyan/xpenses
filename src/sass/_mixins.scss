@@ -75,6 +75,7 @@
 
 @mixin overflow-auto {
   overflow: auto;
+  overscroll-behavior: contain;
 
   &::-webkit-scrollbar {
     display: none;
