@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
 @import 'variables';
 @import 'mixins';
@@ -112,7 +113,7 @@ app-svg-icon, .text-icon {
 .rounded {
   width: $length36;
   height: $length36;
-  padding: $length12 / 2;
+  padding: math.div($length12, 2);
   margin: 0;
   border-radius: 50%;
   background: transparent;
@@ -125,7 +126,7 @@ button.text-button {
 
   app-svg-icon {
     height: $length16;
-    margin-right: $length12 / 2;
+    margin-right: math.div($length12, 2);
     width: $length16;
   }
 }

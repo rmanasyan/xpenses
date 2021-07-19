@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import 'variables';
 
 @mixin opacity {
@@ -39,7 +40,7 @@
   display: flex;
   align-items: center;
   height: $length56;
-  padding: ($length18 / 2) 0;
+  padding: math.div($length18, 2) 0;
 
   .list-icon {
     margin-right: $length12;

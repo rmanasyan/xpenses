@@ -1,8 +1,9 @@
+@use 'sass:math';
 @import 'variables';
 
 :host {
   display: flex;
-  margin-left: -($length12 / 2);
+  margin-left: -(math.div($length12, 2));
   font-size: $length24;
   color: var(--contrast400);
 
@@ -10,7 +11,7 @@
     color: var(--contrast400);
 
     &[role] {
-      padding: 0 ($length12 / 2);
+      padding: 0 math.div($length12, 2);
     }
 
     &.selected {

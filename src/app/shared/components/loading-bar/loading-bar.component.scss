@@ -1,8 +1,9 @@
+@use 'sass:math';
 @import 'variables';
 
 // ht: https://nzbin.github.io/three-dots
-$dot-width: $length18 / 2;
-$dot-spacing: $dot-width + $dot-width / 2;
+$dot-width: math.div($length18, 2);
+$dot-spacing: $dot-width + math.div($dot-width, 2);
 $dot-color: var(--accent);
 
 @mixin dot($width: $dot-width, $color: $dot-color) {
