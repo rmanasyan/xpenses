@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Transaction } from '../../../state/transaction.model';
 import { fade } from '../../../../shared/animations/fade.animation';
 

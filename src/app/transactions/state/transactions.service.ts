@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { action, combineQueries, withTransaction } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { EMPTY } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';

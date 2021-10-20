@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 
 @Pipe({
   name: 'xDate'

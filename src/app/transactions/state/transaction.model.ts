@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Category } from '../../categories/state/category.model';
 
 export enum TransactionType {

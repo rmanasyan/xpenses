@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { setLoading } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { EMPTY, from } from 'rxjs';
 import { catchError, filter, first, map, pairwise, tap } from 'rxjs/operators';
 import { AuthStore } from './auth.store';
