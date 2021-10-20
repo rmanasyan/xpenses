@@ -5,6 +5,7 @@ import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
 import { XCurrencyPipe } from './pipes/x-currency.pipe';
 import { XDatePipe } from './pipes/x-date.pipe';
+import { AvatarComponent } from './components/avatar/avatar.component';
 import { SvgSymbolDefsComponent } from './components/svg-symbol-defs/svg-symbol-defs.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { VersionComponent } from './components/version/version.component';
@@ -22,6 +23,7 @@ import { PositionByDirective } from './directives/position-by.directive';
     XDatePipe,
     TabindexClickDirective,
     PositionByDirective,
+    AvatarComponent
   ],
   providers: [XCurrencyPipe, XDatePipe, DecimalPipe, DatePipe],
   imports: [CommonModule, HttpClientModule],
@@ -34,7 +36,8 @@ import { PositionByDirective } from './directives/position-by.directive';
     XCurrencyPipe,
     XDatePipe,
     TabindexClickDirective,
-    PositionByDirective
+    PositionByDirective,
+    AvatarComponent
   ]
 })
 export class SharedModule {}

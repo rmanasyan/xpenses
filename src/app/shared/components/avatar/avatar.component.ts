@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthQuery } from '../state/auth.query';
 import { Observable } from 'rxjs';
+import { AuthQuery } from '../../../auth/state/auth.query';
 
 @Component({
   selector: 'app-avatar',
