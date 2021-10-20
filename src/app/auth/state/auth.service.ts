@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { setLoading } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import firebase from 'firebase/app';
-import { from, throwError } from 'rxjs';
+import { EMPTY, from } from 'rxjs';
 import { catchError, filter, first, map, pairwise, tap } from 'rxjs/operators';
 import { AuthStore } from './auth.store';
 
@@ -24,7 +24,7 @@ export class AuthService {
       tap(({ email, photoURL, uid }) => this.authStore.update({ email, photoURL, uid })),
       catchError((error: firebase.FirebaseError) => {
         this.authStore.setError(error);
-        return throwError(error);
+        return EMPTY;
       })
     );
   }
@@ -38,7 +38,7 @@ export class AuthService {
         first(),
         catchError((error: firebase.FirebaseError) => {
           this.authStore.setError(error);
-          return throwError(error);
+          return EMPTY;
         })
       )
       .subscribe();
@@ -51,7 +51,7 @@ export class AuthService {
         tap(() => this.authStore.reset()),
         catchError((error: firebase.FirebaseError) => {
           this.authStore.setError(error);
-          return throwError(error);
+          return EMPTY;
         })
       )
       .subscribe();

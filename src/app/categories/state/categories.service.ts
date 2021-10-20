@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/firestore';
 import { withTransaction } from '@datorama/akita';
 import firebase from 'firebase/app';
-import { throwError } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { CategoriesStore } from './categories.store';
@@ -51,7 +51,7 @@ export class CategoriesService {
       }),
       catchError((error: firebase.FirebaseError) => {
         this.categoriesStore.setError(error);
-        return throwError(error);
+        return EMPTY;
       })
     );
   }

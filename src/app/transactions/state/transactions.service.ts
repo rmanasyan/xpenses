@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } fr
 import { action, combineQueries, withTransaction } from '@datorama/akita';
 import { RouterQuery } from '@datorama/akita-ng-router-store';
 import firebase from 'firebase/app';
-import { throwError } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { getCurrentMonthStart, getNextMonthStart } from '../../shared/helpers/x-common';
@@ -73,7 +73,7 @@ export class TransactionsService {
         this.transactionsStore.reset();
         this.transactionsStore.setLoading(false);
         this.transactionsStore.setError(error);
-        return throwError(error);
+        return EMPTY;
       })
     );
   }
@@ -107,6 +107,10 @@ export class TransactionsService {
       withTransaction((response: Transaction[]) => {
         const startDate = this.xDatePipe.transform(response[0].date, 'yyyy-MM');
         this.updateStartDate(startDate);
+      }),
+      catchError((error: firebase.FirebaseError) => {
+        this.transactionsStore.setError(error);
+        return EMPTY;
       })
     );
   }
