@@ -14,7 +14,10 @@ app-loading-indicator,
 }
 
 .container {
+  position: relative;
   min-height: 100%;
+  max-width: $screen-lg;
+  margin: 0 auto;
   padding: $length72 $length20 $length36;
   overflow: hidden; // fix scrolls during x axis animation
 }
