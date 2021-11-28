@@ -1,6 +1,6 @@
-<app-loading-indicator *ngIf="loading$ | async"></app-loading-indicator>
-
 <div class="container">
+  <app-loading-indicator *ngIf="loading$ | async"></app-loading-indicator>
+
   <a
     class="avatar-link rounded"
     [routerLink]="['/auth']"
