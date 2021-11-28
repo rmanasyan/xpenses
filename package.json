@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng run xpenses:deploy"
+    "app-shell": "ng run xpenses:app-shell:production",
+    "deploy:ng": "ng run xpenses:deploy",
+    "deploy": "npm run app-shell && firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +22,7 @@
     "@angular/forms": "~13.0.2",
     "@angular/platform-browser": "~13.0.2",
     "@angular/platform-browser-dynamic": "~13.0.2",
+    "@angular/platform-server": "~13.0.2",
     "@angular/router": "~13.0.2",
     "@angular/service-worker": "~13.0.2",
     "@datorama/akita": "^6.2.4",

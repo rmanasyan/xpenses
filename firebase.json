@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "xpenses",
-      "public": "dist/xpenses",
+      "public": "dist/xpenses/browser",
       "ignore": [
         "**/.*"
       ],

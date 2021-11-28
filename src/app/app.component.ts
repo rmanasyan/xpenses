@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { combineQueries } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,7 +26,8 @@ export class AppComponent implements OnInit {
     private transactionsQuery: TransactionsQuery,
     private transactionsService: TransactionsService,
     private categoriesQuery: CategoriesQuery,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.authService.init();
     this.transactionsService.init();
@@ -40,8 +42,8 @@ export class AppComponent implements OnInit {
     ]).pipe(map(([a, t, c]) => a || t || c));
 
     // fixes :active on ios
-    document.addEventListener('touchstart', () => {}, false);
+    this.document.addEventListener('touchstart', () => {}, false);
     // fixes double tap on ios
-    document.addEventListener('click', () => {}, false);
+    this.document.addEventListener('click', () => {}, false);
   }
 }
