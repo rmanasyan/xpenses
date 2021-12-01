@@ -1,5 +1,5 @@
 @use 'sass:math';
-@import 'variables';
+@use 'variables' as v;
 
 @mixin opacity {
   opacity: 0.6;
@@ -39,11 +39,11 @@
 @mixin list-item {
   display: flex;
   align-items: center;
-  height: $length56;
-  padding: math.div($length18, 2) 0;
+  height: v.$length56;
+  padding: math.div(v.$length18, 2) 0;
 
   .list-icon {
-    margin-right: $length12;
+    margin-right: v.$length12;
     flex-shrink: 0;
     background: var(--contrast100);
 
@@ -60,18 +60,18 @@
   }
 
   .list-accent {
-    margin-left: $length12;
-    font-size: $length18;
+    margin-left: v.$length12;
+    font-size: v.$length18;
     color: var(--accent);
   }
 }
 
 @mixin header-nav-item-padding {
-  padding: $length3 $length12;
+  padding: v.$length3 v.$length12;
 }
 
 @mixin header-top-bar-height {
-  height: $length88;
+  height: v.$length88;
 }
 
 @mixin overflow-auto {

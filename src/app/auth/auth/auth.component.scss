@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as v;
 
 .auth {
   position: relative;
@@ -8,7 +8,7 @@
   height: calc(100vh - 130px);
 
   button {
-    margin: $length12;
+    margin: v.$length12;
   }
 
   app-version {

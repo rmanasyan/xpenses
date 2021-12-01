@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 :host {
   display: block;
@@ -8,17 +8,17 @@
     position: relative;
 
     .date-formatted {
-      @include header-nav-item-padding;
+      @include m.header-nav-item-padding;
       display: inline-flex;
-      margin-left: (-$length12);
+      margin-left: -#{v.$length12};
     }
 
     .date-input-dialog-container {
       .date-controls {
-        @include dialog;
+        @include m.dialog;
 
-        margin-top: $length4;
-        padding: $length20;
+        margin-top: v.$length4;
+        padding: v.$length20;
 
         .date-group {
           display: flex;
@@ -26,11 +26,11 @@
           justify-content: center;
 
           button {
-            margin: 0 $length12;
+            margin: 0 v.$length12;
           }
 
           input {
-            height: $length36;
+            height: v.$length36;
             text-align: center;
             border-bottom: 1px solid transparent;
 
@@ -39,13 +39,13 @@
               border-bottom-color: var(--contrast500);
             }
 
-            @include input-invalid;
+            @include m.input-invalid;
           }
         }
       }
 
       .overlay {
-        @include overlay;
+        @include m.overlay;
       }
     }
   }

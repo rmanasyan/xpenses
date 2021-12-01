@@ -1,23 +1,23 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 app-loading-indicator,
 .avatar-link {
   display: block;
   position: absolute;
-  right: $length20;
-  top: $length20;
+  right: v.$length20;
+  top: v.$length20;
 }
 
 .avatar-link.loading {
-  @include opacity;
+  @include m.opacity;
 }
 
 .container {
   position: relative;
   min-height: 100%;
-  max-width: $screen-lg;
+  max-width: v.$screen-lg;
   margin: 0 auto;
-  padding: $length72 $length20 $length36;
+  padding: v.$length72 v.$length20 v.$length36;
   overflow: hidden; // fix scrolls during x axis animation
 }

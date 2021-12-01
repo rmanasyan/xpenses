@@ -1,29 +1,29 @@
 @use 'sass:math';
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 :host {
   display: block;
-  margin-left: $length72;
+  margin-left: v.$length72;
 
   .totals-container {
-    @include header-top-bar-height; // match transaction form corresponding elements height
+    @include m.header-top-bar-height; // match transaction form corresponding elements height
     position: relative;
 
     .totals {
       .title {
         display: flex;
-        font-size: $length24;
+        font-size: v.$length24;
         color: var(--contrast400);
 
         .title-spacer {
-          padding: 0 (math.div($length12, 2));
+          padding: 0 (math.div(v.$length12, 2));
         }
       }
 
       .total {
         line-height: 1;
-        font-size: $length48;
+        font-size: v.$length48;
 
         a {
           display: block;
@@ -34,12 +34,12 @@
 
   .months {
     display: flex;
-    margin: $length14 0 $length18 (-$length12);
+    margin: v.$length14 0 v.$length18 -#{v.$length12};
 
-    @include overflow-auto;
+    @include m.overflow-auto;
 
     a {
-      @include header-nav-item-padding;
+      @include m.header-nav-item-padding;
       display: flex;
       align-items: baseline;
       color: var(--contrast400);
@@ -49,7 +49,7 @@
       }
 
       span {
-        font-size: $length14;
+        font-size: v.$length14;
         white-space: nowrap;
       }
     }

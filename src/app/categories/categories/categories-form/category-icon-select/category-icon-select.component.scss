@@ -1,6 +1,6 @@
 @use 'sass:math';
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 .icon-select {
   position: relative;
@@ -9,35 +9,35 @@
     app-svg-icon {
       &.disabled {
         pointer-events: none;
-        @include opacity;
+        @include m.opacity;
       }
     }
   }
 
   .icon-select-dialog-container {
     .icons-dialog {
-      @include dialog;
+      @include m.dialog;
 
-      margin-top: $length4;
-      padding: $length14;
+      margin-top: v.$length4;
+      padding: v.$length14;
 
       .icons {
         display: flex;
         align-items: center;
 
         app-svg-icon {
-          margin: math.div($length12, 2);
+          margin: math.div(v.$length12, 2);
           flex-shrink: 0;
 
           &:active {
-            @include opacity;
+            @include m.opacity;
           }
         }
       }
     }
 
     .overlay {
-      @include overlay;
+      @include m.overlay;
     }
   }
 }

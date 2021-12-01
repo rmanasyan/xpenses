@@ -1,23 +1,23 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 form {
   display: block;
 
   header {
-    margin-left: $length72;
+    margin-left: v.$length72;
 
     .amount-container {
-      @include header-top-bar-height;
+      @include m.header-top-bar-height;
 
       app-transaction-number-input {
-        font-size: $length48;
+        font-size: v.$length48;
         line-height: 1;
       }
     }
 
     app-transaction-date-input {
-      margin: $length14 0 $length18;
+      margin: v.$length14 0 v.$length18;
     }
   }
 
@@ -25,15 +25,15 @@ form {
     label.details {
       display: flex;
       align-items: center;
-      padding: $length18 0;
+      padding: v.$length18 0;
 
       app-svg-icon {
-        margin-right: $length12;
+        margin-right: v.$length12;
       }
 
       input {
         width: 100%;
-        height: $length36;
+        height: v.$length36;
         border-bottom: 1px solid transparent;
 
         &:focus {
@@ -48,8 +48,8 @@ form {
     justify-content: flex-end;
 
     button {
-      height: $length36;
-      margin-left: $length12;
+      height: v.$length36;
+      margin-left: v.$length12;
 
       app-svg-icon {
         color: var(--accent);

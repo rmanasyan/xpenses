@@ -1,27 +1,27 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 :host {
   display: block;
 
   .number-input-value {
-    height: $length48;
-    @include overflow-auto;
+    height: v.$length48;
+    @include m.overflow-auto;
 
     .number-input-placeholder {
-      @include opacity;
+      @include m.opacity;
     }
   }
 
   .number-input-dialog-container {
     .number-input-dialog {
-      @include dialog;
+      @include m.dialog;
 
       display: grid;
       justify-content: center;
 
-      margin-top: $length12;
-      padding: $length20;
+      margin-top: v.$length12;
+      padding: v.$length20;
 
       .input-values {
         width: 12em;
@@ -29,7 +29,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(4, 1fr);
-        font-size: $length24;
+        font-size: v.$length24;
 
         .input-value {
           display: grid;
@@ -39,7 +39,7 @@
     }
 
     .overlay {
-      @include overlay;
+      @include m.overlay;
     }
   }
 }

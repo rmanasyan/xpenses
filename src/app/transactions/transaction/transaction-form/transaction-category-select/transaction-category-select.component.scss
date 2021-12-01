@@ -1,25 +1,25 @@
 @use 'sass:math';
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 :host {
-  $visible-categories: 5;
+  $_visible-categories: 5;
 
   header {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    margin-left: $length72;
+    margin-left: v.$length72;
   }
 
   ul {
     display: block;
-    max-height: $length56 * $visible-categories - math.div($length56, 2);
+    max-height: v.$length56 * $_visible-categories - math.div(v.$length56, 2);
 
-    @include overflow-auto;
+    @include m.overflow-auto;
 
     li {
-      @include list-item;
+      @include m.list-item;
 
       color: var(--contrast400);
 

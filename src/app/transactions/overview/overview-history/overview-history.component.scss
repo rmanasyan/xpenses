@@ -1,16 +1,16 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 :host {
   display: block;
 
   li a {
-    @include list-item;
+    @include m.list-item;
 
     .details {
       .date {
         display: block;
-        font-size: $length12;
+        font-size: v.$length12;
         color: var(--contrast400);
         line-height: 0.8;
       }

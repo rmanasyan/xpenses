@@ -1,12 +1,12 @@
 @use 'sass:math';
-@import 'variables';
+@use 'variables' as v;
 
 // ht: https://nzbin.github.io/three-dots
-$dot-width: math.div($length18, 2);
-$dot-spacing: $dot-width + math.div($dot-width, 2);
-$dot-color: var(--accent);
+$_dot-width: math.div(v.$length18, 2);
+$_dot-spacing: $_dot-width + math.div($_dot-width, 2);
+$_dot-color: var(--accent);
 
-@mixin dot($width: $dot-width, $color: $dot-color) {
+@mixin dot($width: $_dot-width, $color: $_dot-color) {
   width: $width;
   height: $width;
   border-radius: 50%;
@@ -40,12 +40,12 @@ $dot-color: var(--accent);
     }
 
     &::before {
-      left: -$dot-width;
+      left: -$_dot-width;
       animation: dot-before 1s infinite ease-in;
     }
 
     &::after {
-      left: $dot-width;
+      left: $_dot-width;
       animation: dot-after 1s infinite ease-in;
       animation-delay: 0.5s;
     }
@@ -60,7 +60,7 @@ $dot-color: var(--accent);
     }
 
     25% {
-      transform: translateX(-$dot-spacing);
+      transform: translateX(-$_dot-spacing);
     }
   }
 
@@ -73,7 +73,7 @@ $dot-color: var(--accent);
     }
 
     25% {
-      transform: translateX($dot-spacing);
+      transform: translateX($_dot-spacing);
     }
   }
 }

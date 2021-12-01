@@ -1,13 +1,13 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as v;
+@use 'mixins' as m;
 
 .group {
-  @include list-item;
+  @include m.list-item;
 
   label {
     input {
       width: 100%;
-      height: $length36;
+      height: v.$length36;
       border-bottom: 1px solid transparent;
 
       &:focus {
@@ -17,8 +17,8 @@
   }
 
   button {
-    height: $length36;
-    margin-left: $length12;
+    height: v.$length36;
+    margin-left: v.$length12;
 
     app-svg-icon {
       color: var(--accent);

@@ -1,14 +1,14 @@
-@import 'variables';
+@use 'variables' as v;
 
 :host {
   display: block;
   overflow-wrap: break-word; // in case long hash as version used
   max-width: 100%;
-  font-size: $length12;
+  font-size: v.$length12;
   color: var(--contrast400);
 
   .version-info {
-    padding: $length3;
+    padding: v.$length3;
 
     &.available {
       color: var(--accent);
