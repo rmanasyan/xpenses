@@ -9,7 +9,7 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Category } from '../../state/category.model';
 
 @Component({
@@ -23,10 +23,10 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
   @Output() save = new EventEmitter<Category>();
   @Output() remove = new EventEmitter<Category>();
   @ViewChild('removeButton') removeButton: ElementRef;
-  categoriesForm: FormGroup;
+  categoriesForm: UntypedFormGroup;
   private removeConfirmId: string | null = null;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   ngOnInit() {}
 
@@ -64,11 +64,11 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
   }
 
   get categories() {
-    return this.categoriesForm.get('categories') as FormArray;
+    return this.categoriesForm.get('categories') as UntypedFormArray;
   }
 
   get newCategory() {
-    return this.categoriesForm.get('newCategory') as FormGroup;
+    return this.categoriesForm.get('newCategory') as UntypedFormGroup;
   }
 
   private categoryFormGroup(category: Category) {

@@ -18,7 +18,7 @@ const routes: Routes = [
         path: '',
         component: OverviewComponent,
         children: [
-          { path: '', canActivate: [OverviewGuard], },
+          { path: '', canActivate: [OverviewGuard], children: [] },
           { path: 'categorized/:date', component: OverviewCategorizedComponent },
           { path: 'daily/:date', component: OverviewDailyComponent },
           { path: 'history/:date', component: OverviewHistoryComponent }

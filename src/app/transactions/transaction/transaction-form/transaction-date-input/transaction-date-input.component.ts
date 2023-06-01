@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormBuilder, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import firebase from 'firebase/compat/app';
 import { Transaction } from '../../../state/transaction.model';
@@ -24,11 +24,11 @@ type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
 export class TransactionDateInputComponent implements OnInit, ControlValueAccessor {
   controlsVisible = false;
   controlValue: Date;
-  dateGroup: FormGroup;
+  dateGroup: UntypedFormGroup;
   datePlaceholder: Date;
   selectedControl: ControlName = 'date';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   onChange = (_: any) => {};
 

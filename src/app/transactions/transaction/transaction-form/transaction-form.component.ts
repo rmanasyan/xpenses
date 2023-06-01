@@ -8,7 +8,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { CategoriesQuery } from '../../../categories/state/categories.query';
@@ -27,11 +27,11 @@ export class TransactionFormComponent implements OnInit {
   @Output() save = new EventEmitter<Partial<Transaction>>();
   @ViewChild('removeButton') removeButton: ElementRef;
   categories$: Observable<Category[]>;
-  transactionForm: FormGroup;
+  transactionForm: UntypedFormGroup;
   removeConfirm = false;
   openNumberInput = false;
 
-  constructor(private fb: FormBuilder, private categoriesQuery: CategoriesQuery) {}
+  constructor(private fb: UntypedFormBuilder, private categoriesQuery: CategoriesQuery) {}
 
   ngOnInit() {
     this.categories$ = this.categoriesQuery.selectAll();
