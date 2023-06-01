@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Category } from '../../../../categories/state/category.model';
 
@@ -9,7 +9,7 @@ import { Category } from '../../../../categories/state/category.model';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: TransactionCategorySelectComponent,
+      useExisting: forwardRef(() => TransactionCategorySelectComponent),
       multi: true
     }
   ]

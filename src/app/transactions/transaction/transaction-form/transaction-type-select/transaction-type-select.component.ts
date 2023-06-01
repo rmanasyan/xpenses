@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, OnInit } from '@angular/core';
 import { TransactionType } from '../../../state/transaction.model';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-transaction-type-select',
@@ -9,7 +9,7 @@ import { TransactionType } from '../../../state/transaction.model';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: TransactionTypeSelectComponent,
+      useExisting: forwardRef(() => TransactionTypeSelectComponent),
       multi: true
     }
   ]

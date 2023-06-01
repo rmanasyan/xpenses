@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, forwardRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { fade } from '../../../../shared/animations/fade.animation';
 
@@ -62,7 +62,7 @@ const icons = [
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: CategoryIconSelectComponent,
+      useExisting: forwardRef(() => CategoryIconSelectComponent),
       multi: true
     }
   ]

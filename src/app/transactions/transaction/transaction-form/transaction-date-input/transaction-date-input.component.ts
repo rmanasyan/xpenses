@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, forwardRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, UntypedFormBuilder, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import firebase from 'firebase/compat/app';
@@ -16,7 +16,7 @@ type ControlName = 'year' | 'month' | 'date' | 'hours' | 'minutes';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: TransactionDateInputComponent,
+      useExisting: forwardRef(() => TransactionDateInputComponent),
       multi: true,
     },
   ],

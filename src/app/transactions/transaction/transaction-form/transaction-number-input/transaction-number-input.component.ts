@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  forwardRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isNumber } from '@datorama/akita';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -16,7 +25,7 @@ import { fade } from '../../../../shared/animations/fade.animation';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: TransactionNumberInputComponent,
+      useExisting: forwardRef(() => TransactionNumberInputComponent),
       multi: true,
     },
   ],
