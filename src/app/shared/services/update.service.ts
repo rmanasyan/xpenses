@@ -1,65 +1,50 @@
 import { Injectable } from '@angular/core';
-import { SwUpdate } from '@angular/service-worker';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { NoNewVersionDetectedEvent, SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { delay, merge, Observable } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
+import { BrowserStorageService } from './browser-storage.service';
 
-export type AppVersion = {
-  timestamp?: number;
-  current?: string;
-  available?: string;
-};
+const STORAGE_KEY = 'version-hash';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UpdateService {
-  private storageKey = 'xpenses_version';
-  private subject = new BehaviorSubject<AppVersion>(null);
-  version$: Observable<AppVersion> = this.subject.asObservable();
+  // set only on init
+  storedVersionHash: string = this.browserStorageService.get(STORAGE_KEY) || '...';
 
-  constructor(private swUpdate: SwUpdate) {
-    this.getVersion();
+  private versionReadyHash$: Observable<string> = this.swUpdate.versionUpdates.pipe(
+    filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
+    map((evt) => evt.latestVersion.hash)
+  );
 
-    swUpdate.available.subscribe(event => {
-      this.setVersion({ current: event.current.hash, available: event.available.hash });
-    });
+  private noNewVersionDetectedHash$: Observable<string> = this.swUpdate.versionUpdates.pipe(
+    filter((evt): evt is NoNewVersionDetectedEvent => evt.type === 'NO_NEW_VERSION_DETECTED'),
+    map((evt) => evt.version.hash)
+  );
 
-    swUpdate.activated.subscribe(event => {
-      this.setVersion({ current: event.current.hash });
-    });
+  newVersionAvailable$: Observable<string> = merge(this.versionReadyHash$, this.noNewVersionDetectedHash$).pipe(
+    map((hash) => (this.storedVersionHash !== hash ? hash : ''))
+  );
+
+  constructor(private swUpdate: SwUpdate, private browserStorageService: BrowserStorageService) {
+    this.newVersionAvailable$
+      .pipe(
+        filter((version) => !!version),
+        tap((version) => {
+          this.browserStorageService.set(STORAGE_KEY, version);
+        }),
+        delay(2000),
+        tap(() => {
+          document.location.reload();
+        })
+      )
+      .subscribe();
   }
 
-  checkForUpdate() {
+  checkForUpdate(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.checkForUpdate();
-    }
-  }
-
-  activateUpdate() {
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.activateUpdate().then(() => {
-        setTimeout(() => document.location.reload(), 1000);
-      });
-    }
-  }
-
-  private setVersion(version?: AppVersion) {
-    version = { ...version, timestamp: Date.now() };
-    this.subject.next(version);
-    localStorage.setItem(this.storageKey, JSON.stringify(version));
-  }
-
-  private getVersion() {
-    let version: AppVersion;
-
-    try {
-      version = JSON.parse(localStorage.getItem(this.storageKey));
-      if (version) {
-        this.subject.next({ timestamp: version?.timestamp, current: version?.current, available: version?.available });
-      }
-    } catch {}
-
-    if (!version) {
-      this.setVersion(); // setting current time here
     }
   }
 }

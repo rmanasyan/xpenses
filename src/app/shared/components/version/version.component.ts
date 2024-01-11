@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AppVersion, UpdateService } from '../../services/update.service';
+import { concat, delay, Observable, of, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { UpdateService } from '../../services/update.service';
 
 @Component({
   selector: 'app-version',
@@ -7,23 +9,22 @@ import { AppVersion, UpdateService } from '../../services/update.service';
   styleUrls: ['./version.component.scss']
 })
 export class VersionComponent {
-  version$ = this.updateService.version$;
-  showAnimation = false;
+  storedVersionHash: string = this.updateService.storedVersionHash;
+  newVersionAvailable$: Observable<string> = this.updateService.newVersionAvailable$;
+
+  animationSource: Subject<void> = new Subject<void>();
+  animation$: Observable<boolean> = this.animationSource.pipe(
+    switchMap(() => concat(of(true), of(false).pipe(delay(2000))))
+  );
 
   constructor(private updateService: UpdateService) {}
 
-  update(version: AppVersion) {
-    this.toggleAnimation();
-
-    if (version.available) {
-      this.updateService.activateUpdate();
-    } else {
-      this.updateService.checkForUpdate();
-    }
+  checkForUpdate(): void {
+    this.startAnimation();
+    this.updateService.checkForUpdate();
   }
 
-  private toggleAnimation() {
-    this.showAnimation = true;
-    setTimeout(() => (this.showAnimation = false), 2800);
+  private startAnimation(): void {
+    this.animationSource.next();
   }
 }

@@ -1,15 +1,14 @@
-<app-loading-indicator *ngIf="showAnimation; else showVersion"></app-loading-indicator>
+<app-loading-indicator *ngIf="animation$ | async; else showVersion"></app-loading-indicator>
 
 <ng-template #showVersion>
-  <div *ngIf="version$ | async as version">
     <div
-      (click)="update(version)"
-      [class.available]="version.available"
+      (click)="checkForUpdate()"
+      [class.available]="newVersionAvailable$ | async"
       class="version-info"
       role="button"
       tabindex="0"
     >
-      <span *ngIf="version.available">*</span>{{ version.timestamp | date: 'yyyyMMddHHmm' }}
+      {{ storedVersionHash | slice: 0:16 }}
     </div>
-  </div>
 </ng-template>
+
